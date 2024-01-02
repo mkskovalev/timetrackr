@@ -22,7 +22,7 @@ The Timenator is a powerful time management tool built on the Ruby on Rails fram
 
 To get started with the Timenator, follow these steps:
 
-1. Clone the GitHub repository: `git clone [repository_url]`
+1. Clone the GitHub repository: `git clone git@github.com:mkskovalev/timenator.git`
 
 2. Install the required gems: `bundle install`
 
