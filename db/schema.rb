@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_02_143637) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_03_145455) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,8 +25,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_02_143637) do
   end
 
   create_table "periods", force: :cascade do |t|
-    t.date "start"
-    t.date "end"
+    t.string "start"
+    t.string "end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "category_id"
