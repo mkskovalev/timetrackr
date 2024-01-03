@@ -1,0 +1,49 @@
+<% running ||= nil %>
+<div class="flex items-center space-x-4 p-3.5 rounded-full bg-gray-100" id="category-card-<%= category.id %>">
+  <span class="flex items-center justify-center w-10 h-10 shrink-0 rounded-full bg-white text-gray-900">
+  </span>
+  <div class="flex flex-col flex-1">
+    <div class="text-sm font-medium text-left"><%= category.name %></div>
+    <div class="divide-x divide-gray-200 mt-auto">
+      <span class="inline-block px-3 text-xs leading-none text-gray-400 font-normal first:pl-0">
+        Level: <%= category.level(current_user) %>
+      </span>
+      <% if category.calculated(current_user) %>
+        <span class="inline-block px-3 text-xs leading-none text-gray-400 font-normal first:pl-0">
+          Periods: <%= category.periods.count %>
+        </span>
+      <% end %>
+      <span class="inline-block px-3 text-xs leading-none text-gray-400 font-normal first:pl-0">
+        Total: <%= category.formatted_total_time %>
+      </span>
+    </div>
+  </div>
+  <% if running %>
+    <%= form_with url: '/periods/stop', method: :post, data: { turbo_stream: true, controller: "time", action: "submit->time#setTime" } do |f| %>
+      <%= f.hidden_field :category_id, name: 'period[category_id]', value: category.id %>
+      <%= f.hidden_field :start, name: 'period[start]', data: { time_target: "start" } %>
+      <%= f.hidden_field :end, name: 'period[end]', data: { time_target: "end" } %>
+      <div class="flex rounded-full bg-white px-3 py-2 gap-2">
+        <div data-controller="timer" class="flex items-center">
+          <span data-timer-target="output">00:00:00</span>
+        </div>
+        <%= button_tag(type: 'submit') do %>
+          <div class="px-1 py-1 font-semibold text-sm bg-red-500 text-white rounded-full shadow-sm">
+            <%= inline_svg('icons/stop.svg', class: 'w-6 h-6') %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <% if category.calculated(current_user) %>
+      <%= form_with url: '/periods/run', method: :post, data: { turbo_stream: true }, class: 'flex items-center' do |f| %>
+        <%= f.hidden_field :category_id, value: category.id %>
+        <%= button_tag(type: 'submit') do %>
+          <div class="px-4 py-1 font-semibold text-sm bg-cyan-500 text-white rounded-full shadow-sm">
+            <%= inline_svg('icons/play.svg', class: 'w-6 h-6') %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

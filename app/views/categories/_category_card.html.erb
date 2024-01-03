@@ -1,0 +1,7 @@
+<div class="mt-2">
+  <%= render 'categories/category_core', category: category %>
+</div>
+
+<div class="ml-8 mt-2">
+  <%= render_categories(category.childrens) if category.childrens.any? %>
+</div>
