@@ -6,4 +6,8 @@ module CategoriesHelper
       end
     end
   end
+
+  def active_period_by_category(category)
+    category.periods.last&.end ? nil : category.periods.last
+  end
 end

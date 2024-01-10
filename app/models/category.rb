@@ -33,7 +33,8 @@ class Category < ApplicationRecord
 
   def total_time
     total_seconds = periods.reduce(0) do |sum, period|
-      sum + ((DateTime.parse(period.end) - DateTime.parse(period.start)) * 86400)
+      period_time = period.end ? (DateTime.parse(period.end) - DateTime.parse(period.start)) * 86400 : 0
+       sum + period_time
     end
 
     childrens.each do |child|
