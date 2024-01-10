@@ -2,10 +2,12 @@ class CategoriesController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @page_title = 'Categories'
     @categories = current_user.categories.where(parent_id: nil)
   end
 
   def new
+    @page_title = 'New category'
     @category = current_user.categories.new
     @categories = current_user.categories.left_outer_joins(:periods).where(periods: { id: nil })
   end
