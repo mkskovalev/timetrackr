@@ -1,14 +1,1 @@
-<%= form_with model: @category, method: :post do |f| %>
-  <div class="relative mt-8 border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
-    <%= f.label :name, class: "absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900" %>
-    <%= f.text_field :name, class: 'block border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm', placeholder: "Reading books" %>
-  </div>
-  <div class="relative mt-8">
-    <%= f.label :parent_id, 'Parent category', class: "absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900" %>
-    <%= f.select :parent_id, options_from_collection_for_select(@categories, :id, :name), class: 'block border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm', placeholder: "Reading books" %>
-  </div>
-
-  <div class="flex-shrink-0 mt-8">
-    <%= f.submit 'Create', class: 'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
-  </div>
-<% end %>
+<%= render 'categories/form', category: @category, categories: @categories, method: :post %>
