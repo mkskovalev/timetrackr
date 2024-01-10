@@ -4,7 +4,9 @@ export default class extends Controller {
   static targets = ["output"];
 
   connect() {
-    this.startTime = new Date();
+    const startTimeString = document.getElementById('period_start').value;
+    this.startTime = new Date(startTimeString);
+  
     this.updateTimer();
     this.timer = setInterval(() => {
       this.updateTimer();
