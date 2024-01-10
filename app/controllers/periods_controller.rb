@@ -2,9 +2,9 @@ class PeriodsController < ApplicationController
   def run
     @period = Period.new(period_params)
     @period.user_id = current_user.id
-    @category = current_user.categories.find(period_params[:category_id])
 
     if @period.save
+      @categories = current_user.categories.where(parent_id: nil)
       respond_to do |format|
         format.turbo_stream
       end
