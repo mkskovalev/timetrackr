@@ -3,7 +3,8 @@ class CategoriesController < ApplicationController
 
   def index
     @page_title = 'Categories'
-    @categories = current_user.categories.where(parent_id: nil)
+    @categories = current_user.categories.includes(childrens: :periods).where(parent_id: nil)
+    @unfinished_period = Category.any_unfinished_periods_for_user(current_user)
   end
 
   def new
