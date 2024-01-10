@@ -56,4 +56,17 @@ class Category < ApplicationRecord
   def calculated(user)
     self.level(user) == 1 || childrens.blank?
   end
+
+  def self.any_unfinished_periods_for_user(user)
+    top_level_categories = user.categories.where(parent_id: nil)
+    any_unfinished_periods?(top_level_categories)
+  end
+
+  private
+
+  def self.any_unfinished_periods?(categories)
+    categories.any? do |category|
+      category.periods.where(end: nil).exists? || any_unfinished_periods?(category.childrens)
+    end
+  end
 end

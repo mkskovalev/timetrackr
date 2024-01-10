@@ -35,7 +35,7 @@
       </div>
     <% end %>
   <% else %>
-    <% if category.calculated(current_user) %>
+    <% if category.calculated(current_user) && !Category.any_unfinished_periods_for_user(current_user) %>
       <%= form_with url: '/periods/run', method: :post, data: { turbo_stream: true, controller: "time", action: "submit->time#addFieldCurrentTime" }, class: 'flex items-center' do |f| %>
         <%= f.hidden_field :start, name: 'period[start]', data: { time_target: "start" } %>
         <%= f.hidden_field :category_id, value: category.id, name: 'period[category_id]' %>
