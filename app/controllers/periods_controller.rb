@@ -1,4 +1,13 @@
 class PeriodsController < ApplicationController
+  def index
+    @page_title = 'Periods'
+    @periods = current_user.periods.all
+  end
+
+  def new
+    @period = current_user.periods.new
+  end
+
   def run
     @period = Period.new(period_params)
     @period.user_id = current_user.id
