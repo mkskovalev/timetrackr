@@ -23,6 +23,22 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def edit
+    @page_title = 'Edit category'
+    @category = current_user.categories.find(params[:id])
+    @categories = current_user.categories.left_outer_joins(:periods).where(periods: { id: nil })
+  end
+
+  def update
+    @category = current_user.categories.find(params[:id])
+
+    if @category.update(category_params)
+      redirect_to categories_path, notice: 'Success'
+    else
+      render :edit
+    end 
+  end
+
   private
 
   def category_params
