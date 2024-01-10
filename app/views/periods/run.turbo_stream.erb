@@ -1,1 +1,1 @@
-<%= turbo_stream.replace "category-card-#{@category.id}", partial: "categories/category_core", locals: { category: @category, period: @period } %>
+<%= turbo_stream.replace "categories_list", partial: "categories/categories_list", locals: { categories: @categories } %>
