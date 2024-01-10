@@ -1,4 +1,6 @@
 class PeriodsController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @page_title = 'Periods'
     @periods = current_user.periods.all
@@ -13,10 +15,7 @@ class PeriodsController < ApplicationController
     @period.user_id = current_user.id
 
     if @period.save
-      @categories = current_user.categories.where(parent_id: nil)
-      respond_to do |format|
-        format.turbo_stream
-      end
+      prepare_and_respond
     else
       redirect_to categories_path, alert: 'Something go wrong'
     end
@@ -31,10 +30,7 @@ class PeriodsController < ApplicationController
     @period.user_id = current_user.id
 
     if @period.save
-      @categories = current_user.categories.where(parent_id: nil)
-      respond_to do |format|
-        format.turbo_stream
-      end
+      prepare_and_respond
     else
       redirect_to categories_path, alert: 'Period was not saved'
     end
@@ -44,5 +40,14 @@ class PeriodsController < ApplicationController
 
   def period_params
     params.require(:period).permit(:start, :end, :category_id)
+  end
+
+  def prepare_and_respond
+    @categories = current_user.categories.where(parent_id: nil)
+    @unfinished_period = Category.any_unfinished_periods_for_user(current_user)
+
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 end
