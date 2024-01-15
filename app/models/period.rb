@@ -1,6 +1,6 @@
 class Period < ApplicationRecord
-  belongs_to :user, dependent: :destroy
-  belongs_to :category, dependent: :destroy
+  belongs_to :user
+  belongs_to :category
 
   validates :start, presence: true
 
