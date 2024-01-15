@@ -3,11 +3,29 @@ class PeriodsController < ApplicationController
   
   def index
     @page_title = 'Periods'
-    @periods = current_user.periods.all
+    @periods = current_user.periods.all.order(start: :desc)
   end
 
   def new
     @period = current_user.periods.new
+  end
+
+  def create
+  end
+
+  def edit
+    @page_title = 'Edit period'
+    @period = current_user.periods.find(params[:id])
+  end
+
+  def update
+    @period = current_user.periods.find(params[:id])
+
+    if @period.update(period_params)
+      redirect_to periods_path, notice: 'Period successfully updated'
+    else
+      render :edit
+    end
   end
 
   def run
