@@ -1,5 +1,6 @@
 class PeriodsController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_period, only: [:edit, :update, :destroy]
   
   def index
     @page_title = 'Periods'
@@ -15,16 +16,23 @@ class PeriodsController < ApplicationController
 
   def edit
     @page_title = 'Edit period'
-    @period = current_user.periods.find(params[:id])
   end
 
   def update
-    @period = current_user.periods.find(params[:id])
-
     if @period.update(period_params)
       redirect_to periods_path, notice: 'Period successfully updated'
     else
       render :edit
+    end
+  end
+
+  def destroy
+    return if @period.blank?
+    
+    if @period.destroy
+      redirect_to periods_path, notice: 'Period was successfully deleted'
+    else
+      redirect_to periods_path, alert: 'Period was not deleted'
     end
   end
 
@@ -58,6 +66,10 @@ class PeriodsController < ApplicationController
 
   def period_params
     params.require(:period).permit(:start, :end, :category_id)
+  end
+
+  def find_period
+    @period = current_user.periods.find(params[:id])
   end
 
   def prepare_and_respond
