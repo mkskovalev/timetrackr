@@ -2,7 +2,7 @@
   <span class="flex items-center justify-center w-10 h-10 shrink-0 rounded-full bg-white text-gray-900">
   </span>
   <div class="flex flex-col flex-1">
-    <div class="text-sm font-medium text-left"><%= category.name %></div>
+    <div class="text-sm font-medium text-left"><%= link_to category.name, category_path(category) %></div>
     <div class="divide-x divide-gray-200 mt-auto">
       <span class="inline-block px-3 text-xs leading-none text-gray-400 font-normal first:pl-0">
         Level: <%= category.level(current_user) %>

@@ -45,12 +45,7 @@ class Category < ApplicationRecord
   end
 
   def formatted_total_time
-    total_seconds = total_time.to_i
-    hours = total_seconds / 3600
-    minutes = (total_seconds / 60) % 60
-    seconds = total_seconds % 60
-
-    format("%02d:%02d:%02d", hours, minutes, seconds)
+    CategoriesAnalyticsService.seconds_to_time_format(total_time.to_i)
   end
 
   def calculated(user)
