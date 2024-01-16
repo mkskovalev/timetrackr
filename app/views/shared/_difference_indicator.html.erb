@@ -1,0 +1,9 @@
+<% indicator = indicator_properties(value) %>
+
+<div class="inline-flex items-baseline px-2.5 py-0.5 rounded-full text-sm font-medium bg-<%= indicator[:color] %>-100 text-<%= indicator[:color] %>-800 md:mt-2 lg:mt-0">
+  <% if indicator[:icon_filename] %>
+    <%= inline_svg(indicator[:icon_filename], class: "-ml-1 mr-0.5 flex-shrink-0 self-center h-5 w-5 text-#{indicator[:color]}-500") %>
+  <% end %>
+  <span class="sr-only"> <%= indicator[:text] %> </span>
+  <%= value.abs %>%
+</div>

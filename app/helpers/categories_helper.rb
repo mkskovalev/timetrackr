@@ -13,4 +13,14 @@ module CategoriesHelper
     last_period = category.periods.to_a.last
     last_period&.end ? nil : last_period
   end
+
+  def indicator_properties(value)
+    if value > 0
+      { color: 'green', text: 'Increased by', icon_filename: 'icons/increased.svg' }
+    elsif value < 0
+      { color: 'red', text: 'Decreased by', icon_filename: 'icons/decreased.svg' }
+    else
+      { color: 'gray', text: 'No change', icon_filename: nil }
+    end
+  end
 end
