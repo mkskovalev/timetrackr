@@ -4,7 +4,7 @@ class PeriodsController < ApplicationController
   
   def index
     @page_title = 'Periods'
-    @periods = current_user.periods.all.order(start: :desc)
+    @periods = current_user.periods.where.not(end: nil).order(start: :desc)
   end
 
   def new
