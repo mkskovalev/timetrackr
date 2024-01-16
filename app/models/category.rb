@@ -66,7 +66,7 @@ class Category < ApplicationRecord
 
   def self.any_unfinished_periods?(categories)
     categories.any? do |category|
-      category.periods.where(end: nil).exists? || any_unfinished_periods?(category.childrens)
+      category.periods.any? { |period| period.end.nil? } || any_unfinished_periods?(category.childrens)
     end
   end
 end
