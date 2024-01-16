@@ -20,6 +20,9 @@
               <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
                 <span class="sr-only">Edit</span>
               </th>
+              <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                <span class="sr-only">Delete</span>
+              </th>
             </tr>
           </thead>
           <tbody class="bg-white">
@@ -31,6 +34,9 @@
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= period.formatted_time %></td>
                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                   <a href="<%= edit_period_path(period) %>" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, <%= period.category.name %></span></a>
+                </td>
+                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                  <%= button_to 'Delete', period_path(period), method: :delete, data: { turbo: false }, class: 'text-indigo-600 hover:text-indigo-900' %>
                 </td>
               </tr>
             <% end %>
