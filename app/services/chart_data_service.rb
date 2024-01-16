@@ -7,7 +7,7 @@ module ChartDataService
 
     periods_by_day = periods_in_range.group_by { |period| period.start.strftime("%d.%m") }
                                      .transform_values do |periods|
-                                       periods.sum { |period| (period.end - period.start).to_i }
+                                       periods.sum { |period| period.end ? (period.end - period.start).to_i : 0 }
                                      end
 
     # Инициализируем хеш с нулевыми значениями для каждого дня в заданном диапазоне
