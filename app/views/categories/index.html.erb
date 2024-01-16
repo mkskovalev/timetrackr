@@ -1,0 +1,6 @@
+<div class="mt-8">
+  <%= link_to 'New category', new_category_path, class: 'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-4' %>
+  Categories: <%= @categories.size %>
+</div>
+
+<%= render 'categories/categories_list', categories: @categories, unfinished_period: @unfinished_period %>

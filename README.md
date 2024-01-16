@@ -1,6 +1,6 @@
-# Timenator
+# TimeTrackr
 
-The Timenator is a powerful time management tool built on the Ruby on Rails framework. It allows users to efficiently track and manage their tasks, categorize them, and analyze their time utilization through detailed statistics.
+The TimeTrackr is a powerful time management tool built on the Ruby on Rails framework. It allows users to efficiently track and manage their tasks, categorize them, and analyze their time utilization through detailed statistics.
 
 ## Features
 
@@ -12,8 +12,6 @@ The Timenator is a powerful time management tool built on the Ruby on Rails fram
 
 - **Statistics:** Gain insights into your time management habits with comprehensive statistics. View time distribution by category, task, or date range.
 
-- **Reports:** Generate detailed reports that can be exported in various formats (CSV, PDF). Use these reports for client billing, project analysis, or personal productivity improvement.
-
 - **User Profiles:** Create personalized user profiles with avatars and preferences.
 
 - **Reminders:** Set reminders and notifications to help you stay on track with your tasks.
@@ -22,7 +20,7 @@ The Timenator is a powerful time management tool built on the Ruby on Rails fram
 
 To get started with the Timenator, follow these steps:
 
-1. Clone the GitHub repository: `git clone [repository_url]`
+1. Clone the GitHub repository: `git clone git@github.com:mkskovalev/timetrackr.git`
 
 2. Install the required gems: `bundle install`
 
@@ -36,7 +34,7 @@ To get started with the Timenator, follow these steps:
 
 ## Contributing
 
-We welcome contributions from the community. If you'd like to contribute to the development of the Timenator.
+We welcome contributions from the community. If you'd like to contribute to the development of the TimeTrackr.
 
 ## License
 

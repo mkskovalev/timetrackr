@@ -18,6 +18,7 @@ gem "bootsnap", require: false
 gem "sassc-rails"
 # gem "image_processing", "~> 1.2"
 gem "devise", "~> 4.9"
+gem 'inline_svg'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -27,6 +28,7 @@ end
 group :development do
   gem "web-console"
   gem "rack-mini-profiler"
+  gem "letter_opener"
 end
 
 group :test do
