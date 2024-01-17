@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: timenator_production
-  username: timenator
-  password: <%= ENV["TIMENATOR_DATABASE_PASSWORD"] %>
+  username: postgres
+  password: <%= Rails.application.credentials[:TIMENATOR_DATABASE_PASSWORD] %>
