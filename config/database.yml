@@ -17,7 +17,6 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  host: localhost
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -84,4 +83,5 @@ production:
   <<: *default
   database: timenator_production
   username: postgres
+  host: 45.153.68.69
   password: <%= Rails.application.credentials[:TIMENATOR_DATABASE_PASSWORD] %>
