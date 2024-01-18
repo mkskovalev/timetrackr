@@ -2,5 +2,10 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "apexcharts": "^3.45.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^2.2.19"
   }
 }
