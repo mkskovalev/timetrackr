@@ -70,7 +70,10 @@ Rails.application.configure do
     port:                 465,
     domain:               'timetrackr.dev',
     user_name:            'maxonemore@gmail.com',
-    password:             Rails.application.credentials['SMTP_PASSWORD']
+    password:             Rails.application.credentials['SMTP_PASSWORD'],
+    authentication:       'login',
+    ssl:                  true,
+    open_timeout:         30
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
