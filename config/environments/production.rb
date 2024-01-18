@@ -63,7 +63,17 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "timenator_production"
 
   config.action_mailer.perform_caching = false
-  config.action_mailer.default_url_options = { host: 'somehost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'timetrackr.dev' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp-pulse.com',
+    port:                 587,
+    domain:               'timetrackr.dev',
+    user_name:            'maxonemore@gmail.com',
+    password:             Rails.application.credentials['SMTP_PASSWORD'],
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
