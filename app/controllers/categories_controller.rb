@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_user!
   before_action :find_category, only: [:show, :edit, :update, :destroy]
+  include Authorizable
 
   def index
     @page_title = 'Categories'
@@ -63,6 +63,6 @@ class CategoriesController < ApplicationController
   end
 
   def find_category
-    @category = current_user.categories.find(params[:id])
+    @category = Category.find(params[:id])
   end
 end
