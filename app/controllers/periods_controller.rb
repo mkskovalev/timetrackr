@@ -1,6 +1,6 @@
 class PeriodsController < ApplicationController
-  before_action :authenticate_user!
   before_action :find_period, only: [:edit, :update, :destroy]
+  include Authorizable
   
   def index
     @page_title = 'Periods'
@@ -69,7 +69,7 @@ class PeriodsController < ApplicationController
   end
 
   def find_period
-    @period = current_user.periods.find(params[:id])
+    @period = Period.find(params[:id])
   end
 
   def prepare_and_respond
