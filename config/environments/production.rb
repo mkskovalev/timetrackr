@@ -67,12 +67,10 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              'smtp-pulse.com',
-    port:                 587,
+    port:                 465,
     domain:               'timetrackr.dev',
     user_name:            'maxonemore@gmail.com',
-    password:             Rails.application.credentials['SMTP_PASSWORD'],
-    authentication:       'plain',
-    enable_starttls_auto: true
+    password:             Rails.application.credentials['SMTP_PASSWORD']
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
