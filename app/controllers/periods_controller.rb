@@ -32,8 +32,8 @@ class PeriodsController < ApplicationController
   end
 
   def update
-    start_time = DateTime.parse(params[:start])
-    end_time = DateTime.parse(params[:end])
+    start_time = DateTime.parse(period_params[:start])
+    end_time = DateTime.parse(period_params[:end])
 
     if start_time < end_time && @period.update(period_params)
       redirect_to periods_path, notice: 'Period successfully updated'
