@@ -8,21 +8,37 @@ class PeriodsController < ApplicationController
   end
 
   def new
+    @page_title = 'Create period'
     @period = current_user.periods.new
+    @categories = Category.all.select { |category| category.calculated(current_user) }
   end
 
   def create
+    @period = current_user.periods.new(period_params)
+
+    start_time = DateTime.parse(period_params[:start])
+    end_time = DateTime.parse(period_params[:end])
+
+    if start_time < end_time && @period.save
+      redirect_to periods_path, notice: 'Period was successfully created'
+    else
+      render :new, alert: 'Period was not created'
+    end
   end
 
   def edit
     @page_title = 'Edit period'
+    @categories = Category.all.select { |category| category.calculated(current_user) }
   end
 
   def update
-    if @period.update(period_params)
+    start_time = DateTime.parse(params[:start])
+    end_time = DateTime.parse(params[:end])
+
+    if start_time < end_time && @period.update(period_params)
       redirect_to periods_path, notice: 'Period successfully updated'
     else
-      render :edit
+      render :edit, alert: 'Period was not updated'
     end
   end
 

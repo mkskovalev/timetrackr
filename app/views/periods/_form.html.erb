@@ -9,10 +9,15 @@
     <%= f.text_field :end, data: { controller: 'flatpickr' }, value: period.end ? format_utc_datetime(period.end_in_zone) : nil, class: 'block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm' %>
   </div>
 
+  <div class="relative mt-8">
+    <%= f.label :category_id, 'Parent category', class: "absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900" %>
+    <%= f.select :category_id, options_from_collection_for_select(categories, :id, :name, period.category ? period.category.id : nil), class: 'block border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm', placeholder: "Choose category..." %>
+  </div>
+
   <div class="pt-5">
     <div class="flex">
       <%= link_to 'Cancel', periods_path, class: 'bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
-      <%= f.submit 'Save', class: 'ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
+      <%= f.submit btn_text, class: 'ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
     </div>
   </div>
 <% end %>
