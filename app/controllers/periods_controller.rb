@@ -14,6 +14,18 @@ class PeriodsController < ApplicationController
   end
 
   def create
+    if period_params[:start].blank?
+      flash[:alert] = 'Start date is missing'
+      redirect_to new_period_path
+      return
+    end
+  
+    if period_params[:end].blank?
+      flash[:alert] = 'End date is missing'
+      redirect_to new_period_path
+      return
+    end
+
     @period = current_user.periods.new(period_params)
 
     start_time = DateTime.parse(period_params[:start])
@@ -32,6 +44,18 @@ class PeriodsController < ApplicationController
   end
 
   def update
+    if period_params[:start].blank?
+      flash[:alert] = 'Start date is missing'
+      redirect_to edit_period_path
+      return
+    end
+  
+    if period_params[:end].blank?
+      flash[:alert] = 'End date is missing'
+      redirect_to edit_period_path
+      return
+    end
+    
     start_time = DateTime.parse(period_params[:start])
     end_time = DateTime.parse(period_params[:end])
 
