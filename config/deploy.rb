@@ -14,16 +14,3 @@ append :linked_files, "config/database.yml", 'config/master.key'
 
 # Default value for linked_dirs is []
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "vendor/javascript", "storage"
-
-namespace :deploy do
-  desc 'Install node modules'
-  task :npm_install do
-    on roles(:web) do
-      within release_path do
-        execute :npm, 'install'
-      end
-    end
-  end
-end
-
-before 'deploy:publishing', 'deploy:npm_install'
