@@ -29,7 +29,7 @@
         <div data-controller="timer" class="flex items-center">
           <span data-timer-target="output">00:00:00</span>
         </div>
-        <%= button_tag(type: 'submit') do %>
+        <%= button_tag type: 'submit', id: "category-stop-#{category.id}" do %>
           <div class="px-1 py-1 font-semibold text-sm bg-red-500 text-white rounded-full shadow-sm">
             <%= inline_svg('icons/stop.svg', class: 'w-6 h-6') %>
           </div>
@@ -40,7 +40,7 @@
     <% if category.calculated(current_user) && !unfinished_period %>
       <%= form_with url: '/periods/run', method: :post, data: { turbo_stream: true }, class: 'flex items-center' do |f| %>
         <%= f.hidden_field :category_id, value: category.id, name: 'period[category_id]' %>
-        <%= button_tag(type: 'submit') do %>
+        <%= button_tag type: 'submit', id: "category-start-#{category.id}" do %>
           <div class="px-4 py-1 font-semibold text-sm bg-cyan-500 text-white rounded-full shadow-sm">
             <%= inline_svg('icons/play.svg', class: 'w-6 h-6') %>
           </div>

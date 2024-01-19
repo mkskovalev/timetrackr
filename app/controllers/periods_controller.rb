@@ -79,6 +79,7 @@ class PeriodsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
+      format.html { redirect_to categories_path }
     end
   end
 end
