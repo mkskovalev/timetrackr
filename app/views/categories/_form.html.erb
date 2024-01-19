@@ -8,7 +8,7 @@
     <%= f.select :parent_id, options_for_select([["None", ""]]) + options_from_collection_for_select(categories, :id, :name, category.parent&.id), class: 'block border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm', placeholder: "Reading books" %>
   </div>
 
-  <div class="flex-shrink-0 mt-8">
+  <div class="shrink-0 mt-8">
     <%= f.submit btn_text, class: 'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
   </div>
 <% end %>
