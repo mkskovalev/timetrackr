@@ -7,6 +7,7 @@ export default class extends Controller {
       enableSeconds: true,
       dateFormat: "Y-m-d H:i:S",
       time_24hr: true,
+      disableMobile: true,
     });
   }
 }
