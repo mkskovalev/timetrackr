@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["output"];
 
   connect() {
-    const startTimeString = document.getElementById('period_start').value;
+    const startTimeString = document.getElementById('period_start').value.replace(' ', 'T').replace(' ', '');
     this.startTime = new Date(startTimeString);
   
     this.updateTimer();
