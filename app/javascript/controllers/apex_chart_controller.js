@@ -12,15 +12,22 @@ export default class extends Controller {
       name: 'seconds',
       data: seriesData,
     }],
-      chart: {
+    chart: {
       height: 200,
       type: 'bar',
       stacked: true,
+      toolbar: {
+        show: false,
+      }
+    },
+    grid: {
+      show: false,
     },
     plotOptions: {
       bar: {
+        columnWidth: '50%',
         horizontal: false,
-        borderRadius: 10,
+        borderRadius: 7,
         dataLabels: {
           position: 'top', // top, center, bottom
         },
@@ -37,9 +44,7 @@ export default class extends Controller {
     
     xaxis: {
       labels: {
-        style: {
-          fontSize: '10px' // Установите нужный размер шрифта
-        }
+        show: false,
       },
       categories: categories,
       position: 'bottom',

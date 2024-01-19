@@ -33,9 +33,10 @@
   </dl>
 </div>
 
-
-<div class="bg-white relative px-4 pt-4 pb-2 sm:px-6 lg:px-8 mt-4 rounded-lg drop-shadow">
-  <div data-controller="apex-chart" data-apex-chart-periods-by-day-value="<%= @periods_by_day.to_json %>"></div>
+<div class="grid grid-cols-12 gap-4">
+  <div class="col-span-6 bg-white relative px-4 pt-4 pb-2 sm:px-6 lg:px-8 mt-4 rounded-lg drop-shadow">
+    <div data-controller="apex-chart" data-apex-chart-periods-by-day-value="<%= @periods_by_day.to_json %>"></div>
+  </div>
 </div>
 
 <div class="mt-4 flex flex-col bg-white px-4 pt-4 pb-2 sm:px-6 lg:px-8 rounded-lg drop-shadow">
