@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: "home#index"
+  root to: "public#index"
 
   post '/set_timezone', to: 'application#set_timezone'
 

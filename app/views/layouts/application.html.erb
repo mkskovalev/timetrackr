@@ -22,11 +22,11 @@
   <body class="h-full">
     <div data-controller="timezone"></div>
     <div data-controller="menu">
-      <div class="fixed inset-0 flex z-40 md:hidden" role="dialog" aria-modal="true" data-menu-target="menu">
+      <div data-menu-target="internalMenu" class="fixed inset-0 flex z-40 md:hidden" role="dialog" aria-modal="true">
         <div class="fixed inset-0 bg-gray-600 bg-opacity-75" aria-hidden="true"></div>
         <div class="relative flex-1 flex flex-col max-w-xs w-full bg-gray-800">
           <div class="absolute top-0 right-0 -mr-12 pt-2">
-            <button type="button" data-action="click->menu#toggle" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <button type="button" data-action="click->menu#toggleInternalMenu" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
               <span class="sr-only">Close sidebar</span>
               <!-- Heroicon name: outline/x -->
               <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -136,7 +136,7 @@
       </div>
       <div class="md:pl-64 flex flex-col flex-1">
         <div class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-gray-100">
-          <button type="button" data-action="click->menu#toggle" class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+          <button type="button" data-action="click->menu#toggleInternalMenu" class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
             <span class="sr-only">Open sidebar</span>
             <!-- Heroicon name: outline/menu -->
             <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
