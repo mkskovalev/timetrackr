@@ -1,14 +1,25 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["menu"];
+  static targets = ["internalMenu", "publicMenu"];
 
   connect() {
-    this.menuTarget.classList.add('-translate-x-full');
+    if (this.hasInternalMenuTarget) {
+      this.internalMenuTarget.classList.add('-translate-x-full');
+    }
+    
+    if (this.hasPublicMenuTarget) {
+      this.publicMenuTarget.classList.add('hidden');
+    }
   }
 
-  toggle() {
-    this.menuTarget.classList.toggle('-translate-x-full');
-    this.menuTarget.classList.toggle('translate-x-0');
+  toggleInternalMenu() {
+    this.internalMenuTarget.classList.toggle('-translate-x-full');
+    this.internalMenuTarget.classList.toggle('translate-x-0');
+  }
+
+  togglePublicMenu() {
+    this.publicMenuTarget.classList.toggle('hidden');
+    this.publicMenuTarget.classList.toggle('block');
   }
 }
