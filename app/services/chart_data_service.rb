@@ -5,7 +5,7 @@ module ChartDataService
 
     periods_in_range = category.periods.where(start: start_date..end_date)
 
-    periods_by_day = periods_in_range.group_by { |period| period.start.strftime("%d.%m") }
+    periods_by_day = periods_in_range.group_by { |period| period.start_in_zone.strftime("%d.%m") }
                                      .transform_values do |periods|
                                        periods.sum { |period| period.end ? (period.end - period.start).to_i : 0 }
                                      end
