@@ -38,6 +38,7 @@ class PeriodsController < ApplicationController
 
   def run
     @period = Period.new(period_params)
+    @period.start = DateTime.current
     @period.user_id = current_user.id
 
     if @period.save
@@ -52,7 +53,7 @@ class PeriodsController < ApplicationController
     return unless @category
 
     @period = @category.periods.find(params[:period_id])
-    @period.end = period_params[:end]
+    @period.end = DateTime.current
     @period.user_id = current_user.id
 
     if @period.save
