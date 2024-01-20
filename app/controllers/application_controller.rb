@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
   end
 
   def apply_timezone
-    Time.zone = session[:timezone] if session[:timezone].present?
+    if current_user&.timezone.present?
+      Time.zone = current_user.timezone
+    elsif session[:timezone].present?
+      Time.zone = session[:timezone]
+    end
   end
 end
