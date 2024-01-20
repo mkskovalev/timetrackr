@@ -1,5 +1,8 @@
 <div class="flex items-center space-x-4 p-3.5 rounded-full bg-gray-100" id="category-card-<%= category.id %>">
   <span class="flex items-center justify-center w-10 h-10 shrink-0 rounded-full bg-white text-gray-900">
+    <% unless category.calculated(current_user) %>
+      <%= inline_svg('icons/folder.svg', class: 'w-5 h-5 fill-current text-black') %>
+    <% end %>
   </span>
   <div class="flex flex-col flex-1">
     <div class="text-sm font-medium text-left"><%= link_to category.name, category_path(category) %></div>
