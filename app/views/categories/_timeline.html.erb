@@ -1,0 +1,52 @@
+<div id="today-timeline" class="px-4 py-5 rounded-lg mt-8 border border-neutral-200">
+  <div class="text-sm font-semibold text-neutral-600 mb-3">
+    TODAY
+  </div>
+  <div 
+    data-controller="timeline" 
+    data-action="stimulus:load->timeline#updateCurrentTimeLine" 
+    class="relative h-2 border border-gray-200 rounded-full bg-gray-100">
+
+    <% categories_for_timeline.each do |category| %>
+      <% category.periods.each do |period| %>
+        <% period_data = PeriodSerializer.new(period).as_json %>
+          <% if period.end.blank? %>
+            <div 
+              class="group absolute h-2 rounded-l-full min-w-1"
+              data-timeline-target="currentPeriod"
+              style="left: <%= period_data[:start_percentage] %>%;">
+              <div class="absolute rounded-l-full h-1.5 w-full overflow-hidden">
+                <div class="stripe"></div>
+              </div>
+              <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 -top-12 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
+                Category: <%= category.name %><br/>
+                Start: <%= period.start_in_zone %>
+              </span>
+            </div>
+          <% else %>
+            <div 
+              class="group absolute h-full bg-blue-500 rounded-full min-w-1"
+              style="left: <%= period_data[:start_percentage] %>%; width: <%= period_data[:width_percentage] %>%;">
+
+              <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 -top-12 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
+                Category: <%= category.name %><br/>
+                Time: <%= period.formatted_time %>
+              </span>
+            </div>
+          <% end %>
+      <% end %>
+    <% end %>
+    <div data-timeline-target="currentTimeLine" class="absolute bg-black" style="width: 1px; top: -5px; bottom: -5px;"></div>
+  </div>
+  <div class="flex justify-between w-full text-xs text-neutral-600 mt-3 md:hidden">
+    <% formatted_hours(4).each do |formatted_hour| %>
+      <span><%= formatted_hour %></span>
+    <% end %>
+  </div>
+
+  <div class="hidden md:flex justify-between w-full text-xs text-neutral-600 mt-3">
+    <% formatted_hours(2).each do |formatted_hour| %>
+      <span><%= formatted_hour %></span>
+    <% end %>
+  </div>
+</div>

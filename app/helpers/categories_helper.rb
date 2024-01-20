@@ -8,9 +8,7 @@ module CategoriesHelper
   end
 
   def active_period_by_category(category)
-    # Используем [-1] для доступа к последнему загруженному объекту,
-    # чтобы избежать дополнительного запроса к базе данных.
-    last_period = category.periods.to_a.last
+    last_period = category.periods.order(start: :desc).first
     last_period&.end ? nil : last_period
   end
 

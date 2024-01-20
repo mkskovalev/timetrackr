@@ -1,1 +1,2 @@
 <%= turbo_stream.replace "categories_list", partial: "categories/categories_list", locals: { categories: @categories, unfinished_period: @unfinished_period } %>
+<%= turbo_stream.replace "today-timeline", partial: "categories/timeline", locals: { categories_for_timeline: @categories_for_timeline } %>
