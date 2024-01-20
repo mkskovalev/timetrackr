@@ -32,6 +32,12 @@ module.exports = {
         purple: colors.violet,
         gray: colors.neutral,
       },
+      minWidth: {
+        '1': '0.25rem', // min-w-2 like min width 0.25rem
+      },
+      fontSize: {
+        '2xs': '0.65rem'
+      },
     },
   },
   plugins: [

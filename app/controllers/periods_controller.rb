@@ -116,6 +116,7 @@ class PeriodsController < ApplicationController
   def prepare_and_respond
     @categories = current_user.categories.where(parent_id: nil)
     @unfinished_period = Category.any_unfinished_periods_for_user(current_user)
+    @categories_for_timeline = current_user.categories_for_timeline
 
     respond_to do |format|
       format.turbo_stream
