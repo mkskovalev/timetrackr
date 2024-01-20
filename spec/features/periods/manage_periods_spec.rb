@@ -6,7 +6,7 @@ RSpec.feature 'Managing periods in category', type: :feature do
   
   before do
     login_as(user, scope: :user)
-    visit categories_path
+    visit timer_path
   end
 
   scenario 'User starts a new period for a category' do

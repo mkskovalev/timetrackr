@@ -84,7 +84,7 @@ class PeriodsController < ApplicationController
     if @period.save
       prepare_and_respond
     else
-      redirect_to categories_path, alert: 'Something go wrong'
+      redirect_to timer_path, alert: 'Something go wrong'
     end
   end
 
@@ -99,7 +99,7 @@ class PeriodsController < ApplicationController
     if @period.save
       prepare_and_respond
     else
-      redirect_to categories_path, alert: 'Period was not saved'
+      redirect_to timer_path, alert: 'Period was not saved'
     end
   end
 
@@ -119,7 +119,7 @@ class PeriodsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to categories_path }
+      format.html { redirect_to timer_path }
     end
   end
 end
