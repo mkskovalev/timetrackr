@@ -19,8 +19,8 @@ class PeriodsController < ApplicationController
       redirect_to new_period_path
       return
     end
-  
-    if period_params[:end].blank?
+
+    if period_params[:end].blank? && Category.any_unfinished_periods_for_user(current_user)
       flash[:alert] = 'End date is missing'
       redirect_to new_period_path
       return
@@ -29,9 +29,9 @@ class PeriodsController < ApplicationController
     @period = current_user.periods.new(period_params)
 
     start_time = DateTime.parse(period_params[:start])
-    end_time = DateTime.parse(period_params[:end])
+    end_time = period_params[:end].present? ? DateTime.parse(period_params[:end]) : 0
 
-    if start_time < end_time && @period.save
+    if (start_time < end_time || end_time.zero?) && @period.save
       redirect_to periods_path, notice: 'Period was successfully created'
     else
       render :new, alert: 'Period was not created'
@@ -49,17 +49,17 @@ class PeriodsController < ApplicationController
       redirect_to edit_period_path
       return
     end
-  
-    if period_params[:end].blank?
+
+    if period_params[:end].blank? && Category.any_unfinished_periods_for_user(current_user)
       flash[:alert] = 'End date is missing'
       redirect_to edit_period_path
       return
     end
     
     start_time = DateTime.parse(period_params[:start])
-    end_time = DateTime.parse(period_params[:end])
+    end_time = period_params[:end].present? ? DateTime.parse(period_params[:end]) : 0
 
-    if start_time < end_time && @period.update(period_params)
+    if (start_time < end_time || end_time.zero?) && @period.update(period_params)
       redirect_to periods_path, notice: 'Period successfully updated'
     else
       render :edit, alert: 'Period was not updated'
