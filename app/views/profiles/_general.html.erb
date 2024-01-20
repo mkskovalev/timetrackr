@@ -1,0 +1,20 @@
+<%= form_with url: '/profile', method: :patch, data: { turbo_stream: true }, id: 'general_settings' do |f| %>
+<div class="shadow sm:rounded-md sm:overflow-hidden">
+  <div class="bg-white py-6 px-4 sm:p-6">
+    <div>
+      <h2 id="payment-details-heading" class="text-lg leading-6 font-medium text-gray-900">General settings</h2>
+      <p class="mt-1 text-sm text-gray-500">Update your general settings. Please note that updating your time zone may affect the correct time in your account.</p>
+    </div>
+
+      <div class="mt-6 col-span-4 sm:col-span-2">
+        <%= f.label :timezone, class: 'block text-sm font-medium text-gray-700' %>
+        <%= f.select :timezone, time_zone_options_for_select(current_user.timezone), { include_blank: 'Not selected' }, class: 'mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm' %>
+        <div class="mt-2 text-xs text-gray-500">We detect your timezone from your browser, but for more accurate information, you can specify your timezone manually.</div>
+      </div>
+    </div>
+    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+      <button type="submit" class="bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900">Save</button>
+    </div>
+  </div>
+</div>
+<% end %>
