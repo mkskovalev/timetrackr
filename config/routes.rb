@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   post '/set_timezone', to: 'application#set_timezone'
 
   resource :profile, only: [:show, :update]
-  resources :categories
+  resources :categories, except: :index
+  get '/timer', to: 'categories#index'
 
   resources :periods, except: :show do
     post :run, on: :collection
