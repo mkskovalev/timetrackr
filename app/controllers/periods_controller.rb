@@ -10,7 +10,7 @@ class PeriodsController < ApplicationController
   def new
     @page_title = 'Create period'
     @period = current_user.periods.new
-    @categories = Category.all.select { |category| category.calculated(current_user) }
+    @categories = current_user.categories.all.select { |category| category.calculated(current_user) }
   end
 
   def create
@@ -40,7 +40,7 @@ class PeriodsController < ApplicationController
 
   def edit
     @page_title = 'Edit period'
-    @categories = Category.all.select { |category| category.calculated(current_user) }
+    @categories = current_user.categories.all.select { |category| category.calculated(current_user) }
   end
 
   def update
