@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Timenator</title>
+    <title>TimeTrackr - efficient time tracking for improved productivity</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="TimeTrackr - an efficient time-tracking tool designed to enhance productivity and work efficiency.">
+    <meta name="keywords" content="time tracking, productivity, efficiency, task management, TimeTrackr">
+
+    <meta property="og:title" content="TimeTrackr - Efficient Time Tracking"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://timetrackr.dev/"/>
+    <meta property="og:image" content="<%= image_tag(image_url('logo.png')) %>"/>
+    <meta property="og:description" content="Improve your productivity with TimeTrackr."/>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -15,6 +24,22 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Organization",
+        "name": "TimeTrackr",
+        "url": "https://timetrackr.dev",
+        "logo": "<%= image_tag(image_url('logo.png')) %>",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "box@timetrackr.dev",
+          "contactType": "Customer service"
+        }
+      }
+      </script>
+      
   </head>
 
   <body>
