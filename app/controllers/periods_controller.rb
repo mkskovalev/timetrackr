@@ -34,6 +34,7 @@ class PeriodsController < ApplicationController
     if (start_time < end_time || end_time.zero?) && @period.save
       redirect_to periods_path, notice: 'Period was successfully created'
     else
+      @categories = current_user.categories.all.select { |category| category.calculated(current_user) }
       render :new, alert: 'Period was not created'
     end
   end
@@ -62,6 +63,7 @@ class PeriodsController < ApplicationController
     if (start_time < end_time || end_time.zero?) && @period.update(period_params)
       redirect_to periods_path, notice: 'Period successfully updated'
     else
+      @categories = current_user.categories.all.select { |category| category.calculated(current_user) }
       render :edit, alert: 'Period was not updated'
     end
   end
