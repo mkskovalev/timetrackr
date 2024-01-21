@@ -7,12 +7,10 @@ class User < ApplicationRecord
   has_many :periods, dependent: :destroy
 
   def categories_for_timeline
-    categories.includes(:periods)
-      .where(
-        periods: { 
-          start: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day
-        }
-      )
-      .order("periods.start ASC")
+    filtered_periods = periods.where("periods.end >= ? OR periods.end IS NULL", Time.zone.now.utc.beginning_of_day)
+
+    categories.joins(:periods)
+              .where(periods: { id: filtered_periods.select(:id) })
+              .distinct 
   end
 end
