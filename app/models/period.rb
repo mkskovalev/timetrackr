@@ -19,6 +19,10 @@ class Period < ApplicationRecord
     self.end&.in_time_zone
   end
 
+  def duration
+    (self.end || Time.current) - start
+  end
+
   private
 
   def no_overlap

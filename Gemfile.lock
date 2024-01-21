@@ -140,6 +140,8 @@ GEM
       railties (>= 5.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    groupdate (6.4.0)
+      activesupport (>= 6.1)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.2.3)
@@ -340,6 +342,7 @@ DEPENDENCIES
   devise (~> 4.9)
   ed25519 (>= 1.2, < 2.0)
   factory_bot_rails
+  groupdate
   importmap-rails
   inline_svg
   jbuilder

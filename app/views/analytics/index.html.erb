@@ -1,0 +1,16 @@
+
+<div class="mt-8 text-sm">Month activity</div>
+<div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
+  <div class="hidden lg:block col-span-1">
+    <%= render 'analytics/month_activity', month: Date.today << 3 %>
+  </div>
+  <div class="hidden md:block col-span-1">
+    <%= render 'analytics/month_activity', month: Date.today << 2 %>
+  </div>
+  <div class="hidden sm:block col-span-1">
+    <%= render 'analytics/month_activity', month: Date.today.prev_month %>
+  </div>
+  <div class="col-span-1">
+    <%= render 'analytics/month_activity', month: Date.today.beginning_of_month %>  
+  </div>
+</div>
