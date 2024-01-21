@@ -1,0 +1,46 @@
+<% start_date = month.beginning_of_month %>
+<% end_date = month.end_of_month %>
+<% activity_data = current_user.activity_for_month(month) %>
+<% days_in_month = (start_date..end_date).to_a %>
+<% days_in_previous_month = (start_date - 1).downto(start_date.beginning_of_week).to_a.reverse %>
+<% days_in_next_month = (end_date + 1).upto(end_date.end_of_week).to_a %>
+
+<div class="bg-white">
+  <div class="mx-auto">
+    <section class="text-center">
+      <div class="text-left">
+        <span class="text-2xs text-black border-b border-black py-1"><%= month.strftime("%B") %></span>
+      </div>
+      <div class="mt-2 grid grid-cols-7 text-2xs leading-6 text-gray-400">
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+        <div>Sun</div>
+      </div>
+      <div class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg text-sm">
+        <%# Предыдущий месяц %>
+        <% days_in_previous_month.each do |day| %>
+          <div class="py-1.5 bg-white">
+          </div>
+        <% end %>
+
+        <%# Текущий месяц %>
+        <% days_in_month.each do |day| %>
+          <% level = activity_level(activity_data, day) %>
+          <div class="py-1.5 bg-white">
+            <div class="mx-auto flex h-5 w-5 items-center justify-center rounded-full bg-neutral-<%= level %>"></div>
+          </div>
+        <% end %>
+
+        <%# Следующий месяц %>
+        <% days_in_next_month.each do |day| %>
+          <div class="py-1.5 bg-white">
+          </div>
+        <% end %>
+      </div>
+    </section>
+  </div>
+</div>

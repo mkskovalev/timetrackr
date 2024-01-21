@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resource :profile, only: [:show, :update]
   resource :timeline, only: [:update]
+  resources :analytics, only: [:index]
 
   resources :categories, except: :index
   get '/timer', to: 'categories#index'
