@@ -14,7 +14,7 @@
             <div 
               class="group absolute h-2 rounded-l-full min-w-1"
               data-timeline-target="currentPeriod"
-              style="left: <%= period_data[:start_percentage] %>%;">
+              style="left: <%= outside_today?(period) ? 0 : period_data[:start_percentage] %>%;">
               <div class="absolute rounded-l-full h-1.5 w-full overflow-hidden">
                 <div class="stripe"></div>
               </div>
@@ -23,7 +23,7 @@
                 Start: <%= period.start_in_zone %>
               </span>
             </div>
-          <% else %>
+          <% elsif period.end >= Time.zone.now.beginning_of_day %>
             <div 
               class="group absolute h-full bg-blue-500 rounded-full min-w-1"
               style="left: <%= period_data[:start_percentage] %>%; width: <%= period_data[:width_percentage] %>%;">
