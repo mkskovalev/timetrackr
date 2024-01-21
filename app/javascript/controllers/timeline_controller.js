@@ -4,6 +4,7 @@ export default class extends Controller {
   static targets = ["currentTimeLine", "currentPeriod"]
 
   connect() {
+    this.currentDate = new Date();
     this.updateCurrentTimeLine()
     this.interval = setInterval(() => {
       this.updateCurrentTimeLine()
@@ -12,6 +13,15 @@ export default class extends Controller {
 
   updateCurrentTimeLine() {
     const now = new Date();
+
+    // Check if the day has changed
+    if (now.getDate() !== this.currentDate.getDate() ||
+      now.getMonth() !== this.currentDate.getMonth() ||
+      now.getFullYear() !== this.currentDate.getFullYear()) {
+      this.currentDate = now;
+      this.fetchUpdateTimeline();
+    }
+
     const startOfDay = new Date(now).setHours(0, 0, 0, 0);
     const millisecondsInDay = now - startOfDay;
     const percentOfDayPassed = (millisecondsInDay / (24 * 60 * 60 * 1000)) * 100;
@@ -30,6 +40,26 @@ export default class extends Controller {
         this.currentPeriodTarget.style.left = `calc(${percentOfDayPassed}% - ${minPeriodWidth}%)`;
       }
     }
+  }
+
+  fetchUpdateTimeline() {
+    fetch('/timeline', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      },
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log('Timeline updated successfully');
+      } else {
+        throw new Error('Network response was not ok');
+      }
+    })
+    .catch(error => {
+      console.error('Error updating timeline:', error);
+    });
   }
 
   disconnect() {

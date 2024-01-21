@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "today-timeline" do %>
+  <%= render partial: "categories/timeline", locals: { categories_for_timeline: @categories_for_timeline } %>
+<% end %>
