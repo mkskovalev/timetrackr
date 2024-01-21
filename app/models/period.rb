@@ -3,6 +3,7 @@ class Period < ApplicationRecord
   belongs_to :category
 
   validates :start, presence: true
+  validate :no_overlap, on: [:create, :update]
 
   def formatted_time
     return unless self.end
@@ -16,5 +17,20 @@ class Period < ApplicationRecord
 
   def end_in_zone
     self.end&.in_time_zone
+  end
+
+  private
+
+  def no_overlap
+    return if user.nil?
+    
+    period_end = self.end || Time.zone.now
+
+    overlapping_periods = user.periods.where.not(id: id)
+    overlapping_periods = overlapping_periods.where('start < ? AND ("end" > ? OR "end" IS NULL)', period_end, self.start)
+
+    if overlapping_periods.exists?
+      errors.add(:base, 'The period overlaps with an existing period')
+    end
   end
 end
