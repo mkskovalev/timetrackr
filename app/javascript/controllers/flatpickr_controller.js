@@ -8,6 +8,8 @@ export default class extends Controller {
       dateFormat: "Y-m-d H:i:S",
       time_24hr: true,
       disableMobile: true,
+      maxDate: "today",
+      maxTime: new Date().getHours() + ":" + new Date().getMinutes(),
     });
   }
 }
