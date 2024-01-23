@@ -47,11 +47,15 @@ module CategoriesAnalyticsService
   private
 
   def self.total_time_in_range(category, start_date, end_date)
-    total_time = category.periods.select { |period| valid_period?(period, start_date, end_date) }
-                                 .sum { |period| calculate_period_time(period, start_date, end_date) }
+    total_time = 0
+    categories = [category] + category.descendants
 
-    category.childrens.each do |child|
-      total_time += total_time_in_range(child, start_date, end_date)
+    categories.each do |cat|
+      cat.periods.each do |period|
+        adjusted_start = [period.start, start_date].max
+        adjusted_end = [period.end || end_date, end_date].min
+        total_time += adjusted_end - adjusted_start if adjusted_end > adjusted_start
+      end
     end
 
     total_time

@@ -57,6 +57,10 @@ class Category < ApplicationRecord
     any_unfinished_periods?(top_level_categories)
   end
 
+  def descendants
+    childrens.flat_map { |child| [child] + child.descendants }
+  end
+
   private
 
   def self.any_unfinished_periods?(categories)

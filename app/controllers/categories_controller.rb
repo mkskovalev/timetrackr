@@ -20,6 +20,9 @@ class CategoriesController < ApplicationController
     @time_difference = CategoriesAnalyticsService.calculate_time_difference(@category)
     @avg_time_last_30_days = CategoriesAnalyticsService.average_time_per_day_last_30_days(@category)
     @avg_time_difference = CategoriesAnalyticsService.average_time_difference_last_60_days(@category)
+
+    category_ids = [@category.id] + @category.descendants.pluck(:id)
+    @last_5_periods = current_user.periods.where(category_id: category_ids).where.not(end: nil).order(start: :desc).first(5)
   end
 
   def new

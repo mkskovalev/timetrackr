@@ -52,7 +52,7 @@
             </tr>
           </thead>
           <tbody class="bg-white">
-            <% @category.periods.where.not(end: nil).order(start: :desc).first(5).each do |period| %>
+            <% @last_5_periods.each do |period| %>
               <tr>
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= period.start_in_zone.strftime('%Y-%m-%d') %></td>
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= period.formatted_time %></td>
