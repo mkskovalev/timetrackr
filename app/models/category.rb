@@ -31,21 +31,13 @@ class Category < ApplicationRecord
     max_depth - depth + 1
   end
 
-  def total_time
-    total_seconds = periods.reduce(0) do |sum, period|
-      period_time = period.end ? period.end - period.start : 0
-       sum + period_time
-    end
-
-    childrens.each do |child|
-      total_seconds += child.total_time
-    end
-
-    total_seconds
+  def total_seconds
+    start_date = Date.new(2000, 1, 1)
+    total_seconds = CategoriesAnalyticsService.total_time_in_range(self, start_date, Time.current)
   end
 
   def formatted_total_time
-    CategoriesAnalyticsService.seconds_to_time_format(total_time.to_i)
+    CategoriesAnalyticsService.seconds_to_time_format(total_seconds)
   end
 
   def calculated(user)
