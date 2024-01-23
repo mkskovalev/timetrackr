@@ -11,11 +11,15 @@ module CategoriesAnalyticsService
   end
 
   def self.seconds_to_time_format(total_seconds)
-    hours = total_seconds / (60 * 60)
-    minutes = (total_seconds / 60) % 60
-    seconds = total_seconds % 60
+    hours = ((total_seconds / (60 * 60)) % 24).round(0)
+    minutes = ((total_seconds / 60) % 60).round(0)
+    seconds = (total_seconds % 60).round(0)
 
-    format("%02d:%02d:%02d", hours, minutes, seconds)
+    hours > 0 ? "#{pad_with_leading_zero(hours)}h 
+                 #{pad_with_leading_zero(minutes)}m 
+                 #{pad_with_leading_zero(seconds)}s" : "
+                 #{pad_with_leading_zero(minutes)}m 
+                 #{pad_with_leading_zero(seconds)}s"
   end
 
   def self.total_time_last_30_days(category)
@@ -68,5 +72,9 @@ module CategoriesAnalyticsService
     return 0 if previous_period.zero?
   
     ((current_period - previous_period) / previous_period * 100).round(0)
+  end
+
+  def self.pad_with_leading_zero(number)
+    number >= 10 ? number.to_s : "0#{number}"
   end
 end

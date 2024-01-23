@@ -1,7 +1,9 @@
-<div class="mt-2">
-  <%= render 'categories/category_core', category: category, period: active_period_by_category(category), unfinished_period: unfinished_period %>
-</div>
-
-<div class="ml-8 mt-2">
-  <%= render_categories(category.childrens, unfinished_period) if category.childrens.any? %>
+<div <%= category.childrens.count > 0 ? 'class="relative parent-category-container"'.html_safe : '' %>>
+  <div class="mt-2">
+    <%= render 'categories/category_core', category: category, period: active_period_by_category(category), unfinished_period: unfinished_period %>
+  </div>
+  
+  <div class="ml-9 mt-2">
+    <%= render_categories(category.childrens, unfinished_period) if category.childrens.any? %>
+  </div>
 </div>

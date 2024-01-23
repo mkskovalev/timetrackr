@@ -1,6 +1,6 @@
-<div id="today-timeline" class="px-4 py-5 rounded-lg mt-8 border border-neutral-200">
-  <div class="text-sm font-semibold text-neutral-600 mb-3">
-    TODAY
+<div id="today-timeline" class="px-4 pt-2 pb-3 rounded-lg mt-4 border border-neutral-200">
+  <div class="text-left mb-2">
+    <span class="text-xs text-black">Today</span>
   </div>
   <div 
     data-controller="timeline" 
@@ -25,7 +25,7 @@
             </div>
           <% elsif period.end >= Time.zone.now.beginning_of_day %>
             <div 
-              class="group absolute h-full bg-blue-500 rounded-full min-w-1"
+              class="group absolute h-full bg-purple-600 rounded-full min-w-1"
               style="left: <%= period_data[:start_percentage] %>%; width: <%= period_data[:width_percentage] %>%;">
 
               <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 -top-12 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
@@ -38,13 +38,13 @@
     <% end %>
     <div data-timeline-target="currentTimeLine" class="absolute bg-black" style="width: 1px; top: -5px; bottom: -5px;"></div>
   </div>
-  <div class="flex justify-between w-full text-xs text-neutral-600 mt-3 md:hidden">
+  <div class="flex justify-between w-full text-2xs text-neutral-600 mt-2 md:hidden">
     <% formatted_hours(4).each do |formatted_hour| %>
       <span><%= formatted_hour %></span>
     <% end %>
   </div>
 
-  <div class="hidden md:flex justify-between w-full text-xs text-neutral-600 mt-3">
+  <div class="hidden md:flex justify-between w-full text-2xs text-neutral-600 mt-2">
     <% formatted_hours(2).each do |formatted_hour| %>
       <span><%= formatted_hour %></span>
     <% end %>

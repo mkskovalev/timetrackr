@@ -21,21 +21,18 @@
         <div>Sun</div>
       </div>
       <div class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg text-sm">
-        <%# Предыдущий месяц %>
         <% days_in_previous_month.each do |day| %>
           <div class="py-1.5 bg-white">
           </div>
         <% end %>
 
-        <%# Текущий месяц %>
         <% days_in_month.each do |day| %>
           <% level = activity_level(activity_data, day) %>
-          <div class="py-1.5 bg-white">
+          <div class="py-1.5 bg-white" data-level="<%= activity_data[day] %>" data-max="<%= activity_data[:max] %>" data-percent="<%= activity_data[day] ? (activity_data[day] / activity_data[:max] * 100).round(0) : 0 %>">
             <div class="mx-auto flex h-5 w-5 items-center justify-center rounded-full bg-neutral-<%= level %>"></div>
           </div>
         <% end %>
 
-        <%# Следующий месяц %>
         <% days_in_next_month.each do |day| %>
           <div class="py-1.5 bg-white">
           </div>

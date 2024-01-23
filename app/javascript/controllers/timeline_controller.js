@@ -29,17 +29,22 @@ export default class extends Controller {
     this.currentTimeLineTarget.style.left = `calc(${percentOfDayPassed}% - 0.5px)`;
 
     if (this.hasCurrentPeriodTarget) {
-      const periodStartPercentage = parseFloat(this.currentPeriodTarget.style.left);
-      // Convert minWidth to percentage
-      const minPeriodWidth = parseFloat(getComputedStyle(this.currentPeriodTarget).minWidth) / this.element.offsetWidth * 100;
+      const computedLeft = getComputedStyle(this.currentPeriodTarget).left;
+      const periodStartPercentage = parseFloat(computedLeft) / this.element.offsetWidth * 100;
+
+      const minPeriodWidthPx = parseFloat(getComputedStyle(this.currentPeriodTarget).minWidth);
+      const minPeriodWidth = minPeriodWidthPx / this.element.offsetWidth * 100;
+    
       const periodWidthPercentage = Math.max(percentOfDayPassed - periodStartPercentage, minPeriodWidth);
+    
       this.currentPeriodTarget.style.width = `${periodWidthPercentage}%`;
-  
-      if (periodWidthPercentage == minPeriodWidth) {
+    
+      if (periodWidthPercentage === minPeriodWidth) {
         // Adjust the left position of the current period to prevent overlap
         this.currentPeriodTarget.style.left = `calc(${percentOfDayPassed}% - ${minPeriodWidth}%)`;
       }
     }
+    
   }
 
   fetchUpdateTimeline() {

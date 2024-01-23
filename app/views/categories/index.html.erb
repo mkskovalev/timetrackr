@@ -1,6 +1,32 @@
-<div class="mt-8">
-  <%= link_to 'New category', new_category_path, class: 'inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-4' %>
+<%= render 'categories/timeline', categories_for_timeline: @categories_for_timeline %>
+
+
+<div class="mt-6 sm:flex sm:items-center sm:justify-between">
+  <div class="flex items-center divide-x text-xs leading-6 text-neutral-500">
+    <h3 class="pr-4">Top-level categories: <span class="font-bold"><%= @categories.size %></span></h3>
+    <h3 class="pl-4">Total time for today: <span class="font-bold"><%= @total_time_for_today %></span></h3>
+  </div>
+  <div class="mt-3 sm:mt-0 sm:ml-4">
+    <% if @categories.size > 0 %>
+      <%= link_to new_category_path, class: 'inline-flex items-center py-1 pl-2 pr-3 text-xs border-2 border-purple-600 text-purple-600 rounded-lg gap-1 justify-center' do %>
+        <%= inline_svg('icons/add.svg', class: 'w-6 h-6 fill-current text-purple-600') %>
+        New category
+      <% end %>
+    <% end %>
+  </div>
 </div>
 
-<%= render 'categories/timeline', categories_for_timeline: @categories_for_timeline %>
-<%= render 'categories/categories_list', categories: @categories, unfinished_period: @unfinished_period %>
+<% if @categories.size == 0 %>
+  <%= link_to new_category_path, class: 'relative block w-full border-2 border-gray-300 border-dashed rounded-lg mt-4 p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' do %>
+  <%= inline_svg('icons/folder-plus.svg', class: 'w-12 h-12 stroke-gray-500 mx-auto') %>
+    <span class="mt-2 block text-sm font-medium text-gray-900"> Create a new category </span>
+    <div class="mt-4">
+      <div class="inline-flex items-center py-1 pl-2 pr-3 text-xs border-2 border-purple-600 text-purple-600 rounded-lg gap-1 justify-center">
+        <%= inline_svg('icons/add.svg', class: 'w-6 h-6 fill-current text-purple-600') %>
+        New category
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <%= render 'categories/categories_list', categories: @categories, unfinished_period: @unfinished_period %>
+<% end%>

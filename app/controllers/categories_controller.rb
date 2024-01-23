@@ -7,6 +7,10 @@ class CategoriesController < ApplicationController
     @categories = current_user.categories.includes(childrens: :periods).where(parent_id: nil)
     @unfinished_period = Category.any_unfinished_periods_for_user(current_user)
     @categories_for_timeline = current_user.categories_for_timeline
+
+    total_seconds_today = current_user.periods.sum { |period| period.calculate_today_seconds }
+
+    @total_time_for_today = CategoriesAnalyticsService.seconds_to_time_format(total_seconds_today)
   end
 
   def show

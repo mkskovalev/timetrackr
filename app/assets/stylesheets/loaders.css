@@ -1,0 +1,49 @@
+.neomorph-spinner {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.neomorph-spinner > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #9333ea;
+  animation: spin_5113 1s ease infinite;
+}
+
+.neomorph-spinner > div:nth-child(1) {
+  transform: rotate(0deg);
+}
+
+.neomorph-spinner > div:nth-child(2) {
+  transform: rotate(90deg);
+}
+
+.neomorph-spinner > div:nth-child(3) {
+  transform: rotate(180deg);
+}
+
+.neomorph-spinner > div:nth-child(4) {
+  transform: rotate(270deg);
+}
+
+@keyframes spin_5113 {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
