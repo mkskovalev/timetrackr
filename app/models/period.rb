@@ -64,6 +64,18 @@ class Period < ApplicationRecord
     formatted_time(seconds)
   end
 
+  def calculate_seconds_for_date(date)
+    day_start = date.beginning_of_day
+    day_end = date.end_of_day
+  
+    return 0 if self.start > day_end || (self.end && self.end < day_start)
+  
+    period_start = [self.start, day_start].max
+    period_end = [(self.end || Time.current), day_end].min
+  
+    (period_end - period_start).to_i
+  end
+
   private
 
   def no_overlap

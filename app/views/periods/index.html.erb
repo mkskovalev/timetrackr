@@ -13,27 +13,31 @@
         <table class="min-w-full">
           <thead class="bg-white">
             <tr>
-              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Category</th>
-              <th scope="col" class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">Period</th>
-              <th scope="col" class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">Time</th>
-              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"></th>
+              <th scope="col" width="20%" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Category</th>
+              <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Period</th>
+              <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Ratio</th>
+              <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Duration</th>
+              <th scope="col" width="20%" class="px-3 py-3.5 text-sm font-semibold text-gray-900"></th>
             </tr>
           </thead>
           <tbody class="bg-white">
             <% @grouped_periods.each do |date, periods| %>
             <tr class="border-t border-gray-200">
-              <th colspan="5" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
+              <th colspan="4" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                 <%= date == Date.today ? 'Today' : date.strftime('%A, %d %B %Y') %>
+              </th>
+              <th class="bg-gray-50 px-4 py-2 text-right text-xs font-normal text-gray-900 sm:px-6">
+                <%= CategoriesAnalyticsService.seconds_to_time_format(total_seconds_for_date(date, periods)) %>
               </th>
             </tr>
               <% periods.each do |period| %>
                 <tr class="border-t border-gray-200">
-                  <td class="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                  <td class="py-3 pl-4 pr-3 text-xs text-gray-900 sm:pl-6">
                     <div class="flex items-center ">
                       <%= period.category.name %>
                       <% if period.start.to_date != period.end.to_date %>
                         <div class="group relative">
-                          <%= inline_svg('icons/arrow-3.svg', class: 'w-4 h-4 fill-current text-red-400 ml-2') %>
+                          <%= inline_svg('icons/arrow-3.svg', class: 'w-3 h-3 fill-current text-red-400 ml-2') %>
                           <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 left-0 bottom-6 w-60 opacity-0 transition-opacity group-hover:opacity-100">
                             This period spans more than one day and is therefore listed under each relevant date.<br/>
                             The time accounted for is only within the confines of the specific day's duration.
@@ -42,18 +46,34 @@
                       <% end %>
                     </div>
                   </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-right text-xs text-gray-500">
+                  <td class="whitespace-nowrap px-3 py-3 text-left text-xs text-gray-500">
                     <% period_start = period.start.to_date == date ? period.start.strftime('%H:%M') : '00:00' %>
                     <% period_end = period.end.to_date == date ? period.end.strftime('%H:%M') : '24:00' %>
                     <%= period_start %> - <%= period_end %>
                   </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-right text-xs text-gray-500">
-                    <%= period.formatted_time_for_date(date) %>
+                  <td class="whitespace-nowrap px-3 py-3 text-left text-xs text-gray-500">
+                    <% if periods.size > 1 %>
+                      <div class="relative max-w-32 h-2 border border-gray-200 rounded-full bg-gray-100">
+                        <div 
+                        class="group absolute h-full bg-purple-600 rounded-full min-w-1"
+                        style="width: <%= daily_period_ratio(date, period, periods) %>%;">
+                          <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 bottom-3 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
+                            Ratio: <%= daily_period_ratio(date, period, periods) %>%
+                          </span>
+                        </div>
+                      </div>
+                    <% end %>
                   </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-right text-sm text-gray-500">
+                  <td class="whitespace-nowrap px-3 py-4 text-xs text-gray-500">
+                    <div class="flex items-center">
+                      <%= inline_svg('icons/clock.svg', class: 'w-4 h-4 fill-current text-purple-600 mr-2') %>
+                      <%= period.formatted_time_for_date(date) %>
+                    </div>
+                  </td>
+                  <td class="whitespace-nowrap px-4 py-3 text-right text-sm text-gray-500 sm:px-6">
                     <div class="relative flex items-center justify-end" data-controller="dropdown">
                       <button type="button" class="text-gray-500 group bg-white rounded-md inline-flex items-center" aria-expanded="false" data-action="click->dropdown#toggleMenu">
-                        <%= inline_svg('icons/more-square.svg', class: 'w-6 h-6 fill-current text-gray-400') %>
+                        <%= inline_svg('icons/more-square.svg', class: 'w-5 h-5 fill-current text-gray-400') %>
                       </button>
                 
                       <div class="absolute z-50 right-0 top-6 px-2 max-w-xs sm:px-0 bg-white shadow-lg border border-gray-200 rounded-lg hidden" data-dropdown-target="menu">
