@@ -14,3 +14,83 @@
     <%= render 'analytics/month_activity', month: Date.today.beginning_of_month %>  
   </div>
 </div>
+
+<div id="heat-chart" class="w-1/2"></div>
+
+<script>
+  var options = {
+      series: [{
+      name: 'ratio',
+      data: <%= current_user.average_hourly_activity %>,
+    }],
+    chart: {
+      height: 200,
+      type: 'bar',
+      stacked: true,
+      toolbar: {
+        show: false,
+      }
+    },
+    grid: {
+      show: false,
+    },
+    plotOptions: {
+      bar: {
+        columnWidth: '90%',
+        horizontal: false,
+        borderRadius: 7,
+        dataLabels: {
+          show: false,
+        },
+      }
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    
+    xaxis: {
+      labels: {
+        show: true,
+      },
+      categories: <%= (0..24).to_a %>,
+      position: 'bottom',
+      axisBorder: {
+        show: false
+      },
+      axisTicks: {
+        show: false
+      },
+      crosshairs: {
+        fill: {
+          type: 'gradient',
+          gradient: {
+            colorFrom: '#D8E3F0',
+            colorTo: '#BED1E6',
+            stops: [0, 100],
+            opacityFrom: 0.4,
+            opacityTo: 0.5,
+          }
+        }
+      },
+      tooltip: {
+        enabled: true,
+      }
+    },
+    yaxis: {
+      axisBorder: {
+        show: false
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        show: false,
+      }
+    
+    },
+    };
+
+  var chart = new ApexCharts(document.querySelector("#heat-chart"), options);
+  chart.render();
+
+</script>
