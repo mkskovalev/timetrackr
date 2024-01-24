@@ -24,15 +24,15 @@ class Period < ApplicationRecord
   end
 
   def calculate_today_seconds
-    today = Time.now.utc.to_date
+    today = Time.now.to_date
     end_time = self.end ? self.end : Time.now.utc
   
     return 0 if self.start.to_date != today && end_time.to_date != today
-  
+
     period_start = [self.start, today.to_time].max
     period_end = [end_time, (today + 1).to_time].min
-  
-    (period_end - self.start).to_i
+
+    (period_end - period_start).to_i
   end
 
   def self.expand_periods(periods)
