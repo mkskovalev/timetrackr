@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
 
   def index
     @page_title = 'Tracker'
-    @categories = current_user.categories.includes(childrens: :periods).where(parent_id: nil)
+    @categories = current_user.categories.includes(children: :periods).where(parent_id: nil)
     @unfinished_period = Category.any_unfinished_periods_for_user(current_user)
     @categories_for_timeline = current_user.categories_for_timeline
 
@@ -43,7 +43,10 @@ class CategoriesController < ApplicationController
 
   def edit
     @page_title = 'Edit category'
-    @categories = current_user.categories.left_outer_joins(:periods).where(periods: { id: nil })
+    @categories = current_user.categories
+                              .left_outer_joins(:periods)
+                              .where(periods: { id: nil })
+                              .where.not(id: params[:id])
   end
 
   def update
