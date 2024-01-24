@@ -5,9 +5,9 @@ class Period < ApplicationRecord
   validates :start, presence: true
   validate :no_overlap, on: [:create, :update]
 
-  def formatted_time
+  def formatted_time(total_seconds = nil)
     return unless self.end
-    total_seconds = (self.end - self.start).to_i
+    total_seconds = total_seconds || (self.end - self.start).to_i
     CategoriesAnalyticsService.seconds_to_time_format(total_seconds)
   end
 
@@ -33,6 +33,47 @@ class Period < ApplicationRecord
     period_end = [end_time, (today + 1).to_time].min
   
     (period_end - self.start).to_i
+  end
+
+  def self.expand_periods(periods)
+    expanded_periods = []
+  
+    periods.each do |period|
+      (period.start.to_date..period.end.to_date).each do |date|
+        expanded_periods << { date: date, period: period }
+      end
+    end
+  
+    expanded_periods
+  end
+
+  def self.group_periods_by_date(periods)
+    grouped_periods = expand_periods(periods).group_by { |p| p[:date] }
+    grouped_periods.transform_values { |periods| periods.map { |p| p[:period] } }
+  end
+
+  def formatted_time_for_date(date)
+    if self.start.to_date != date && self.end.to_date != date
+      seconds = 60 * 60 * 24 # full day
+    elsif self.start.to_date != date
+      seconds = (self.end - date.beginning_of_day).to_i
+    elsif self.end.to_date != date
+      seconds = (date.end_of_day - self.start).to_i
+    end
+
+    formatted_time(seconds)
+  end
+
+  def calculate_seconds_for_date(date)
+    day_start = date.beginning_of_day
+    day_end = date.end_of_day
+  
+    return 0 if self.start > day_end || (self.end && self.end < day_start)
+  
+    period_start = [self.start, day_start].max
+    period_end = [(self.end || Time.current), day_end].min
+  
+    (period_end - period_start).to_i
   end
 
   private

@@ -11,15 +11,16 @@ module CategoriesAnalyticsService
   end
 
   def self.seconds_to_time_format(total_seconds)
-    hours = ((total_seconds / (60 * 60)) % 24).round(0)
-    minutes = ((total_seconds / 60) % 60).round(0)
+    hours = total_seconds.div(3600)
+    minutes = total_seconds.div(60) % 60
     seconds = (total_seconds % 60).round(0)
-
-    hours > 0 ? "#{pad_with_leading_zero(hours)}h 
-                 #{pad_with_leading_zero(minutes)}m 
-                 #{pad_with_leading_zero(seconds)}s" : "
-                 #{pad_with_leading_zero(minutes)}m 
-                 #{pad_with_leading_zero(seconds)}s"
+  
+    format_string = ''
+    format_string += "#{pad_with_leading_zero(hours)}h " if hours > 0
+    format_string += "#{pad_with_leading_zero(minutes)}m "
+    format_string += "#{pad_with_leading_zero(seconds)}s"
+  
+    format_string.strip
   end
 
   def self.total_time_last_30_days(category)
