@@ -12,6 +12,6 @@ module Authorizable
     resource = instance_variable_get("@#{controller_name.singularize}")
     return if resource&.user == current_user
 
-    redirect_to timer_path, alert: "Access denied: You are not authorized to access this #{controller_name.singularize}"
+    redirect_to tracker_path, alert: "Access denied: You are not authorized to access this #{controller_name.singularize}"
   end
 end
