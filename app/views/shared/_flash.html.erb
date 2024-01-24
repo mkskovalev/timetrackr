@@ -1,0 +1,21 @@
+<% flash.each do |type, message| %>
+  <div 
+    id="toast" 
+    class="transition transform duration-1000 fixed top-3 right-3 flex items-center w-full max-w-xs p-4 mb-4 text-white rounded-lg shadow z-50 <%= flash_color(type) %>" 
+    role="alert" 
+    data-controller="notifications"
+    data-notification-delay-value="3000"
+    data-transition-enter-from="opacity-0 translate-x-6"
+    data-transition-enter-to="opacity-100 translate-x-0"
+    data-transition-leave-from="opacity-100 translate-x-0"
+    data-transition-leave-to="opacity-0 translate-x-6"
+  >
+    <div class="ml-3 text-xs font-normal"><%= message %></div>
+    <button type="button" class="ml-auto -mx-1.5 -my-1.5 text-white hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8" data-action="notifications#hide" aria-label="Close">
+        <span class="sr-only">Close</span>
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+        </svg>
+    </button>
+  </div>
+<% end %>

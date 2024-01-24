@@ -7,4 +7,22 @@ module ApplicationHelper
     concat(name)
     end
   end
+
+  def flash_color(type)
+    case type
+    when 'success'
+      'bg-green-500'
+    when 'notice'
+      'bg-green-500'
+    when 'danger'
+      'bg-red-500'
+    when 'alert'
+      puts 'alert'
+      'bg-red-500'
+    when 'warning'
+      'bg-yellow-500'
+    when 'info'
+      'bg-blue-500'
+    end
+  end
 end
