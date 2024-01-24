@@ -2,6 +2,8 @@
 
 The TimeTrackr is a powerful time management tool built on the Ruby on Rails framework. It allows users to efficiently track and manage their tasks, categorize them, and analyze their time utilization through detailed statistics.
 
+![Экран проекта](https://github.com/mkskovalev/timetrackr/blob/main/app/assets/images/screen.png)
+
 ## Features
 
 - **Task Tracking:** Easily create, update, and delete tasks. Assign each task to a specific category for better organization.
