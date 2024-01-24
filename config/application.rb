@@ -11,6 +11,13 @@ module Timenator
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+    config.after_initialize do
+      if defined?(Rails::Server)
+        Rails.application.load_tasks
+        Rake::Task['data_conversion:run'].invoke
+      end
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

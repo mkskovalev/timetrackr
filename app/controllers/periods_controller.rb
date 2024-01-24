@@ -12,7 +12,7 @@ class PeriodsController < ApplicationController
   def new
     @page_title = 'Create period'
     @period = current_user.periods.new
-    @categories = current_user.categories.all.select { |category| category.calculated(current_user) }
+    @categories = current_user.categories.select { |category| category.can_have_timer? }
   end
 
   def create
@@ -36,14 +36,14 @@ class PeriodsController < ApplicationController
     if (start_time < end_time || end_time.zero?) && @period.save
       redirect_to periods_path, notice: 'Period was successfully created'
     else
-      @categories = current_user.categories.all.select { |category| category.calculated(current_user) }
+      @categories = current_user.categories.select { |category| category.can_have_timer? }
       render :new, alert: 'Period was not created'
     end
   end
 
   def edit
     @page_title = 'Edit period'
-    @categories = current_user.categories.all.select { |category| category.calculated(current_user) }
+    @categories = current_user.categories.select { |category| category.can_have_timer? }
   end
 
   def update
@@ -65,7 +65,7 @@ class PeriodsController < ApplicationController
     if (start_time < end_time || end_time.zero?) && @period.update(period_params)
       redirect_to periods_path, notice: 'Period successfully updated'
     else
-      @categories = current_user.categories.all.select { |category| category.calculated(current_user) }
+      @categories = current_user.categories.select { |category| category.can_have_timer? }
       render :edit, alert: 'Period was not updated'
     end
   end
