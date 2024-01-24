@@ -9,7 +9,7 @@ RSpec.feature 'Category deletion', type: :feature do
   end
 
   scenario 'User deletes a category' do
-    visit timer_path
+    visit tracker_path
     within "#category-card-#{category.id}" do
       click_button 'Delete'
     end

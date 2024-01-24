@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   include Authorizable
 
   def index
-    @page_title = 'Categories'
+    @page_title = 'Tracker'
     @categories = current_user.categories.includes(childrens: :periods).where(parent_id: nil)
     @unfinished_period = Category.any_unfinished_periods_for_user(current_user)
     @categories_for_timeline = current_user.categories_for_timeline
@@ -35,7 +35,7 @@ class CategoriesController < ApplicationController
     @category = current_user.categories.new(category_params)
 
     if @category.save
-      redirect_to timer_path, notice: 'Category was successfully created'
+      redirect_to tracker_path, notice: 'Category was successfully created'
     else
       render :new
     end
@@ -48,7 +48,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to timer_path, notice: 'Category was successfully updated'
+      redirect_to tracker_path, notice: 'Category was successfully updated'
     else
       render :edit
     end 
@@ -58,9 +58,9 @@ class CategoriesController < ApplicationController
     return if @category.blank?
     
     if @category.destroy
-      redirect_to timer_path, notice: 'Category was successfully deleted'
+      redirect_to tracker_path, notice: 'Category was successfully deleted'
     else
-      redirect_to timer_path, alert: 'Category was not deleted'
+      redirect_to tracker_path, alert: 'Category was not deleted'
     end
   end
 

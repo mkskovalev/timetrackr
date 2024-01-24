@@ -6,7 +6,7 @@ class TimelinesController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to timer_path }
+      format.html { redirect_to tracker_path }
     end
   end
 end

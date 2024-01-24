@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :analytics, only: [:index]
 
   resources :categories, except: :index
-  get '/timer', to: 'categories#index'
+  get '/tracker', to: 'categories#index'
 
   resources :periods, except: :show do
     post :run, on: :collection
