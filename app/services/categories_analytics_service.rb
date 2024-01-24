@@ -11,7 +11,7 @@ module CategoriesAnalyticsService
   end
 
   def self.seconds_to_time_format(total_seconds)
-    hours = ((total_seconds / (60 * 60)) % 24).round(0)
+    hours = (total_seconds / (60 * 60)).round(0)
     minutes = ((total_seconds / 60) % 60).round(0)
     seconds = (total_seconds % 60).round(0)
 
