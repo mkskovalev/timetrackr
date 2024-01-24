@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
 
   before_action :apply_timezone
 
+  add_flash_types :danger, :info, :warning, :success, :messages
+
   def set_timezone
     session[:timezone] = params[:timezone]
     head :ok

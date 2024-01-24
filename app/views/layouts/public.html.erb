@@ -38,11 +38,10 @@
           "contactType": "Customer service"
         }
       }
-      </script>
-      
+      </script>  
   </head>
-
   <body>
+    <%= render 'shared/flash' %>
     <div class="relative bg-white" data-controller="menu">
       <div class="mx-auto">
         <div class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10 px-4 sm:px-6">
@@ -68,8 +67,6 @@
             <a href="<%= new_user_registration_path %>" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a>
           </div>
         </div>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
         <%= yield %>
       </div>
     

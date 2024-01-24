@@ -20,6 +20,7 @@
     <%= javascript_importmap_tags %>
   </head>
   <body class="h-full overflow-x-hidden">
+    <%= render 'shared/flash' %>
     <div data-controller="timezone"></div>
     <div data-controller="menu">
       <div data-menu-target="internalMenu" class="fixed inset-0 flex z-40 md:hidden" role="dialog" aria-modal="true">
@@ -162,8 +163,6 @@
               <h1 class="text-2xl font-semibold text-gray-900"><%= @page_title %></h1>
             </div>
             <div class="max-w-7xl px-4 sm:px-6 md:px-8">
-              <p class="notice"><%= notice %></p>
-              <p class="alert"><%= alert %></p>
               <%= yield %>
             </div>
           </div>
