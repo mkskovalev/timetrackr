@@ -1,4 +1,7 @@
 # TimeTrackr
+![Rails Version](https://img.shields.io/badge/Ruby-3.3.0-green.svg)
+![Rails Version](https://img.shields.io/badge/Rails-7.1.2-red.svg)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/mkskovalev/timetrackr)
 
 The TimeTrackr is a powerful time management tool built on the Ruby on Rails framework. It allows users to efficiently track and manage their tasks, categorize them, and analyze their time utilization through detailed statistics.
 
@@ -6,17 +9,13 @@ The TimeTrackr is a powerful time management tool built on the Ruby on Rails fra
 
 ## Features
 
-- **Task Tracking:** Easily create, update, and delete tasks. Assign each task to a specific category for better organization.
-
 - **Category Management:** Group your tasks into categories such as work, personal, or project-specific. Create custom categories to suit your needs.
 
 - **Time Tracking:** Start and stop timers for tasks, accurately recording the time spent on each. Pause and resume timers as needed.
 
 - **Statistics:** Gain insights into your time management habits with comprehensive statistics. View time distribution by category, task, or date range.
 
-- **User Profiles:** Create personalized user profiles with avatars and preferences.
-
-- **Reminders:** Set reminders and notifications to help you stay on track with your tasks.
+- [Soon] **Reminders:** Set reminders and notifications to help you stay on track with your tasks.
 
 ## Getting Started
 
@@ -42,8 +41,8 @@ We welcome contributions from the community. If you'd like to contribute to the 
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Contact Us
+## Contact
 
-If you have any questions or need assistance, feel free to reach out to us at [maxonemore@ya.ru](mailto:maxonemore@ya.ru).
+If you have any questions or need assistance, feel free to reach out to me at [email](mailto:maxonemore@ya.ru).
 
 Happy time tracking!
