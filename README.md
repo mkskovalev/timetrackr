@@ -3,7 +3,7 @@
 ![Rails Version](https://img.shields.io/badge/Rails-7.1.2-red.svg)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/mkskovalev/timetrackr)
 
-The TimeTrackr is a powerful time management tool built on the Ruby on Rails framework. It allows users to efficiently track and manage their tasks, categorize them, and analyze their time utilization through detailed statistics.
+The ![TimeTrackr](https://timetrackr.dev/) is a powerful time management tool built on the Ruby on Rails framework. It allows users to efficiently track and manage their tasks, categorize them, and analyze their time utilization through detailed statistics.
 
 ![Экран проекта](https://github.com/mkskovalev/timetrackr/blob/main/app/assets/images/screen.png)
 
@@ -19,7 +19,7 @@ The TimeTrackr is a powerful time management tool built on the Ruby on Rails fra
 
 ## Getting Started
 
-To get started with the Timenator, follow these steps:
+To get started with the TimeTrackr, follow these steps:
 
 1. Clone the GitHub repository: `git clone git@github.com:mkskovalev/timetrackr.git`
 
