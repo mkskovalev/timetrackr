@@ -90,13 +90,13 @@
                               <%= link_to edit_period_path(period) do %>
                                 <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
                                   <%= inline_svg('icons/edit.svg', class: 'w-4 h-4 fill-current text-gray-400') %>
-                                  <span class="ml-2 flex-auto truncate">Edit</span>
+                                  <span class="ml-2 truncate">Edit</span>
                                 </li>
                               <% end %>
                               <%= button_to period_path(period), method: :delete do %>
                                 <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
                                   <%= inline_svg('icons/trash.svg', class: 'w-4 h-4 fill-current text-red-400') %>
-                                  <span class="ml-2 flex-auto truncate text-red-500">Delete</span>
+                                  <span class="ml-2 truncate text-red-500">Delete</span>
                                 </li>
                               <% end %>
                             </ul>
