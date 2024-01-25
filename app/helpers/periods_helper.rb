@@ -42,5 +42,4 @@ module PeriodsHelper
     total_seconds = periods.sum { |period| period.total_seconds_for_date(date) }
     CategoriesAnalyticsService.seconds_to_time_format(total_seconds)
   end
-
 end

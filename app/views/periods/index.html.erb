@@ -27,7 +27,7 @@
                 <%= humanize_date(date) %>
               </th>
               <th class="bg-gray-50 px-4 py-2 text-right text-xs font-normal text-gray-900 sm:px-6">
-                <% daily_periods_time(periods, date) %>
+                <%= daily_periods_time(periods, date) %>
               </th>
             </tr>
               <% periods.each do |period| %>
