@@ -11,6 +11,10 @@ class Period < ApplicationRecord
     CategoriesAnalyticsService.seconds_to_time_format(total_seconds)
   end
 
+  def actual_end
+    self.end || Time.now
+  end
+
   def start_in_zone
     self.start&.in_time_zone
   end
@@ -20,26 +24,28 @@ class Period < ApplicationRecord
   end
 
   def duration
-    (self.end || Time.current) - start
+    actual_end - start
   end
 
-  def calculate_today_seconds
-    today = Time.now.to_date
-    end_time = self.end ? self.end : Time.now.utc
-  
-    return 0 if self.start.to_date != today && end_time.to_date != today
+  def total_seconds_for_date(date)
+    total_seconds = 0
 
-    period_start = [self.start, today.to_time].max
-    period_end = [end_time, (today + 1).to_time].min
+    day_start = date.beginning_of_day
+    day_end = date.end_of_day
+    
+    period_start = [self.start, day_start].max
+    period_end = [actual_end, day_end].min
+    
+    total_seconds += [period_end - period_start, 0].max if period_start < period_end
 
-    (period_end - period_start).to_i
+    total_seconds
   end
 
   def self.expand_periods(periods)
     expanded_periods = []
   
     periods.each do |period|
-      (period.start.to_date..period.end.to_date).each do |date|
+      (period.start.to_date..period.actual_end.to_date).each do |date|
         expanded_periods << { date: date, period: period }
       end
     end
@@ -53,11 +59,11 @@ class Period < ApplicationRecord
   end
 
   def formatted_time_for_date(date)
-    if self.start.to_date != date && self.end.to_date != date
+    if self.start.to_date != date && actual_end.to_date != date
       seconds = 60 * 60 * 24 # full day
     elsif self.start.to_date != date
       seconds = (self.end - date.beginning_of_day).to_i
-    elsif self.end.to_date != date
+    elsif actual_end.to_date != date
       seconds = (date.end_of_day - self.start).to_i
     end
 

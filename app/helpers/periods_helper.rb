@@ -23,4 +23,24 @@ module PeriodsHelper
   def daily_period_ratio(date, period, periods)
     (period.calculate_seconds_for_date(date) / total_seconds_for_date(date, periods) * 100).round(2)
   end
+
+  def format_period_end(period, date)
+    period_ends_in_date = period.actual_end.to_date == date
+
+    if period_ends_in_date
+      period.end ? period.end.strftime('%H:%M') : '...'
+    else
+      '24:00'
+    end
+  end
+
+  def format_period_start(period, date)
+    period.start.to_date == date ? period.start.strftime('%H:%M') : '00:00'
+  end
+
+  def daily_periods_time(periods, date)
+    total_seconds = periods.sum { |period| period.total_seconds_for_date(date) }
+    CategoriesAnalyticsService.seconds_to_time_format(total_seconds)
+  end
+
 end

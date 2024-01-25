@@ -24,10 +24,10 @@
             <% @grouped_periods.each do |date, periods| %>
             <tr class="border-t border-gray-200">
               <th colspan="4" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
-                <%= date == Date.today ? 'Today' : date.strftime('%A, %d %B %Y') %>
+                <%= humanize_date(date) %>
               </th>
               <th class="bg-gray-50 px-4 py-2 text-right text-xs font-normal text-gray-900 sm:px-6">
-                <%= CategoriesAnalyticsService.seconds_to_time_format(total_seconds_for_date(date, periods)) %>
+                <% daily_periods_time(periods, date) %>
               </th>
             </tr>
               <% periods.each do |period| %>
@@ -35,7 +35,7 @@
                   <td class="py-3 pl-4 pr-3 text-xs text-gray-900 sm:pl-6">
                     <div class="flex items-center ">
                       <%= period.category.name %>
-                      <% if period.start.to_date != period.end.to_date %>
+                      <% if period.start.to_date != period.actual_end.to_date %>
                         <div class="group relative">
                           <%= inline_svg('icons/arrow-3.svg', class: 'w-3 h-3 fill-current text-red-400 ml-2') %>
                           <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 left-0 bottom-6 w-60 opacity-0 transition-opacity group-hover:opacity-100">
@@ -47,18 +47,16 @@
                     </div>
                   </td>
                   <td class="whitespace-nowrap px-3 py-3 text-left text-xs text-gray-500">
-                    <% period_start = period.start.to_date == date ? period.start.strftime('%H:%M') : '00:00' %>
-                    <% period_end = period.end.to_date == date ? period.end.strftime('%H:%M') : '24:00' %>
-                    <%= period_start %> - <%= period_end %>
+                    <%= format_period_start(period, date) %> - <%= format_period_end(period, date) %>
                   </td>
                   <td class="whitespace-nowrap px-3 py-3 text-left text-xs text-gray-500">
                     <% if periods.size > 1 %>
                       <div class="relative max-w-32 h-2 border border-gray-200 rounded-full bg-gray-100">
                         <div 
-                        class="group absolute h-full bg-purple-600 rounded-full min-w-1"
-                        style="width: <%= daily_period_ratio(date, period, periods) %>%;">
+                        class="group absolute h-full bg-purple-600 rounded-full"
+                        style="width: <%= period.end ? daily_period_ratio(date, period, periods) : 0 %>%;">
                           <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 bottom-3 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
-                            Ratio: <%= daily_period_ratio(date, period, periods) %>%
+                            Ratio: <%= period.end ? daily_period_ratio(date, period, periods) : 0 %>%
                           </span>
                         </div>
                       </div>
