@@ -6,7 +6,7 @@
     <%= link_to 'New period', new_period_path, class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto' %>
   </div>
 </div>
-<div class="mt-8 flex flex-col">
+<div data-controller="confirmation" class="mt-8 flex flex-col">
   <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
       <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
@@ -22,14 +22,14 @@
           </thead>
           <tbody class="bg-white">
             <% @grouped_periods.each do |date, periods| %>
-            <tr class="border-t border-gray-200">
-              <th colspan="4" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
-                <%= humanize_date(date) %>
-              </th>
-              <th class="bg-gray-50 px-4 py-2 text-right text-xs font-normal text-gray-900 sm:px-6">
-                <%= daily_periods_time(periods, date) %>
-              </th>
-            </tr>
+              <tr class="border-t border-gray-200">
+                <th colspan="4" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
+                  <%= humanize_date(date) %>
+                </th>
+                <th class="bg-gray-50 px-4 py-2 text-right text-xs font-normal text-gray-900 sm:px-6">
+                  <%= daily_periods_time(periods, date) %>
+                </th>
+              </tr>
               <% periods.each do |period| %>
                 <tr class="border-t border-gray-200">
                   <td class="py-3 pl-4 pr-3 text-xs text-gray-900 sm:pl-6">
@@ -93,7 +93,7 @@
                                   <span class="ml-2 truncate">Edit</span>
                                 </li>
                               <% end %>
-                              <%= button_to period_path(period), method: :delete do %>
+                              <%= button_to period_path(period), method: :delete, data: { action: "click->confirmation#open click->dropdown#toggleMenu" } do %>
                                 <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
                                   <%= inline_svg('icons/trash.svg', class: 'w-4 h-4 fill-current text-red-400') %>
                                   <span class="ml-2 truncate text-red-500">Delete</span>
@@ -113,4 +113,5 @@
       </div>
     </div>
   </div>
+  <%= render 'shared/confirmation_modal' %>
 </div>

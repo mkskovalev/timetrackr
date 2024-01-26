@@ -1,5 +1,7 @@
-<div id="categories_list" aria-label="card" class="tree pt-2 bg-white">
+<div id="categories_list" aria-label="card" class="tree pt-2 bg-white" data-controller="confirmation">
   <div aria-label="content" class="grid gap-2.5">
     <%= render_categories(categories, unfinished_period) %>
   </div>
+
+  <%= render 'shared/confirmation_modal' %>
 </div>
