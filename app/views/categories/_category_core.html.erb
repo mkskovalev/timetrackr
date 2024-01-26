@@ -80,11 +80,9 @@
                   <span class="ml-2 flex-auto truncate">Edit</span>
                 </li>
               <% end %>
-              <%= button_to category_path(category), method: :delete do %>
-                <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
+              <%= button_to category_path(category), method: :delete, data: { action: "click->confirmation#open click->dropdown#toggleMenu" }, class: 'group flex w-full text-left cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100' do %>
                   <%= inline_svg('icons/trash.svg', class: 'w-4 h-4 fill-current text-red-400') %>
                   <span class="ml-2 flex-auto truncate text-red-500">Delete</span>
-                </li>
               <% end %>
             </ul>
           </li>
