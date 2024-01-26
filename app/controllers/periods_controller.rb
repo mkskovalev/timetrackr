@@ -53,7 +53,7 @@ class PeriodsController < ApplicationController
       return
     end
 
-    if period_params[:end].blank? && Category.any_unfinished_periods_for_user(current_user)
+    if period_params[:end].blank? && current_user.periods.where(end: nil).first != @period
       flash[:alert] = 'End date is missing'
       redirect_to edit_period_path
       return
