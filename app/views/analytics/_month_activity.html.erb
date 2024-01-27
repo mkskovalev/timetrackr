@@ -28,8 +28,12 @@
 
         <% days_in_month.each do |day| %>
           <% level = activity_level(activity_data, day) %>
-          <div class="py-1.5 bg-white" data-level="<%= activity_data[day] %>" data-max="<%= activity_data[:max] %>" data-percent="<%= activity_data[day] ? (activity_data[day] / activity_data[:max] * 100).round(0) : 0 %>">
+          <div class="relative group py-1.5 bg-white" data-level="<%= activity_data[day] %>" data-max="<%= activity_data[:max] %>" data-percent="<%= activity_data[day] && activity_data[:max] > 0 ? (activity_data[day] / activity_data[:max] * 100).round(0) : 0 %>">
             <div class="mx-auto flex h-5 w-5 items-center justify-center rounded-full bg-neutral-<%= level %>"></div>
+            <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 bottom-8 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100 text-left">
+              <div class="text-gray-400"><%= day %></div>
+              <%= CategoriesAnalyticsService.seconds_to_time_format(activity_data[day] || 0) %>
+            </span>
           </div>
         <% end %>
 

@@ -15,6 +15,16 @@ module CategoriesAnalyticsService
     minutes = total_seconds.div(60) % 60
     seconds = (total_seconds % 60).round(0)
   
+    if seconds == 60
+      minutes += 1
+      seconds = 0
+    end
+  
+    if minutes == 60
+      hours += 1
+      minutes = 0
+    end
+  
     format_string = ''
     format_string += "#{pad_with_leading_zero(hours)}h " if hours > 0
     format_string += "#{pad_with_leading_zero(minutes)}m "

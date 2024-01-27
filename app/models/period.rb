@@ -6,8 +6,7 @@ class Period < ApplicationRecord
   validate :no_overlap, on: [:create, :update]
 
   def formatted_time(total_seconds = nil)
-    return unless self.end
-    total_seconds = total_seconds || (self.end - self.start).to_i
+    total_seconds = total_seconds || (actual_end - self.start).to_i
     CategoriesAnalyticsService.seconds_to_time_format(total_seconds)
   end
 
@@ -55,16 +54,20 @@ class Period < ApplicationRecord
 
   def self.group_periods_by_date(periods)
     grouped_periods = expand_periods(periods).group_by { |p| p[:date] }
-    grouped_periods.transform_values { |periods| periods.map { |p| p[:period] } }
+
+    # Sort the grouped periods by date in descending order (from most recent to oldest)
+    sorted_grouped_periods = grouped_periods.sort_by { |date, _periods| -date.to_time.to_i }.to_h
+
+    sorted_grouped_periods.transform_values { |periods| periods.map { |p| p[:period] } }
   end
 
   def formatted_time_for_date(date)
     if self.start.to_date != date && actual_end.to_date != date
       seconds = 60 * 60 * 24 # full day
     elsif self.start.to_date != date
-      seconds = (self.end - date.beginning_of_day).to_i
+      seconds = (actual_end - date.beginning_of_day).to_f
     elsif actual_end.to_date != date
-      seconds = (date.end_of_day - self.start).to_i
+      seconds = (date.end_of_day - self.start).to_f
     end
 
     formatted_time(seconds)
