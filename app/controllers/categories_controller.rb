@@ -37,6 +37,7 @@ class CategoriesController < ApplicationController
     if @category.save
       redirect_to tracker_path, notice: 'Category was successfully created'
     else
+      @categories = current_user.categories.left_outer_joins(:periods).where(periods: { id: nil })
       render :new
     end
   end
@@ -53,6 +54,7 @@ class CategoriesController < ApplicationController
     if @category.update(category_params)
       redirect_to tracker_path, notice: 'Category was successfully updated'
     else
+      @categories = current_user.categories.left_outer_joins(:periods).where(periods: { id: nil })
       render :edit
     end 
   end

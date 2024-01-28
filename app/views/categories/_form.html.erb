@@ -1,6 +1,6 @@
 <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
   <div class="space-y-6 lg:col-start-1 lg:col-span-2">
-    <%= form_with model: category, method: method do |f| %>
+    <%= form_with model: category, method: method, data: { turbo: false } do |f| %>
       <%= render 'shared/error_messages', resource: category %>
       <div class="relative mt-8 border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
         <%= f.label :name, class: "absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900" %>
@@ -12,18 +12,18 @@
       </div>
       
       <div data-controller="color-picker"
-           data-color-picker-text-colors-value="<%= TEXT_СOLORS.to_json %>" 
+           data-color-picker-text-colors-value="<%= TEXT_COLORS.to_json %>" 
            class="text-sm">
-        <div data-action="click->color-picker#toggleColorModal" data-color-picker-target="currentColor" class="px-6 py-3 rounded-lg cursor-pointer inline-block border border-gray-300 mt-4 <%= category.color || 'bg-white' %> <%= TEXT_СOLORS[category.color] || 'text-gray-950' %>">
-          Choose card background...
+        <div data-action="click->color-picker#toggleColorModal" data-color-picker-target="currentColor" class="px-6 py-2 rounded-lg cursor-pointer inline-block border border-gray-300 mt-4 <%= category.color || 'bg-white' %> <%= TEXT_COLORS[category.color] || 'text-gray-950' %>">
+          Category color...
         </div>
-        <input type="hidden" name="category[color]" data-color-picker-target="colorInput" value="bg-white">
+        <input type="hidden" name="category[color]" data-color-picker-target="colorInput" value="<%= category.color || 'bg-white' %>">
       
         <div data-color-picker-target="colorModal" class="absolute border border-gray-300 rounded-lg p-2 bg-white z-10 hidden">
           <% BG_COLORS.each do |color, shades| %>
             <div>
               <% shades.each do |shade| %>
-                <div data-action="click->color-picker#selectColor" class="w-7 h-4 rounded-lg cursor-pointer inline-block border border-gray-300 <%= shade %>" data-value="<%= shade %>"></div>
+                <div data-action="click->color-picker#selectColor" class="w-7 h-5 rounded-lg cursor-pointer inline-block border border-gray-300 <%= shade %>" data-value="<%= shade %>"></div>
               <% end %>
             </div>
           <% end %>

@@ -20,12 +20,12 @@ BG_COLORS = {
   BASE_COLORS.map { |color| [color, SHADES.map { |shade| "bg-#{color.downcase}-#{shade}" }] }.to_h
 ).freeze
 
-TEXT_СOLORS = BASE_COLORS.each_with_object({}) do |color, hash|
+TEXT_COLORS = BASE_COLORS.each_with_object({}) do |color, hash|
   SHADES.each do |shade|
     bg_class = "bg-#{color.downcase}-#{shade}"
     text_class = shade <= 500 ? "#{color.downcase}-900" : "#{color.downcase}-100"
     hash[bg_class] = "text-#{text_class}"
   end
 end
-TEXT_СOLORS['bg-white'] = 'text-gray-950'
-TEXT_СOLORS['bg-black'] = 'text-gray-50'
+TEXT_COLORS['bg-white'] = 'text-gray-950'
+TEXT_COLORS['bg-black'] = 'text-gray-50'
