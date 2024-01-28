@@ -1,9 +1,9 @@
-<div class="relative flex items-center justify-between p-3 h-14 rounded-lg bg-white border hover:bg-purple-50 border-purple-200 <%= 'tree_label' if category.parent %>" id="category-card-<%= category.id %>">
+<div class="relative flex items-center justify-between p-3 h-14 rounded-lg <%= "#{category.color} #{TEXT_COLORS[category.color]}" %> border border-gray-200 <%= 'tree_label' if category.parent %>" id="category-card-<%= category.id %>">
   <div class="flex items-center justify-center">
     <% unless category.can_have_timer? %>
       <div class="w-10">
-        <div class="number-square w-8 h-8 rounded-lg bg-purple-100 flex justify-center items-center">
-          <div class="bg-white text-purple-400 text-xs rounded-lg h-7 w-7 flex justify-center items-center border-2 border-purple-300">
+        <div class="number-square w-8 h-8 rounded-lg <%= adjust_color_intensity('bg', category.color, 200) %> flex justify-center items-center">
+          <div class="<%= category.color %> <%= adjust_color_intensity('text', category.color, 500) %> text-xs rounded-lg h-7 w-7 flex justify-center items-center border-2 <%= adjust_color_intensity('border', category.color, 400) %>">
             <%= category.children.count %>
           </div>
         </div>
@@ -16,26 +16,26 @@
   <div class="flex justify-end items-center gap-4">
     <% if category.can_have_timer? %>
       <div class="flex items-center" data-popover-target="popover-periods-<%= category.id %>">
-        <%= inline_svg('icons/calendar.svg', class: 'w-4 h-4 fill-current text-purple-400') %>
-        <span class="text-xs text-gray-500 ml-1"><%= category.periods.count %></span>
+        <%= inline_svg('icons/calendar.svg', class: "w-4 h-4 fill-current #{ adjust_color_intensity('text', category.color, 300) }") %>
+        <span class="text-xs <%= category.color %> ml-1"><%= category.periods.count %></span>
       </div>
     <% end %>
     <div class="flex items-center" data-popover-target="popover-periods-<%= category.id %>">
-      <%= inline_svg('icons/clock.svg', class: 'w-4 h-4 fill-current text-purple-400') %>
-      <span class="text-xs text-gray-500 ml-1"><%= category.formatted_total_time %></span>
+      <%= inline_svg('icons/clock.svg', class: "w-4 h-4 fill-current #{ adjust_color_intensity('text', category.color, 300) }") %>
+      <span class="text-xs <%= category.color %> ml-1"><%= category.formatted_total_time %></span>
     </div>
     <% if period %>
-      <%= form_with url: '/periods/stop', method: :post, data: { turbo_stream: true }, class: "relative flex items-center p-1 text-xs border-2 border-purple-600 text-purple-600 rounded-lg gap-1 justify-between" do |f| %>
+      <%= form_with url: '/periods/stop', method: :post, data: { turbo_stream: true }, class: "relative flex items-center p-1 text-xs border-2 #{ adjust_color_intensity('border', category.color, 500) } #{ adjust_color_intensity('border', category.color, 500) } rounded-lg gap-1 justify-between" do |f| %>
         <%= f.hidden_field :category_id, name: 'period[category_id]', value: category.id %>
         <%= f.hidden_field :start, name: 'period[start]', value: period.start_in_zone, id: 'period_start' %>
         <%= f.hidden_field :period_id, value: period.id %>
 
         <div class="mx-2">
           <div class="neomorph-spinner">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div class="<%= adjust_color_intensity('bg', category.color, 500) %>"></div>
+            <div class="<%= adjust_color_intensity('bg', category.color, 500) %>"></div>
+            <div class="<%= adjust_color_intensity('bg', category.color, 500) %>"></div>
+            <div class="<%= adjust_color_intensity('bg', category.color, 500) %>"></div>
           </div>
         </div>
         
@@ -51,7 +51,7 @@
       <% if category.can_have_timer? && !unfinished_period %>
         <%= form_with url: '/periods/run', method: :post, data: { turbo_stream: true } do |f| %>
           <%= f.hidden_field :category_id, value: category.id, name: 'period[category_id]' %>
-          <%= button_tag type: 'submit', id: "category-start-#{category.id}", class: 'flex items-center w-24 p-1 text-xs border-2 border-purple-600 text-purple-600 rounded-lg gap-1 justify-center' do %>
+          <%= button_tag type: 'submit', id: "category-start-#{category.id}", class: "flex items-center w-24 p-1 text-xs border-2 #{ adjust_color_intensity('border', category.color, 500) } #{ adjust_color_intensity('text', category.color, 500) } rounded-lg gap-1 justify-center" do %>
             <%= inline_svg('icons/play.svg', class: 'w-6 h-6') %>
             Start
           <% end %>
@@ -60,7 +60,7 @@
     <% end %>
     <div class="relative flex items-center" data-controller="dropdown">
       <button type="button" class="text-gray-500 group bg-white rounded-md inline-flex items-center" aria-expanded="false" data-action="click->dropdown#toggleMenu">
-        <%= inline_svg('icons/more-square.svg', class: 'w-6 h-6 fill-current text-gray-400') %>
+        <%= inline_svg('icons/more-square.svg', class: "w-6 h-6 fill-current #{ adjust_color_intensity('text', category.color, 500) } #{ category.color }") %>
       </button>
 
       <div class="absolute z-50 right-0 top-6 px-2 max-w-xs sm:px-0 bg-white shadow-lg border border-gray-200 rounded-lg hidden" data-dropdown-target="menu">

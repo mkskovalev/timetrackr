@@ -5,6 +5,7 @@ class Category < ApplicationRecord
   has_many :periods, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :user_id }
+  validates :color, inclusion: { in: BG_COLORS.values.flatten }
 
   after_save :update_level
 

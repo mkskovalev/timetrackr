@@ -32,8 +32,9 @@
               </tr>
               <% periods.each do |period| %>
                 <tr class="border-t border-gray-200">
-                  <td class="py-3 pl-4 pr-3 text-xs text-gray-900 sm:pl-6">
+                  <td class="relative py-3 pl-4 pr-3 text-xs text-gray-900 sm:pl-6">
                     <div class="flex items-center text-left">
+                      <!-- <div class="absolute w-2 h-full top-0 left-0 <%= period.category.color %>"></div> -->
                       <%= period.category.name %>
                       <% if period.end.blank? %>
                         <div class="neomorph-spinner ml-2">
