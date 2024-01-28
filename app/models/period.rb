@@ -89,11 +89,9 @@ class Period < ApplicationRecord
 
   def no_overlap
     return if user.nil?
-    
-    period_end = self.end || Time.zone.now
 
     overlapping_periods = user.periods.where.not(id: id)
-    overlapping_periods = overlapping_periods.where('start < ? AND ("end" > ? OR "end" IS NULL)', period_end, self.start)
+    overlapping_periods = overlapping_periods.where('start < ? AND ("end" > ? OR "end" IS NULL)', actual_end, self.start)
 
     if overlapping_periods.exists?
       errors.add(:base, 'The period overlaps with an existing period')

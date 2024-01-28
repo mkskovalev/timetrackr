@@ -9,7 +9,17 @@ export default class extends Controller {
       time_24hr: true,
       disableMobile: true,
       maxDate: "today",
-      maxTime: new Date().getHours() + ":" + new Date().getMinutes(),
+      onChange: this.handleDateChange.bind(this),
     });
+  }
+
+  handleDateChange(selectedDates, dateStr, instance) {
+    const today = new Date();
+
+    if (selectedDates[0].toDateString() === today.toDateString()) {
+      instance.set('maxTime', today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds());
+    } else {
+      instance.set('maxTime', '23:59:59');
+    }
   }
 }
