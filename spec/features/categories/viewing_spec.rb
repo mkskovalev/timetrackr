@@ -8,7 +8,7 @@ RSpec.feature 'Category Viewing', type: :feature do
   end
 
   scenario 'Registered user views tracker page' do
-    user = FactoryBot.create(:user, :confirmed)
+    user = create(:user, :confirmed)
     login_as(user, scope: :user)
     visit tracker_path
     expect(page).to have_content('Tracker')

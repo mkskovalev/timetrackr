@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature 'Category editing', type: :feature do
-  let!(:user) { FactoryBot.create(:user, :confirmed) }
-  let!(:category) { FactoryBot.create(:category, user: user) }
+  let!(:user) { create(:user, :confirmed) }
+  let!(:category) { create(:category, user: user) }
 
   before do
     login_as(user, scope: :user)

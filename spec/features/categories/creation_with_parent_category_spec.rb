@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.feature 'Create category with parent category', type: :feature do
-  given(:user) { FactoryBot.create(:user, :confirmed) }
-  given!(:parent_category) { FactoryBot.create(:category, user_id: user.id) }
+  given(:user) { create(:user, :confirmed) }
+  given!(:parent_category) { create(:category, user_id: user.id) }
 
   background do
     login_as(user, scope: :user)

@@ -14,6 +14,6 @@ RSpec.describe Category, type: :model do
     
     it { should validate_presence_of :name }
     it { should validate_uniqueness_of(:name).scoped_to(:user_id) }
-    it { should validate_inclusion_of(:color).in_array(COLORS.values.flatten) }
+    it { should validate_inclusion_of(:color).in_array(BG_COLORS.values.flatten) }
   end
 end

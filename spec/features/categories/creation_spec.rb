@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Category creation', type: :feature do
   before do
-    user = FactoryBot.create(:user, :confirmed)
+    user = create(:user, :confirmed)
     login_as(user, scope: :user)
   end
 
