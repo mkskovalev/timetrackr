@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @page_title = 'Profile'
+    @page_title = t('.page_title')
   end
 
   def update
@@ -20,6 +20,6 @@ class ProfilesController < ApplicationController
   private
 
   def user_params
-    params.permit(:timezone)
+    params.permit(:timezone, :locale)
   end
 end

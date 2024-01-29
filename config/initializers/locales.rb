@@ -1,1 +1,4 @@
-AVAILABLE_LOCALES = ['en', 'ru'].freeze
+LOCALES_FOR_SELECT = {
+  'en' => 'English',
+  'ru' => 'Русский',
+}.freeze
