@@ -5,4 +5,9 @@ RSpec.describe User, type: :model do
     it { should have_many(:categories).dependent(:destroy) }
     it { should have_many(:periods).dependent(:destroy) }
   end
+
+  describe 'validations' do
+    it { should validate_presence_of(:locale) }
+    it { should validate_inclusion_of(:locale).in_array(AVAILABLE_LOCALES) }
+  end
 end

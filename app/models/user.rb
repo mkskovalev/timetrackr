@@ -6,6 +6,8 @@ class User < ApplicationRecord
   has_many :categories, dependent: :destroy
   has_many :periods, dependent: :destroy
 
+  validates :locale, presence: true, inclusion: { in: AVAILABLE_LOCALES }
+
   def categories_for_timeline
     filtered_periods = periods.where("periods.end >= ? OR periods.end IS NULL", Time.zone.now.beginning_of_day)
 

@@ -1,0 +1,1 @@
+AVAILABLE_LOCALES = ['en', 'ru'].freeze
