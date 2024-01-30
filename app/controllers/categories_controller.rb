@@ -26,7 +26,7 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    @page_title = 'New category'
+    @page_title = t('.title')
     @category = current_user.categories.new
     @categories = current_user.categories.left_outer_joins(:periods).where(periods: { id: nil })
   end
@@ -35,7 +35,7 @@ class CategoriesController < ApplicationController
     @category = current_user.categories.new(category_params)
 
     if @category.save
-      redirect_to tracker_path, notice: 'Category was successfully created'
+      redirect_to tracker_path, success: t('.success')
     else
       @categories = current_user.categories.left_outer_joins(:periods).where(periods: { id: nil })
       render :new
@@ -43,7 +43,7 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-    @page_title = 'Edit category'
+    @page_title = t('.title')
     @categories = current_user.categories
                               .left_outer_joins(:periods)
                               .where(periods: { id: nil })
@@ -52,7 +52,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to tracker_path, notice: 'Category was successfully updated'
+      redirect_to tracker_path, success: t('.success')
     else
       @categories = current_user.categories.left_outer_joins(:periods).where(periods: { id: nil })
       render :edit
@@ -63,9 +63,9 @@ class CategoriesController < ApplicationController
     return if @category.blank?
     
     if @category.destroy
-      redirect_to tracker_path, notice: 'Category was successfully deleted'
+      redirect_to tracker_path, success: t('.success')
     else
-      redirect_to tracker_path, alert: 'Category was not deleted'
+      redirect_to tracker_path, danger: t('.error')
     end
   end
 

@@ -2,9 +2,25 @@ en:
   save: 'Save'
   edit: 'Edit'
   delete: 'Delete'
+  create: 'Create'
+  update: 'Update'
   sign_out: 'Sign out'
   sign_in: 'Sign in'
   sign_up: 'Sign up'
+  none_option: 'None'
+
+  activerecord:
+    models:
+      category: "Category"
+    attributes:
+      category:
+        name: "Name"
+    errors:
+      models:
+        category:
+          attributes:
+            name:
+              blank: "can't be blank"
 
   layouts:
     menu_items:
@@ -47,3 +63,25 @@ en:
       avg_daily_last_30_days: 'Avg. daily (last 30 days)'
       periods: 'Periods'
       all_periods: 'All periods'
+      date: 'Date'
+      time: 'Time'
+    new:
+      title: 'New category'
+    form:
+      name_label: 'Name'
+      name_placeholder: 'Books, Sport, etc.'
+      parent_label: 'Parent category'
+      choose_color: 'Category color...'
+    edit:
+      title: 'Edit category'
+    create:
+      success: 'Category was successfully created'
+    update:
+      success: 'Category was successfully updated'
+    destroy:
+      success: 'Category was successfully deleted'
+      error: 'Category was not deleted'
+
+  shared:
+    error_messages:
+      you_have_errors: 'You have errors in the form:'

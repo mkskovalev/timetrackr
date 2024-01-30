@@ -2,9 +2,25 @@ ru:
   save: 'Сохранить'
   edit: 'Редактировать'
   delete: 'Удалить'
+  create: 'Создать'
+  update: 'Обновить'
   sign_out: 'Выйти'
   sign_in: 'Войти'
   sign_up: 'Регистрация'
+  none_option: 'Нет'
+
+  activerecord:
+    models:
+      category: "Категория"
+    attributes:
+      category:
+        name: "Название"
+    errors:
+      models:
+        category:
+          attributes:
+            name:
+              blank: "не может быть пустым"
 
   layouts:
     menu_items:
@@ -47,3 +63,25 @@ ru:
       avg_daily_last_30_days: 'Ср. в день (за последние 30 дней)'
       periods: 'Периоды'
       all_periods: 'Все периоды'
+      date: 'Дата'
+      time: 'Время'
+    new:
+      title: 'Новая категория'
+    form:
+      name_label: 'Название'
+      name_placeholder: 'Книги, Спорт и т.д.'
+      parent_label: 'Родительская категория'
+      choose_color: 'Цвет категории...'
+    edit:
+      title: 'Редактирование категории'
+    create:
+      success: 'Категория успешно создана'
+    update:
+      success: 'Категория успешно обновлена'
+    destroy:
+      success: 'Категория успешно удалена'
+      error: 'Категория не удалена'
+
+  shared:
+    error_messages:
+      you_have_errors: 'В форме есть ошибки:'
