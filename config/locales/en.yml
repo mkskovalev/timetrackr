@@ -9,6 +9,13 @@ en:
   sign_up: 'Sign up'
   none_option: 'None'
 
+  time:
+    formats:
+      long: "%A, %d %B %Y"
+  date:
+    formats:
+      long: "%A, %d %B %Y"
+
   activerecord:
     models:
       category: "Category"
@@ -81,6 +88,17 @@ en:
     destroy:
       success: 'Category was successfully deleted'
       error: 'Category was not deleted'
+
+  periods:
+    index:
+      title: 'Periods'
+      periods_desc: 'A list of all the periods'
+      new_period: 'New period'
+      category: 'Category'
+      period: 'Period'
+      ratio: 'Ratio'
+      duration: 'Duration'
+      long_period_explanation: "This period spans more than one day and is therefore listed under each relevant date. The time accounted for is only within the confines of the specific day's duration."
 
   shared:
     error_messages:

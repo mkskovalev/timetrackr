@@ -3,7 +3,7 @@ class PeriodsController < ApplicationController
   include Authorizable
   
   def index
-    @page_title = 'Periods'
+    @page_title = t('.title')
 
     periods = current_user.periods.order(start: :desc)
     @grouped_periods = Period.group_periods_by_date(periods)
