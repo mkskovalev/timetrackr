@@ -40,3 +40,10 @@ en:
       category: 'Category'
       start: 'Start'
       time: 'Time'
+    show:
+      category: 'Category'
+      spent_over_time: 'Spent over time'
+      last_30_days: 'Last 30 days'
+      avg_daily_last_30_days: 'Avg. daily (last 30 days)'
+      periods: 'Periods'
+      all_periods: 'All periods'

@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @page_title = "Category #{@category.name}"
+    @page_title = "#{ t('.category') } #{ @category.name }"
     @periods_by_day = ChartDataService.aggregate_periods_by_days(@category, 14)
     @total_time_last_30_days = CategoriesAnalyticsService.total_time_last_30_days(@category)
     @time_difference = CategoriesAnalyticsService.calculate_time_difference(@category)
