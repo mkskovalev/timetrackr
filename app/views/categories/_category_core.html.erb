@@ -53,7 +53,7 @@
           <%= f.hidden_field :category_id, value: category.id, name: 'period[category_id]' %>
           <%= button_tag type: 'submit', id: "category-start-#{category.id}", class: "flex items-center w-24 p-1 text-xs border-2 #{ adjust_color_intensity('border', category.color, 500) } #{ adjust_color_intensity('text', category.color, 500) } rounded-lg gap-1 justify-center" do %>
             <%= inline_svg('icons/play.svg', class: 'w-6 h-6') %>
-            Start
+            <%= t('.start') %>
           <% end %>
         <% end %>
       <% end %>
@@ -66,23 +66,22 @@
       <div class="absolute z-50 right-0 top-6 px-2 max-w-xs sm:px-0 bg-white shadow-lg border border-gray-200 rounded-lg hidden" data-dropdown-target="menu">
         <ul class="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto">
           <li class="p-2">
-            <h2 class="sr-only">Quick actions</h2>
             <ul class="text-xs text-gray-700">
               <%= link_to category_path(category) do %>
                 <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
                   <%= inline_svg('icons/eye.svg', class: 'w-4 h-4 fill-current text-gray-400') %>
-                  <span class="ml-2 flex-auto truncate">View details</span>
+                  <span class="ml-2 flex-auto truncate"><%= t('.view_details') %></span>
                 </li>
               <% end %>
               <%= link_to edit_category_path(category) do %>
                 <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
                   <%= inline_svg('icons/edit.svg', class: 'w-4 h-4 fill-current text-gray-400') %>
-                  <span class="ml-2 flex-auto truncate">Edit</span>
+                  <span class="ml-2 flex-auto truncate"><%= t(:edit) %></span>
                 </li>
               <% end %>
               <%= button_to category_path(category), method: :delete, data: { action: "click->confirmation#open click->dropdown#toggleMenu" }, class: 'group flex w-full text-left cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100' do %>
                   <%= inline_svg('icons/trash.svg', class: 'w-4 h-4 fill-current text-red-400') %>
-                  <span class="ml-2 flex-auto truncate text-red-500">Delete</span>
+                  <span class="ml-2 flex-auto truncate text-red-500"><%= t(:delete) %></span>
               <% end %>
             </ul>
           </li>

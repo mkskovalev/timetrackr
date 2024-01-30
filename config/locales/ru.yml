@@ -1,5 +1,18 @@
 ru:
   save: 'Сохранить'
+  edit: 'Редактировать'
+  delete: 'Удалить'
+  sign_out: 'Выйти'
+  sign_in: 'Войти'
+  sign_up: 'Регистрация'
+
+  layouts:
+    menu_items:
+      tracker: 'Трекер'
+      periods: 'Периоды'
+      analytics: 'Аналитика'
+    menu_profile:
+      view_profile: 'Перейти в профиль'
 
   profiles:
     show:
@@ -10,3 +23,20 @@ ru:
       timezone_label: "Часовой пояс"
       timezone_notice: 'Мы определяем ваш часовой пояс на основе данных браузера, но для более точной информации вы можете указать свой часовой пояс вручную.'
       language_label: 'Язык'
+
+  categories:
+    index:
+      tracker: 'Трекер'
+      categories: 'Категории'
+      top_level_categories: 'Категории верхнего уровня'
+      total_time_for_today: 'Общее время за сегодня'
+      new_category: 'Добавить категорию'
+      create_a_new_category: 'Cоздайте вашу первую категорию'
+    category_core:
+      start: 'Включить'
+      view_details: 'Подробнее'
+    timeline:
+      today: 'Сегодня'
+      category: 'Категория'
+      start: 'Начало'
+      time: 'Время'

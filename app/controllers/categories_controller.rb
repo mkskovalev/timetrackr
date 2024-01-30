@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
   include Authorizable
 
   def index
-    @page_title = 'Tracker'
+    @page_title = t('.tracker')
     @categories = current_user.categories.includes(children: :periods).where(parent_id: nil)
     @unfinished_period = Category.any_unfinished_periods_for_user(current_user)
     @categories_for_timeline = current_user.categories_for_timeline

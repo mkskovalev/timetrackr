@@ -1,6 +1,6 @@
 <div id="today-timeline" class="px-4 pt-2 pb-3 rounded-lg mt-4 border border-neutral-200">
   <div class="text-left mb-2">
-    <span class="text-xs text-black">Today</span>
+    <span class="text-xs text-black"><%= t('.today') %></span>
   </div>
   <div 
     data-controller="timeline" 
@@ -19,8 +19,8 @@
                 <div class="stripe"></div>
               </div>
               <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 -top-12 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
-                Category: <%= category.name %><br/>
-                Start: <%= period.start_in_zone %>
+                <%= t('.category') %>: <%= category.name %><br/>
+                <%= t('.start') %>: <%= period.start_in_zone %>
               </span>
             </div>
           <% elsif period.end >= Time.zone.now.beginning_of_day %>
@@ -29,8 +29,8 @@
               style="left: <%= period_data[:start_percentage] %>%; width: <%= period_data[:width_percentage] %>%;">
 
               <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 -top-12 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
-                Category: <%= category.name %><br/>
-                Time: <%= period.formatted_time %>
+                <%= t('.category') %>: <%= category.name %><br/>
+                <%= t('.time') %>: <%= period.formatted_time %>
               </span>
             </div>
           <% end %>

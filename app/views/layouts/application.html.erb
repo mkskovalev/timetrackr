@@ -44,35 +44,10 @@
               </a>
             </div>
             <nav class="mt-5 px-2 space-y-1">
-              <%= menu_item('Tracker', tracker_path) do %>
-                <%= inline_svg('icons/timer.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
-              <% end %>
-              <%= menu_item('Periods', periods_path) do %>
-                <%= inline_svg('icons/routing-2.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
-              <% end %>
-              <%= menu_item('Analytics', analytics_path) do %>
-                <%= inline_svg('icons/chart-2.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
-              <% end %>
-
-              <%= button_to destroy_user_session_path, class: 'text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full', method: :delete do %>
-                <%= inline_svg('icons/logout.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
-                Sign out
-              <% end %>
+              <%= render 'layouts/menu_items' %>
             </nav>
           </div>
-          <div class="shrink-0 flex bg-gray-700 p-4">
-            <a href="<%= profile_path %>" class="shrink-0 group block">
-              <div class="flex items-center">
-                <div>
-                  <%= inline_svg('icons/user-circle.svg', class: 'inline-block h-9 w-9 rounded-full text-white') %>
-                </div>
-                <div class="ml-3">
-                  <p class="text-base font-medium text-white">Profile</p>
-                  <p class="text-sm font-medium text-gray-400 group-hover:text-gray-300">View profile</p>
-                </div>
-              </div>
-            </a>
-          </div>
+          <%= render 'layouts/menu_profile' %>
         </div>
 
         <div class="shrink-0 w-14">
@@ -90,34 +65,10 @@
               </a>
             </div>
             <nav class="mt-5 flex-1 px-2 space-y-1">
-              <%= menu_item('Tracker', tracker_path) do %>
-                <%= inline_svg('icons/timer.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
-              <% end %>
-              <%= menu_item('Periods', periods_path) do %>
-                <%= inline_svg('icons/routing-2.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
-              <% end %>
-              <%= menu_item('Analytics', analytics_path) do %>
-                <%= inline_svg('icons/chart-2.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
-              <% end %>
-              <%= button_to destroy_user_session_path, class: 'text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full', method: :delete do %>
-                <%= inline_svg('icons/logout.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
-                Sign out
-              <% end %>
+              <%= render 'layouts/menu_items' %>
             </nav>
           </div>
-          <div class="shrink-0 flex bg-gray-700 p-4">
-            <a href="<%= profile_path %>" class="shrink-0 w-full group block">
-              <div class="flex items-center">
-                <div>
-                  <%= inline_svg('icons/user-circle.svg', class: 'inline-block h-9 w-9 rounded-full text-white') %>
-                </div>
-                <div class="ml-3">
-                  <p class="text-sm font-medium text-white">Profile</p>
-                  <p class="text-xs font-medium text-gray-300 group-hover:text-gray-200">View profile</p>
-                </div>
-              </div>
-            </a>
-          </div>
+          <%= render 'layouts/menu_profile' %>
         </div>
       </div>
       <div class="md:pl-64 flex flex-col flex-1">

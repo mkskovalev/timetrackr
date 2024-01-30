@@ -1,5 +1,18 @@
 en:
   save: 'Save'
+  edit: 'Edit'
+  delete: 'Delete'
+  sign_out: 'Sign out'
+  sign_in: 'Sign in'
+  sign_up: 'Sign up'
+
+  layouts:
+    menu_items:
+      tracker: 'Tracker'
+      periods: 'Periods'
+      analytics: 'Analytics'
+    menu_profile:
+      view_profile: 'View profile'
 
   profiles:
     show:
@@ -10,3 +23,20 @@ en:
       timezone_label: "Timezone"
       timezone_notice: ' We detect your timezone from your browser, but for more accurate information, you can specify your timezone manually.'
       language_label: 'Language'
+
+  categories:
+    index:
+      tracker: 'Tracker'
+      categories: 'Categories'
+      top_level_categories: 'Top-level categories'
+      total_time_for_today: 'Total time for today'
+      new_category: 'New category'
+      create_a_new_category: 'Create a new category'
+    category_core:
+      start: 'Start'
+      view_details: 'View details'
+    timeline:
+      today: 'Today'
+      category: 'Category'
+      start: 'Start'
+      time: 'Time'
