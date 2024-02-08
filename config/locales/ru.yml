@@ -8,6 +8,9 @@ ru:
   sign_in: 'Войти'
   sign_up: 'Регистрация'
   none_option: 'Нет'
+  delete_title: 'Удаление'
+  cancel: 'Отмена'
+  access_denied: "У вас нет доступа"
 
   time:
     formats:
@@ -51,7 +54,7 @@ ru:
 
   categories:
     index:
-      tracker: 'Трекер'
+      title: 'Трекер'
       categories: 'Категории'
       top_level_categories: 'Категории верхнего уровня'
       total_time_for_today: 'Общее время за сегодня'
@@ -101,7 +104,29 @@ ru:
       ratio: 'Доля'
       duration: 'Время'
       long_period_explanation: "Этот период занимает больше одного дня, поэтому он показан в каждом дне, в который попадает. Однако в дне показано время периода попавшее в этот день, а не время всего периода."
+    new:
+      title: 'Новый период'
+    edit:
+      title: 'Редактирование периода'
+    form:
+      start: 'Начало'
+      end: 'Конец'
+      blank_end_hint: "Оставьте пустым, если период активен.<br/>Примечание: Не должно быть другого активного периода."
+      parent_category: 'Родительская категория'
+      choose_category: 'Выберите категорию...'
+    create:
+      start_date_is_missing: 'Начало периода не может быть пустым'
+      end_date_is_missing: 'Окончание периода не может быть пустым'
+      period_success: 'Период успешно создан'
+    update:
+      start_date_is_missing: 'Начало периода не может быть пустым'
+      end_date_is_missing: 'Окончание периода не может быть пустым'
+      period_success: 'Период успешно обновлен'
+    destroy:
+      period_success: 'Период успешно удален'
 
   shared:
+    confirmation_modal:
+      delete_message: 'Вы действительно хотите удалить?'
     error_messages:
       you_have_errors: 'В форме есть ошибки:'

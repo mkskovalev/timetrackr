@@ -1,9 +1,10 @@
 class CategoriesController < ApplicationController
   before_action :find_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_title, only: [:index, :new, :edit]
+  
   include Authorizable
 
   def index
-    @page_title = t('.tracker')
     @categories = current_user.categories.includes(children: :periods).where(parent_id: nil)
     @unfinished_period = Category.any_unfinished_periods_for_user(current_user)
     @categories_for_timeline = current_user.categories_for_timeline
@@ -26,7 +27,6 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    @page_title = t('.title')
     @category = current_user.categories.new
     @categories = current_user.categories.left_outer_joins(:periods).where(periods: { id: nil })
   end
@@ -43,7 +43,6 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-    @page_title = t('.title')
     @categories = current_user.categories
                               .left_outer_joins(:periods)
                               .where(periods: { id: nil })
@@ -77,5 +76,9 @@ class CategoriesController < ApplicationController
 
   def find_category
     @category = Category.find(params[:id])
+  end
+
+  def set_title
+    @page_title = t('.title')
   end
 end

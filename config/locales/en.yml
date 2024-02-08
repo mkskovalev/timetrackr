@@ -8,6 +8,9 @@ en:
   sign_in: 'Sign in'
   sign_up: 'Sign up'
   none_option: 'None'
+  delete_title: 'Deletion'
+  cancel: 'Cancel'
+  access_denied: "Access denied"
 
   time:
     formats:
@@ -49,7 +52,7 @@ en:
 
   categories:
     index:
-      tracker: 'Tracker'
+      title: 'Tracker'
       categories: 'Categories'
       top_level_categories: 'Top-level categories'
       total_time_for_today: 'Total time for today'
@@ -99,7 +102,29 @@ en:
       ratio: 'Ratio'
       duration: 'Duration'
       long_period_explanation: "This period spans more than one day and is therefore listed under each relevant date. The time accounted for is only within the confines of the specific day's duration."
+    new:
+      title: 'New period'
+    edit:
+      title: 'Edit period'
+    form:
+      start: 'Start'
+      end: 'End'
+      blank_end_hint: "Leave blank to set the period as ongoing, which will continue until manually ended.<br/>Note: There cannot be other active periods without an end time."
+      parent_category: 'Parent category'
+      choose_category: 'Choose category...'
+    create:
+      start_date_is_missing: 'Start date is missing'
+      end_date_is_missing: 'End date is missing'
+      period_success: 'Period was successfully created'
+    update:
+      start_date_is_missing: 'Start date is missing'
+      end_date_is_missing: 'End date is missing'
+      period_success: 'Period was successfully updated'
+    destroy:
+      period_success: 'Period was successfully deleted'
 
   shared:
+    confirmation_modal:
+      delete_message: 'Are you sure you want to delete?'
     error_messages:
       you_have_errors: 'You have errors in the form:'
