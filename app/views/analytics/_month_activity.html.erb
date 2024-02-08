@@ -9,16 +9,12 @@
   <div class="mx-auto">
     <section class="text-center">
       <div class="text-left">
-        <span class="text-2xs text-black border-b border-black py-1"><%= month.strftime("%B") %></span>
+        <span class="text-2xs text-black border-b border-black py-1"><%= l(month, format: '%B').capitalize %></span>
       </div>
       <div class="mt-2 grid grid-cols-7 text-2xs leading-6 text-gray-400">
-        <div>Mon</div>
-        <div>Tue</div>
-        <div>Wed</div>
-        <div>Thu</div>
-        <div>Fri</div>
-        <div>Sat</div>
-        <div>Sun</div>
+        <% t('date.abbr_day_names').each do |day_name| %>
+          <div><%= day_name %></div>
+        <% end %>      
       </div>
       <div class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg text-sm">
         <% days_in_previous_month.each do |day| %>

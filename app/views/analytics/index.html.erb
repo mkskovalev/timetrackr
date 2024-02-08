@@ -1,5 +1,5 @@
 
-<div class="mt-8 text-sm">Month activity</div>
+<div class="mt-8 text-sm"><%= t('.month_activity') %></div>
 <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
   <div class="hidden lg:block col-span-1">
     <%= render 'analytics/month_activity', month: Date.today << 3 %>

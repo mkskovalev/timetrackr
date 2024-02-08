@@ -11,6 +11,7 @@ en:
   delete_title: 'Deletion'
   cancel: 'Cancel'
   access_denied: "Access denied"
+  existing_customer: 'Existing customer?'
 
   time:
     formats:
@@ -18,6 +19,14 @@ en:
   date:
     formats:
       long: "%A, %d %B %Y"
+    abbr_day_names:
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+      - Sun
 
   activerecord:
     models:
@@ -39,6 +48,12 @@ en:
       analytics: 'Analytics'
     menu_profile:
       view_profile: 'View profile'
+    public:
+      page_title: 'TimeTrackr - efficient time tracking for improved productivity'
+      meta_description: 'TimeTrackr - an efficient time-tracking tool designed to enhance productivity and work efficiency.'
+      meta_keywords: 'time tracking, productivity, efficiency, task management, TimeTrackr'
+      meta_og_title: 'TimeTrackr - Efficient Time Tracking'
+      meta_og_description: 'Improve your productivity with TimeTrackr.'
 
   profiles:
     show:
@@ -102,6 +117,7 @@ en:
       ratio: 'Ratio'
       duration: 'Duration'
       long_period_explanation: "This period spans more than one day and is therefore listed under each relevant date. The time accounted for is only within the confines of the specific day's duration."
+      ratio: 'Ratio: '
     new:
       title: 'New period'
     edit:
@@ -122,6 +138,20 @@ en:
       period_success: 'Period was successfully updated'
     destroy:
       period_success: 'Period was successfully deleted'
+
+  analytics:
+    index:
+      title: 'Analytics'
+      month_activity: 'Month activity'
+
+  public:
+    index:
+      opensourced: 'opensourced'
+      explore_github: 'Explore the Code on GitHub'
+      time_tracking: 'Time tracking'
+      for_any_task: 'for any task'
+      organize_your_tasks: 'Organize your tasks into categories, dive into analytics for in-depth insights, and enjoy an ever-improving feature set.'
+      unlock_full_teatures: 'Unlock full features for free and make the most of your time now.'
 
   shared:
     confirmation_modal:

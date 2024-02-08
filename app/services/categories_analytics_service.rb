@@ -26,9 +26,9 @@ module CategoriesAnalyticsService
     end
   
     format_string = ''
-    format_string += "#{pad_with_leading_zero(hours)}h " if hours > 0
-    format_string += "#{pad_with_leading_zero(minutes)}m "
-    format_string += "#{pad_with_leading_zero(seconds)}s"
+    format_string += "#{pad_with_leading_zero(hours)}:" if hours > 0
+    format_string += "#{pad_with_leading_zero(minutes)}:"
+    format_string += "#{pad_with_leading_zero(seconds)}"
   
     format_string.strip
   end

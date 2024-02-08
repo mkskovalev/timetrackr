@@ -63,7 +63,7 @@
                         class="group absolute h-full bg-purple-600 rounded-full"
                         style="width: <%= period.end ? daily_period_ratio(date, period, periods) : 0 %>%;">
                           <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 bottom-3 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
-                            Ratio: <%= period.end ? daily_period_ratio(date, period, periods) : 0 %>%
+                            <%= t('.ratio') %><%= period.end ? daily_period_ratio(date, period, periods) : 0 %>%
                           </span>
                         </div>
                       </div>
