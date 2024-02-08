@@ -45,12 +45,20 @@
     <div class="relative bg-white" data-controller="menu">
       <div class="mx-auto">
         <div class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10 px-4 sm:px-6">
-          <div class="flex justify-start lg:w-0 lg:flex-1">
+          <div class="flex items-center justify-start lg:w-0 lg:flex-1">
             <a href="/" class="flex items-center">
               <span class="sr-only">TimeTrackr</span>
               <%= inline_svg('peng.svg', class: 'w-10 h-10 text-black fill-current mr-2') %>
               <span class="text-2xl font-bold">TimeTrackr</span>
             </a>
+
+            <div data-controller="language" class="select-wrapper">
+              <select data-action="change->language#change" data-language-target="select" class="ml-4 block w-full pl-2 pr-8 py-1.5 text-xs border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
+                <option value="en" <%= "selected" if I18n.locale == :en %>>English</option>
+                <option value="ru" <%= "selected" if I18n.locale == :ru %>>Русский</option>
+              </select>
+            </div>            
+
           </div>
           <div class="-mr-2 -my-2 md:hidden">
             <button type="button" data-action="click->menu#togglePublicMenu" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">

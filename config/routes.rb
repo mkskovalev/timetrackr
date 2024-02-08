@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
-  root to: "public#index"
+  
+  scope "(:locale)", locale: /en|ru/ do
+    devise_for :users, controllers: { registrations: 'registrations' }
+    root to: 'public#index', as: :localized_root
+  end
   
   post '/set_timezone', to: 'application#set_timezone'
 
