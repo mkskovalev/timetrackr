@@ -1,33 +1,160 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   "true": "foo"
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  save: 'Save'
+  edit: 'Edit'
+  delete: 'Delete'
+  create: 'Create'
+  update: 'Update'
+  sign_out: 'Sign out'
+  sign_in: 'Sign in'
+  sign_up: 'Sign up'
+  none_option: 'None'
+  delete_title: 'Deletion'
+  cancel: 'Cancel'
+  access_denied: "Access denied"
+  existing_customer: 'Existing customer?'
+
+  time:
+    formats:
+      long: "%A, %d %B %Y"
+  date:
+    formats:
+      long: "%A, %d %B %Y"
+    abbr_day_names:
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+      - Sun
+
+  activerecord:
+    models:
+      category: "Category"
+    attributes:
+      category:
+        name: "Name"
+    errors:
+      models:
+        category:
+          attributes:
+            name:
+              blank: "can't be blank"
+
+  layouts:
+    menu_items:
+      tracker: 'Tracker'
+      periods: 'Periods'
+      analytics: 'Analytics'
+    menu_profile:
+      view_profile: 'View profile'
+    public:
+      page_title: 'TimeTrackr - efficient time tracking for improved productivity'
+      meta_description: 'TimeTrackr - an efficient time-tracking tool designed to enhance productivity and work efficiency.'
+      meta_keywords: 'time tracking, productivity, efficiency, task management, TimeTrackr'
+      meta_og_title: 'TimeTrackr - Efficient Time Tracking'
+      meta_og_description: 'Improve your productivity with TimeTrackr.'
+
+  profiles:
+    show:
+      page_title: 'Profile'
+    general:
+      general_settings: 'General settings'
+      update_notice: 'Update your general settings. Please note that updating your time zone may affect the correct time in your account.'
+      timezone_label: "Timezone"
+      timezone_notice: ' We detect your timezone from your browser, but for more accurate information, you can specify your timezone manually.'
+      language_label: 'Language'
+
+  categories:
+    index:
+      title: 'Tracker'
+      categories: 'Categories'
+      top_level_categories: 'Top-level categories'
+      total_time_for_today: 'Total time for today'
+      new_category: 'New category'
+      create_a_new_category: 'Create a new category'
+    category_core:
+      start: 'Start'
+      view_details: 'View details'
+    timeline:
+      today: 'Today'
+      category: 'Category'
+      start: 'Start'
+      time: 'Time'
+    show:
+      category: 'Category'
+      spent_over_time: 'Spent over time'
+      last_30_days: 'Last 30 days'
+      avg_daily_last_30_days: 'Avg. daily (last 30 days)'
+      periods: 'Periods'
+      all_periods: 'All periods'
+      date: 'Date'
+      time: 'Time'
+    new:
+      title: 'New category'
+    form:
+      name_label: 'Name'
+      name_placeholder: 'Books, Sport, etc.'
+      parent_label: 'Parent category'
+      choose_color: 'Category color...'
+    edit:
+      title: 'Edit category'
+    create:
+      success: 'Category was successfully created'
+    update:
+      success: 'Category was successfully updated'
+    destroy:
+      success: 'Category was successfully deleted'
+      error: 'Category was not deleted'
+
+  periods:
+    index:
+      title: 'Periods'
+      periods_desc: 'A list of all the periods'
+      new_period: 'New period'
+      category: 'Category'
+      period: 'Period'
+      ratio: 'Ratio'
+      duration: 'Duration'
+      long_period_explanation: "This period spans more than one day and is therefore listed under each relevant date. The time accounted for is only within the confines of the specific day's duration."
+      ratio: 'Ratio: '
+    new:
+      title: 'New period'
+    edit:
+      title: 'Edit period'
+    form:
+      start: 'Start'
+      end: 'End'
+      blank_end_hint: "Leave blank to set the period as ongoing, which will continue until manually ended.<br/>Note: There cannot be other active periods without an end time."
+      parent_category: 'Parent category'
+      choose_category: 'Choose category...'
+    create:
+      start_date_is_missing: 'Start date is missing'
+      end_date_is_missing: 'End date is missing'
+      period_success: 'Period was successfully created'
+    update:
+      start_date_is_missing: 'Start date is missing'
+      end_date_is_missing: 'End date is missing'
+      period_success: 'Period was successfully updated'
+    destroy:
+      period_success: 'Period was successfully deleted'
+
+  analytics:
+    index:
+      title: 'Analytics'
+      month_activity: 'Month activity'
+
+  public:
+    index:
+      opensourced: 'opensourced'
+      explore_github: 'Explore the Code on GitHub'
+      time_tracking: 'Time tracking'
+      for_any_task: 'for any task'
+      organize_your_tasks: 'Organize your tasks into categories, dive into analytics for in-depth insights, and enjoy an ever-improving feature set.'
+      unlock_full_teatures: 'Unlock full features for free and make the most of your time now.'
+
+  shared:
+    confirmation_modal:
+      delete_message: 'Are you sure you want to delete?'
+    error_messages:
+      you_have_errors: 'You have errors in the form:'

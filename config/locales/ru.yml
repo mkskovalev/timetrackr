@@ -1,0 +1,162 @@
+ru:
+  save: 'Сохранить'
+  edit: 'Редактировать'
+  delete: 'Удалить'
+  create: 'Создать'
+  update: 'Обновить'
+  sign_out: 'Выйти'
+  sign_in: 'Войти'
+  sign_up: 'Регистрация'
+  none_option: 'Нет'
+  delete_title: 'Удаление'
+  cancel: 'Отмена'
+  access_denied: "У вас нет доступа"
+  existing_customer: 'Уже зарегистрированы?'
+
+  time:
+    formats:
+      long: "%A, %d %B %Y"
+  date:
+    formats:
+      long: "%A, %d %B %Y"
+    day_names: [Воскресенье, Понедельник, Вторник, Среда, Четверг, Пятница, Суббота]
+    month_names: [~, январь, февраль, март, апрель, май, июнь, июль, август, сентябрь, октябрь, ноябрь, декабрь]
+    abbr_day_names:
+      - Пн
+      - Вт
+      - Ср
+      - Чт
+      - Пт
+      - Сб
+      - Вс
+
+  activerecord:
+    models:
+      category: "Категория"
+    attributes:
+      category:
+        name: "Название"
+    errors:
+      models:
+        category:
+          attributes:
+            name:
+              blank: "не может быть пустым"
+
+  layouts:
+    menu_items:
+      tracker: 'Трекер'
+      periods: 'Периоды'
+      analytics: 'Аналитика'
+    menu_profile:
+      view_profile: 'Перейти в профиль'
+    public:
+      page_title: 'TimeTrackr - учет времени для повышения продуктивности'
+      meta_description: 'TimeTrackr - инструмент учета времени, предназначенный для повышения производительности и эффективности.'
+      meta_keywords: 'учет рабочего времени, продуктивность, эффективность, управление задачами, TimeTrackr'
+      meta_og_title: 'TimeTrackr - эффективное управление временем'
+      meta_og_description: 'Повысьте свою продуктивность с помощью TimeTrackr.'
+
+  profiles:
+    show:
+      page_title: 'Профиль'
+    general:
+      general_settings: 'Общие настройки'
+      update_notice: 'Обновите ваши основные настройки. Обратите внимание, что обновление вашего часового пояса может повлиять на корректность времени в вашем аккаунте.'
+      timezone_label: "Часовой пояс"
+      timezone_notice: 'Мы определяем ваш часовой пояс на основе данных браузера, но для более точной информации вы можете указать свой часовой пояс вручную.'
+      language_label: 'Язык'
+
+  categories:
+    index:
+      title: 'Трекер'
+      categories: 'Категории'
+      top_level_categories: 'Категории верхнего уровня'
+      total_time_for_today: 'Общее время за сегодня'
+      new_category: 'Добавить категорию'
+      create_a_new_category: 'Cоздайте вашу первую категорию'
+    category_core:
+      start: 'Включить'
+      view_details: 'Подробнее'
+    timeline:
+      today: 'Сегодня'
+      category: 'Категория'
+      start: 'Начало'
+      time: 'Время'
+    show:
+      category: 'Категория'
+      spent_over_time: 'За все время'
+      last_30_days: 'За последние 30 дней'
+      avg_daily_last_30_days: 'Ср. в день (за последние 30 дней)'
+      periods: 'Периоды'
+      all_periods: 'Все периоды'
+      date: 'Дата'
+      time: 'Время'
+    new:
+      title: 'Новая категория'
+    form:
+      name_label: 'Название'
+      name_placeholder: 'Книги, Спорт и т.д.'
+      parent_label: 'Родительская категория'
+      choose_color: 'Цвет категории...'
+    edit:
+      title: 'Редактирование категории'
+    create:
+      success: 'Категория успешно создана'
+    update:
+      success: 'Категория успешно обновлена'
+    destroy:
+      success: 'Категория успешно удалена'
+      error: 'Категория не удалена'
+
+  periods:
+    index:
+      title: 'Периоды'
+      periods_desc: 'Список всех ваших периодов'
+      new_period: 'Добавить период'
+      category: 'Категория'
+      period: 'Период'
+      ratio: 'Доля'
+      duration: 'Время'
+      long_period_explanation: "Этот период занимает больше одного дня, поэтому он показан в каждом дне, в который попадает. Однако в дне показано время периода попавшее в этот день, а не время всего периода."
+      ratio: 'Доля: '
+    new:
+      title: 'Новый период'
+    edit:
+      title: 'Редактирование периода'
+    form:
+      start: 'Начало'
+      end: 'Конец'
+      blank_end_hint: "Оставьте пустым, если период активен.<br/>Примечание: Не должно быть другого активного периода."
+      parent_category: 'Родительская категория'
+      choose_category: 'Выберите категорию...'
+    create:
+      start_date_is_missing: 'Начало периода не может быть пустым'
+      end_date_is_missing: 'Окончание периода не может быть пустым'
+      period_success: 'Период успешно создан'
+    update:
+      start_date_is_missing: 'Начало периода не может быть пустым'
+      end_date_is_missing: 'Окончание периода не может быть пустым'
+      period_success: 'Период успешно обновлен'
+    destroy:
+      period_success: 'Период успешно удален'
+
+  analytics:
+    index:
+      title: 'Аналитика'
+      month_activity: 'Месячная активность'
+
+  public:
+    index:
+      opensourced: 'открытый исходный код'
+      explore_github: 'Посмотреть на GitHub'
+      time_tracking: 'Трекер времени'
+      for_any_task: 'для любых задач'
+      organize_your_tasks: 'Организуйте свои задачи по категориям, погрузитесь в аналитику для получения более глубокой информации и наслаждайтесь постоянно улучшающимся набором функций.'
+      unlock_full_teatures: 'Сервис полностью бесплатный. Не теряйте времени, начните пользоваться прямо сейчас.'
+
+  shared:
+    confirmation_modal:
+      delete_message: 'Вы действительно хотите удалить?'
+    error_messages:
+      you_have_errors: 'В форме есть ошибки:'

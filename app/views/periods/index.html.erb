@@ -1,9 +1,9 @@
 <div class="sm:flex sm:items-center">
   <div class="sm:flex-auto">
-    <p class="mt-2 text-sm text-gray-700">A list of all the periods</p>
+    <p class="mt-2 text-sm text-gray-700"><%= t('.periods_desc') %></p>
   </div>
   <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-    <%= link_to 'New period', new_period_path, class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto' %>
+    <%= link_to t('.new_period'), new_period_path, class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto' %>
   </div>
 </div>
 <div data-controller="confirmation" class="mt-8 flex flex-col">
@@ -13,10 +13,10 @@
         <table id="periods_list" class="min-w-full">
           <thead class="bg-white">
             <tr>
-              <th scope="col" width="20%" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Category</th>
-              <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Period</th>
-              <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Ratio</th>
-              <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Duration</th>
+              <th scope="col" width="20%" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%= t('.category')%></th>
+              <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t('.period') %></th>
+              <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t('.ratio') %></th>
+              <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t('.duration')%></th>
               <th scope="col" width="20%" class="px-3 py-3.5 text-sm font-semibold text-gray-900"></th>
             </tr>
           </thead>
@@ -34,7 +34,6 @@
                 <tr class="border-t border-gray-200">
                   <td class="relative py-3 pl-4 pr-3 text-xs text-gray-900 sm:pl-6">
                     <div class="flex items-center text-left">
-                      <!-- <div class="absolute w-2 h-full top-0 left-0 <%= period.category.color %>"></div> -->
                       <%= period.category.name %>
                       <% if period.end.blank? %>
                         <div class="neomorph-spinner ml-2">
@@ -48,8 +47,7 @@
                         <div class="group relative">
                           <%= inline_svg('icons/arrow-3.svg', class: 'w-3 h-3 fill-current text-red-400 ml-2') %>
                           <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 left-0 bottom-6 w-60 opacity-0 transition-opacity group-hover:opacity-100">
-                            This period spans more than one day and is therefore listed under each relevant date.<br/>
-                            The time accounted for is only within the confines of the specific day's duration.
+                            <%= t('.long_period_explanation') %>
                           </span>
                         </div>
                       <% end %>
@@ -65,7 +63,7 @@
                         class="group absolute h-full bg-purple-600 rounded-full"
                         style="width: <%= period.end ? daily_period_ratio(date, period, periods) : 0 %>%;">
                           <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 bottom-3 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
-                            Ratio: <%= period.end ? daily_period_ratio(date, period, periods) : 0 %>%
+                            <%= t('.ratio') %><%= period.end ? daily_period_ratio(date, period, periods) : 0 %>%
                           </span>
                         </div>
                       </div>
@@ -86,18 +84,17 @@
                       <div class="absolute z-50 right-0 top-6 px-2 max-w-xs sm:px-0 bg-white shadow-lg border border-gray-200 rounded-lg hidden" data-dropdown-target="menu">
                         <ul class="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto">
                           <li class="p-2">
-                            <h2 class="sr-only">Quick actions</h2>
                             <ul class="text-xs text-gray-700">
                               <%= link_to edit_period_path(period) do %>
                                 <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
                                   <%= inline_svg('icons/edit.svg', class: 'w-4 h-4 fill-current text-gray-400') %>
-                                  <span class="ml-2 truncate">Edit</span>
+                                  <span class="ml-2 truncate"><%= t(:edit) %></span>
                                 </li>
                               <% end %>
                               <%= button_to period_path(period), method: :delete, data: { action: "click->confirmation#open click->dropdown#toggleMenu" } do %>
                                 <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
                                   <%= inline_svg('icons/trash.svg', class: 'w-4 h-4 fill-current text-red-400') %>
-                                  <span class="ml-2 truncate text-red-500">Delete</span>
+                                  <span class="ml-2 truncate text-red-500"><%= t(:delete) %></span>
                                 </li>
                               <% end %>
                             </ul>

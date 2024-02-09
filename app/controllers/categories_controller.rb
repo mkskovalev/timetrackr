@@ -1,9 +1,10 @@
 class CategoriesController < ApplicationController
   before_action :find_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_title, only: [:index, :new, :edit]
+  
   include Authorizable
 
   def index
-    @page_title = 'Tracker'
     @categories = current_user.categories.includes(children: :periods).where(parent_id: nil)
     @unfinished_period = Category.any_unfinished_periods_for_user(current_user)
     @categories_for_timeline = current_user.categories_for_timeline
@@ -14,7 +15,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @page_title = "Category #{@category.name}"
+    @page_title = "#{ t('.category') } #{ @category.name }"
     @periods_by_day = ChartDataService.aggregate_periods_by_days(@category, 14)
     @total_time_last_30_days = CategoriesAnalyticsService.total_time_last_30_days(@category)
     @time_difference = CategoriesAnalyticsService.calculate_time_difference(@category)
@@ -26,7 +27,6 @@ class CategoriesController < ApplicationController
   end
 
   def new
-    @page_title = 'New category'
     @category = current_user.categories.new
     @categories = current_user.categories.left_outer_joins(:periods).where(periods: { id: nil })
   end
@@ -35,7 +35,7 @@ class CategoriesController < ApplicationController
     @category = current_user.categories.new(category_params)
 
     if @category.save
-      redirect_to tracker_path, notice: 'Category was successfully created'
+      redirect_to tracker_path, success: t('.success')
     else
       @categories = current_user.categories.left_outer_joins(:periods).where(periods: { id: nil })
       render :new
@@ -43,7 +43,6 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-    @page_title = 'Edit category'
     @categories = current_user.categories
                               .left_outer_joins(:periods)
                               .where(periods: { id: nil })
@@ -52,7 +51,7 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      redirect_to tracker_path, notice: 'Category was successfully updated'
+      redirect_to tracker_path, success: t('.success')
     else
       @categories = current_user.categories.left_outer_joins(:periods).where(periods: { id: nil })
       render :edit
@@ -63,9 +62,9 @@ class CategoriesController < ApplicationController
     return if @category.blank?
     
     if @category.destroy
-      redirect_to tracker_path, notice: 'Category was successfully deleted'
+      redirect_to tracker_path, success: t('.success')
     else
-      redirect_to tracker_path, alert: 'Category was not deleted'
+      redirect_to tracker_path, danger: t('.error')
     end
   end
 
@@ -77,5 +76,9 @@ class CategoriesController < ApplicationController
 
   def find_category
     @category = Category.find(params[:id])
+  end
+
+  def set_title
+    @page_title = t('.title')
   end
 end

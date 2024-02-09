@@ -1,29 +1,28 @@
 class PeriodsController < ApplicationController
   before_action :find_period, only: [:edit, :update, :destroy]
-  include Authorizable
+  before_action :set_title, only: [:index, :new, :edit]
   
-  def index
-    @page_title = 'Periods'
+  include Authorizable
 
+  def index
     periods = current_user.periods.order(start: :desc)
     @grouped_periods = Period.group_periods_by_date(periods)
   end
 
   def new
-    @page_title = 'Create period'
     @period = current_user.periods.new
     @categories = current_user.categories.select { |category| category.can_have_timer? }
   end
 
   def create
     if period_params[:start].blank?
-      flash[:alert] = 'Start date is missing'
+      flash[:alert] = t('.start_date_is_missing')
       redirect_to new_period_path
       return
     end
 
     if period_params[:end].blank? && Category.any_unfinished_periods_for_user(current_user)
-      flash[:alert] = 'End date is missing'
+      flash[:alert] = t('.end_date_is_missing')
       redirect_to new_period_path
       return
     end
@@ -34,27 +33,26 @@ class PeriodsController < ApplicationController
     end_time = period_params[:end].present? ? DateTime.parse(period_params[:end]) : 0
 
     if (start_time < end_time || end_time.zero?) && @period.save
-      redirect_to periods_path, notice: 'Period was successfully created'
+      redirect_to periods_path, success: t('.period_success')
     else
       @categories = current_user.categories.select { |category| category.can_have_timer? }
-      render :new, alert: 'Period was not created'
+      render :new
     end
   end
 
   def edit
-    @page_title = 'Edit period'
     @categories = current_user.categories.select { |category| category.can_have_timer? }
   end
 
   def update
     if period_params[:start].blank?
-      flash[:alert] = 'Start date is missing'
+      flash[:alert] = t('.start_date_is_missing')
       redirect_to edit_period_path
       return
     end
 
     if period_params[:end].blank? && current_user.periods.where(end: nil).first != @period
-      flash[:alert] = 'End date is missing'
+      flash[:alert] = t('.end_date_is_missing')
       redirect_to edit_period_path
       return
     end
@@ -63,10 +61,10 @@ class PeriodsController < ApplicationController
     end_time = period_params[:end].present? ? DateTime.parse(period_params[:end]) : 0
 
     if (start_time < end_time || end_time.zero?) && @period.update(period_params)
-      redirect_to periods_path, notice: 'Period successfully updated'
+      redirect_to periods_path, success: t('.period_success')
     else
       @categories = current_user.categories.select { |category| category.can_have_timer? }
-      render :edit, alert: 'Period was not updated'
+      render :edit
     end
   end
 
@@ -74,7 +72,7 @@ class PeriodsController < ApplicationController
     return if @period.blank?
     
     if @period.destroy
-      redirect_to periods_path, notice: 'Period was successfully deleted'
+      redirect_to periods_path, notice: t('.period_success')
     else
       redirect_to periods_path, alert: 'Period was not deleted'
     end
@@ -115,6 +113,10 @@ class PeriodsController < ApplicationController
 
   def find_period
     @period = Period.find(params[:id])
+  end
+
+  def set_title
+    @page_title = t('.title')
   end
 
   def prepare_and_respond

@@ -3,15 +3,15 @@ importScripts(
 );
 
 function onInstall(event) {
-  console.log('[Serviceworker]', "Installing!", event);
+  // console.log('[Serviceworker]', "Installing!", event);
 }
 
 function onActivate(event) {
-  console.log('[Serviceworker]', "Activating!", event);
+  // console.log('[Serviceworker]', "Activating!", event);
 }
 
 function onFetch(event) {
-  console.log('[Serviceworker]', "Fetching!", event);
+  // console.log('[Serviceworker]', "Fetching!", event);
 }
 
 self.addEventListener('install', onInstall);
@@ -31,7 +31,7 @@ registerRoute(
 // For every other page we use network first to ensure the most up-to-date resources
 registerRoute(
 ({request, url}) => request.destination === "document" ||
- request.destination === ""
+ request.destination === "",
  new NetworkFirst({
  cacheName: 'documents',
  })
