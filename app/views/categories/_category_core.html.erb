@@ -51,7 +51,7 @@
       <% if category.can_have_timer? && !unfinished_period %>
         <%= form_with url: '/periods/run', method: :post, data: { turbo_stream: true } do |f| %>
           <%= f.hidden_field :category_id, value: category.id, name: 'period[category_id]' %>
-          <%= button_tag type: 'submit', id: "category-start-#{category.id}", class: "flex items-center w-24 p-1 text-xs border-2 #{ adjust_color_intensity('border', category.color, 500) } #{ adjust_color_intensity('text', category.color, 500) } rounded-lg gap-1 justify-center" do %>
+          <%= button_tag type: 'submit', id: "category-start-#{category.id}", class: "flex items-center py-1 px-3 text-xs border-2 #{ adjust_color_intensity('border', category.color, 500) } #{ adjust_color_intensity('text', category.color, 500) } rounded-lg gap-1 justify-center" do %>
             <%= inline_svg('icons/play.svg', class: 'w-6 h-6') %>
             <%= t('.start') %>
           <% end %>
