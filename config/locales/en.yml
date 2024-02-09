@@ -117,7 +117,6 @@ en:
       ratio: 'Ratio'
       duration: 'Duration'
       long_period_explanation: "This period spans more than one day and is therefore listed under each relevant date. The time accounted for is only within the confines of the specific day's duration."
-      ratio: 'Ratio: '
     new:
       title: 'New period'
     edit:
