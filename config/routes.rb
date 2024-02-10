@@ -12,7 +12,12 @@ Rails.application.routes.draw do
 
   resource :profile, only: [:show, :update]
   resource :timeline, only: [:update]
-  resources :analytics, only: [:index]
+
+  resources :analytics, only: [:index] do
+    collection do
+      post '/get-chart-donut-time-categories-data', to: 'analytics#chart_donut_time_categories_data'
+    end
+  end
 
   resources :categories, except: :index
   get '/tracker', to: 'categories#index'
