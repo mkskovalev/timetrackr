@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_20_011526) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_29_103335) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,8 +20,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_20_011526) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.integer "level", default: 0
+    t.string "color", default: "bg-white"
     t.index ["parent_id"], name: "index_categories_on_parent_id"
     t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
+  create_table "data_conversions", force: :cascade do |t|
+    t.integer "version", default: 0
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "periods", force: :cascade do |t|
@@ -56,6 +65,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_20_011526) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "timezone"
+    t.string "locale", default: "en"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

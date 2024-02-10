@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TimeTrackr - efficient time tracking for improved productivity</title>
+    <title><%= t('.page_title') %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="TimeTrackr - an efficient time-tracking tool designed to enhance productivity and work efficiency.">
-    <meta name="keywords" content="time tracking, productivity, efficiency, task management, TimeTrackr">
+    <meta name="description" content="<%= t('.meta_description') %>">
+    <meta name="keywords" content="<%= t('.meta_keywords') %>">
 
-    <meta property="og:title" content="TimeTrackr - Efficient Time Tracking"/>
+    <meta property="og:title" content="<%= t('.meta_og_title') %>"/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://timetrackr.dev/"/>
     <meta property="og:image" content="<%= image_url('logo.png') %>"/>
-    <meta property="og:description" content="Improve your productivity with TimeTrackr."/>
+    <meta property="og:description" content="<%= t('.meta_og_description') %>"/>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
     
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
@@ -45,17 +45,24 @@
     <div class="relative bg-white" data-controller="menu">
       <div class="mx-auto">
         <div class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10 px-4 sm:px-6">
-          <div class="flex justify-start lg:w-0 lg:flex-1">
-            <a href="/" class="flex items-center">
+          <div class="flex items-center justify-start lg:w-0 lg:flex-1">
+            <%= link_to localized_root_path(locale: I18n.locale), class: "flex items-center" do %>
               <span class="sr-only">TimeTrackr</span>
               <%= inline_svg('peng.svg', class: 'w-10 h-10 text-black fill-current mr-2') %>
               <span class="text-2xl font-bold">TimeTrackr</span>
-            </a>
+            <% end %>
+
+            <div data-controller="language" class="select-wrapper">
+              <select data-action="change->language#change" data-language-target="select" class="ml-4 block w-full pl-2 pr-8 py-1.5 text-xs border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md">
+                <option value="en" <%= "selected" if I18n.locale == :en %>>English</option>
+                <option value="ru" <%= "selected" if I18n.locale == :ru %>>Русский</option>
+              </select>
+            </div>            
+
           </div>
           <div class="-mr-2 -my-2 md:hidden">
             <button type="button" data-action="click->menu#togglePublicMenu" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">
               <span class="sr-only">Open menu</span>
-              <!-- Heroicon name: outline/menu -->
               <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -63,8 +70,12 @@
           </div>
     
           <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <a href="<%= new_user_session_path %>" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"> Sign in </a>
-            <a href="<%= new_user_registration_path %>" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a>
+            <a href="<%= new_user_session_path %>" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+              <%= t(:sign_in) %>
+            </a>
+            <a href="<%= new_user_registration_path %>" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+              <%= t(:sign_up) %>
+            </a>
           </div>
         </div>
         <%= yield %>
@@ -84,7 +95,6 @@
               <div class="-mr-2">
                 <button type="button" data-action="click->menu#togglePublicMenu" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                   <span class="sr-only">Close menu</span>
-                  <!-- Heroicon name: outline/x -->
                   <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
@@ -94,10 +104,14 @@
           </div>
           <div class="py-6 px-5 space-y-6">
             <div>
-              <a href="<%= new_user_registration_path %>" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up </a>
+              <a href="<%= new_user_registration_path %>" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                <%= t(:sign_up) %>
+              </a>
               <p class="mt-6 text-center text-base font-medium text-gray-500">
-                Existing customer?
-                <a href="<%= new_user_session_path %>" class="text-indigo-600 hover:text-indigo-500"> Sign in </a>
+                <%= t(:existing_customer) %>
+                <a href="<%= new_user_session_path %>" class="text-indigo-600 hover:text-indigo-500">
+                  <%= t(:sign_in) %>
+                </a>
               </p>
             </div>
           </div>

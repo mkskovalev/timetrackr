@@ -1,17 +1,56 @@
+<% total_spent_time = t('.total_spent_time') %>
 
-<div class="mt-8 text-sm">Month activity</div>
-<div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
-  <div class="hidden lg:block col-span-1">
-    <%= render 'analytics/month_activity', month: Date.today << 3 %>
+<%= javascript_tag do %>
+  const colorsHex = <%= TAILWIND_COLORS_HEX.to_json.html_safe %>;
+  totalSpentTimeText = '<%= total_spent_time %>';
+<% end %>
+
+<div class="border border-gray-200 rounded-xl shadow-md mt-8">
+  <div class="flex flex-col space-y-1.5 p-6">
+    <h3 class="font-semibold leading-none tracking-tight"><%= t('.month_activity') %></h3>
+    <p class="text-sm text-gray-500"><%= t('.month_activity_description') %></p>
   </div>
-  <div class="hidden md:block col-span-1">
-    <%= render 'analytics/month_activity', month: Date.today << 2 %>
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-6 pt-0">
+    <div class="hidden lg:block col-span-1">
+      <%= render 'analytics/month_activity', month: Date.today << 3 %>
+    </div>
+    <div class="hidden md:block col-span-1">
+      <%= render 'analytics/month_activity', month: Date.today << 2 %>
+    </div>
+    <div class="hidden sm:block col-span-1">
+      <%= render 'analytics/month_activity', month: Date.today.prev_month %>
+    </div>
+    <div class="col-span-1">
+      <%= render 'analytics/month_activity', month: Date.today.beginning_of_month %>  
+    </div>
   </div>
-  <div class="hidden sm:block col-span-1">
-    <%= render 'analytics/month_activity', month: Date.today.prev_month %>
-  </div>
-  <div class="col-span-1">
-    <%= render 'analytics/month_activity', month: Date.today.beginning_of_month %>  
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3">
+  <div data-controller="chart-donut-time-categories" class="w-full col-span-3 md:col-span-1 bg-white border border-gray-200 rounded-xl shadow-md mt-4">
+    <div class="flex flex-col space-y-4 p-6">
+      <h3 class="font-semibold leading-none tracking-tight"><%= t('.time_by_categories') %></h3>
+      <div class="flex items-center gap-4">
+        <select id="location" 
+                name="location" 
+                class="block w-full pl-2 pr-4 py-1 text-xs text-gray-500 border-gray-200 rounded-md"
+                data-chart-donut-time-categories-target="timePeriod" 
+                data-action="change->chart-donut-time-categories#timePeriodChanged">
+          <option value="all_time" selected><%= t('.all_time') %></option>
+          <option value="last_30_days"><%= t('.last_30_days') %></option>
+          <option value="last_7_days"><%= t('.last_7_days') %></option>
+        </select>
+        <select id="location" 
+                name="location" 
+                class="block w-full pl-2 pr-4 py-1 text-xs text-gray-500 border-gray-200 rounded-md"
+                data-chart-donut-time-categories-target="categoryLevel" 
+                data-action="change->chart-donut-time-categories#categoryLevelChanged">
+          <option value="top_level" selected><%= t('.top_level') %></option>
+          <option value="lower_level"><%= t('.lower_level') %></option>
+        </select>
+      </div>
+    </div>
+    <div class="mb-6" id="donut-time-categories"></div>
   </div>
 </div>
 

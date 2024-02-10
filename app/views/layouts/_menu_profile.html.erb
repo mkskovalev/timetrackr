@@ -1,0 +1,13 @@
+<div class="shrink-0 flex bg-gray-700 p-4">
+  <a href="<%= profile_path %>" class="shrink-0 w-full group block">
+    <div class="flex items-center">
+      <div>
+        <%= inline_svg('icons/user-circle.svg', class: 'inline-block h-9 w-9 rounded-full text-white') %>
+      </div>
+      <div class="ml-3">
+        <p class="text-sm font-medium text-white"><%= current_user.email %></p>
+        <p class="text-xs font-medium text-gray-300 group-hover:text-gray-200"><%= t('.view_profile') %></p>
+      </div>
+    </div>
+  </a>
+</div>

@@ -9,16 +9,12 @@
   <div class="mx-auto">
     <section class="text-center">
       <div class="text-left">
-        <span class="text-2xs text-black border-b border-black py-1"><%= month.strftime("%B") %></span>
+        <span class="text-sm text-black border-b border-black py-1"><%= l(month, format: '%B').capitalize %></span>
       </div>
       <div class="mt-2 grid grid-cols-7 text-2xs leading-6 text-gray-400">
-        <div>Mon</div>
-        <div>Tue</div>
-        <div>Wed</div>
-        <div>Thu</div>
-        <div>Fri</div>
-        <div>Sat</div>
-        <div>Sun</div>
+        <% t('date.abbr_day_names').each do |day_name| %>
+          <div><%= day_name %></div>
+        <% end %>      
       </div>
       <div class="isolate mt-2 grid grid-cols-7 gap-px rounded-lg text-sm">
         <% days_in_previous_month.each do |day| %>
@@ -28,8 +24,12 @@
 
         <% days_in_month.each do |day| %>
           <% level = activity_level(activity_data, day) %>
-          <div class="py-1.5 bg-white" data-level="<%= activity_data[day] %>" data-max="<%= activity_data[:max] %>" data-percent="<%= activity_data[day] ? (activity_data[day] / activity_data[:max] * 100).round(0) : 0 %>">
+          <div class="relative group py-1.5 bg-white" data-level="<%= activity_data[day] %>" data-max="<%= activity_data[:max] %>" data-percent="<%= activity_data[day] && activity_data[:max] > 0 ? (activity_data[day] / activity_data[:max] * 100).round(0) : 0 %>">
             <div class="mx-auto flex h-5 w-5 items-center justify-center rounded-full bg-neutral-<%= level %>"></div>
+            <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 bottom-8 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100 text-left">
+              <div class="text-gray-400"><%= day %></div>
+              <%= CategoriesAnalyticsService.seconds_to_time_format(activity_data[day] || 0) %>
+            </span>
           </div>
         <% end %>
 

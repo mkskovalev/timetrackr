@@ -1,0 +1,13 @@
+<%= menu_item(t('.tracker'), tracker_path) do %>
+  <%= inline_svg('icons/timer.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
+<% end %>
+<%= menu_item(t('.periods'), periods_path) do %>
+  <%= inline_svg('icons/routing-2.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
+<% end %>
+<%= menu_item(t('.analytics'), analytics_path) do %>
+  <%= inline_svg('icons/chart-2.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
+<% end %>
+<%= button_to destroy_user_session_path, class: 'text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full', method: :delete do %>
+  <%= inline_svg('icons/logout.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
+  <%= t(:sign_out) %>
+<% end %>

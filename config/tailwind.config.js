@@ -1,6 +1,19 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors');
 
+const colorNames = [
+  'gray', 'neutral', 'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald',
+  'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose'
+];
+
+const shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+
+function generateColorClasses(type, colorNames) {
+  return colorNames.flatMap(color => 
+    shades.map(shade => `${type}-${color}-${shade}`)
+  );
+}
+
 module.exports = {
   content: [
     './public/*.html',
@@ -10,27 +23,9 @@ module.exports = {
   ],
   safelist: [
     // Backgrounds
-    'bg-green-100',
-    'bg-red-100',
-    'bg-gray-100',
-    'bg-neutral-50',
-    'bg-neutral-100',
-    'bg-neutral-200',
-    'bg-neutral-300',
-    'bg-neutral-400',
-    'bg-neutral-500',
-    'bg-neutral-600',
-    'bg-neutral-700',
-    'bg-neutral-800',
-    'bg-neutral-900',
-    'bg-neutral-950',
-    // Text colors
-    'text-green-500',
-    'text-red-500',
-    'text-gray-500',
-    'text-green-800',
-    'text-red-800',
-    'text-gray-800',
+    ...generateColorClasses('bg', colorNames),
+    ...generateColorClasses('text', colorNames),
+    ...generateColorClasses('border', colorNames),
   ],
   theme: {
     extend: {

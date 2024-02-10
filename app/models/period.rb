@@ -6,9 +6,12 @@ class Period < ApplicationRecord
   validate :no_overlap, on: [:create, :update]
 
   def formatted_time(total_seconds = nil)
-    return unless self.end
-    total_seconds = total_seconds || (self.end - self.start).to_i
+    total_seconds = total_seconds || (actual_end - self.start).to_i
     CategoriesAnalyticsService.seconds_to_time_format(total_seconds)
+  end
+
+  def actual_end
+    self.end || Time.now
   end
 
   def start_in_zone
@@ -20,26 +23,28 @@ class Period < ApplicationRecord
   end
 
   def duration
-    (self.end || Time.current) - start
+    actual_end - start
   end
 
-  def calculate_today_seconds
-    today = Time.now.utc.to_date
-    end_time = self.end ? self.end : Time.now.utc
-  
-    return 0 if self.start.to_date != today && end_time.to_date != today
-  
-    period_start = [self.start, today.to_time].max
-    period_end = [end_time, (today + 1).to_time].min
-  
-    (period_end - self.start).to_i
+  def total_seconds_for_date(date)
+    total_seconds = 0
+
+    day_start = date.beginning_of_day
+    day_end = date.end_of_day
+    
+    period_start = [self.start, day_start].max
+    period_end = [actual_end, day_end].min
+    
+    total_seconds += [period_end - period_start, 0].max if period_start < period_end
+
+    total_seconds
   end
 
   def self.expand_periods(periods)
     expanded_periods = []
   
     periods.each do |period|
-      (period.start.to_date..period.end.to_date).each do |date|
+      (period.start.to_date..period.actual_end.to_date).each do |date|
         expanded_periods << { date: date, period: period }
       end
     end
@@ -49,16 +54,20 @@ class Period < ApplicationRecord
 
   def self.group_periods_by_date(periods)
     grouped_periods = expand_periods(periods).group_by { |p| p[:date] }
-    grouped_periods.transform_values { |periods| periods.map { |p| p[:period] } }
+
+    # Sort the grouped periods by date in descending order (from most recent to oldest)
+    sorted_grouped_periods = grouped_periods.sort_by { |date, _periods| -date.to_time.to_i }.to_h
+
+    sorted_grouped_periods.transform_values { |periods| periods.map { |p| p[:period] } }
   end
 
   def formatted_time_for_date(date)
-    if self.start.to_date != date && self.end.to_date != date
+    if self.start.to_date != date && actual_end.to_date != date
       seconds = 60 * 60 * 24 # full day
     elsif self.start.to_date != date
-      seconds = (self.end - date.beginning_of_day).to_i
-    elsif self.end.to_date != date
-      seconds = (date.end_of_day - self.start).to_i
+      seconds = (actual_end - date.beginning_of_day).to_f
+    elsif actual_end.to_date != date
+      seconds = (date.end_of_day - self.start).to_f
     end
 
     formatted_time(seconds)
@@ -80,11 +89,9 @@ class Period < ApplicationRecord
 
   def no_overlap
     return if user.nil?
-    
-    period_end = self.end || Time.zone.now
 
     overlapping_periods = user.periods.where.not(id: id)
-    overlapping_periods = overlapping_periods.where('start < ? AND ("end" > ? OR "end" IS NULL)', period_end, self.start)
+    overlapping_periods = overlapping_periods.where('start < ? AND ("end" > ? OR "end" IS NULL)', actual_end, self.start)
 
     if overlapping_periods.exists?
       errors.add(:base, 'The period overlaps with an existing period')

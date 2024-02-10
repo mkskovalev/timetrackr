@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature 'Create category with specific parent eligibility', type: :feature do
-  given(:user) { FactoryBot.create(:user, :confirmed) }
-  given!(:eligible_parent_category) { FactoryBot.create(:category, user: user) }
-  given!(:ineligible_parent_category) { FactoryBot.create(:category, user: user) }
-  given!(:period) { FactoryBot.create(:period, category: ineligible_parent_category, user: user) }
+  given(:user) { create(:user, :confirmed) }
+  given!(:eligible_parent_category) { create(:category, user: user) }
+  given!(:ineligible_parent_category) { create(:category, user: user) }
+  given!(:period) { create(:period, category: ineligible_parent_category, user: user) }
 
   background do
     login_as(user, scope: :user)

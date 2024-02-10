@@ -17,6 +17,31 @@ module ChartDataService
     sorted_periods_by_day
   end
 
+  def self.categories_data_for_chart(user, time_period, category_level)
+    categories = if category_level == 'top_level'
+                   user.categories.where(parent_id: nil)
+                 else
+                  user.categories.select { |category| category.children.empty? }
+                 end
+
+    end_date = Time.current.end_of_day
+    start_date = case time_period
+                 when 'last_30_days'
+                   30.days.ago.beginning_of_day
+                 when 'last_7_days'
+                   7.days.ago.beginning_of_day
+                 else
+                  user.periods.minimum(:start)
+                 end
+
+    data = categories.map do |category|
+      total_seconds = CategoriesAnalyticsService.total_time_in_range(category, start_date, end_date)
+      { name: category.name, total_seconds: total_seconds, color: category.color }
+    end
+
+    data.to_json
+  end
+
   private
 
   def self.collect_all_periods(category, start_date, end_date)

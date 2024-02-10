@@ -15,10 +15,20 @@ module CategoriesAnalyticsService
     minutes = total_seconds.div(60) % 60
     seconds = (total_seconds % 60).round(0)
   
+    if seconds == 60
+      minutes += 1
+      seconds = 0
+    end
+  
+    if minutes == 60
+      hours += 1
+      minutes = 0
+    end
+  
     format_string = ''
-    format_string += "#{pad_with_leading_zero(hours)}h " if hours > 0
-    format_string += "#{pad_with_leading_zero(minutes)}m "
-    format_string += "#{pad_with_leading_zero(seconds)}s"
+    format_string += "#{pad_with_leading_zero(hours)}:" if hours > 0
+    format_string += "#{pad_with_leading_zero(minutes)}:"
+    format_string += "#{pad_with_leading_zero(seconds)}"
   
     format_string.strip
   end
@@ -45,8 +55,6 @@ module CategoriesAnalyticsService
     percentage_difference(avg_last_30_days, avg_previous_30_days)
   end
 
-  private
-
   def self.total_time_in_range(category, start_date, end_date)
     total_time = 0
     categories = [category] + category.descendants
@@ -61,6 +69,8 @@ module CategoriesAnalyticsService
 
     total_time
   end
+
+  private
 
   def self.valid_period?(period, start_date, end_date)
     period.end && period.end >= start_date && period.start <= end_date
