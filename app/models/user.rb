@@ -30,19 +30,27 @@ class User < ApplicationRecord
     total_hours = Array.new(24, 0)
     date_range = self.periods.pluck(:start, :end).flatten.minmax
     return total_hours if date_range.any?(&:nil?)
-  
+
     self.periods.find_each do |period|
       start_hour = period.start.hour
       end_hour = period.end.nil? ? Time.current.hour : period.end.hour
-  
+      end_hour += 24 if end_hour <= start_hour
+
       (start_hour...end_hour).each do |hour|
-        total_hours[hour] += 1
+        adjusted_hour = hour % 24
+        total_hours[adjusted_hour] += 1
       end
     end
   
     total_days = (date_range[1].to_date - date_range[0].to_date).to_i + 1
-    average_hours = total_hours.map { |hour| hour.to_f / total_days }
-  
+    average_hours = total_hours.map.with_index do |hour, index|
+      start_hour = index
+      end_hour = (index + 1) % 24
+      period = "#{start_hour === 0 ? ''}-#{end_hour}"
+      average_activity = (hour.to_f / total_days * 100).round(0)
+      [period, average_activity]
+    end.to_h
+
     average_hours
   end
   

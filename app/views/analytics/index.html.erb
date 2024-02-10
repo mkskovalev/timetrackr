@@ -15,13 +15,19 @@
   </div>
 </div>
 
-<div id="heat-chart" class="w-1/2"></div>
+<div class="grid grid-cols-3">
+  <div id="heat-chart" class="col-span-2"></div>
+</div>
+<%= current_user.average_hourly_activity.keys.to_json %>
+<%= current_user.average_hourly_activity.values.to_json %>
 
 <script>
+  const categories = <%= current_user.average_hourly_activity.keys.to_json.html_safe %>;
+  const series = <%= current_user.average_hourly_activity.values.to_json.html_safe %>;
   var options = {
       series: [{
-      name: 'ratio',
-      data: <%= current_user.average_hourly_activity %>,
+      name: 'Periods count',
+      data: series,
     }],
     chart: {
       height: 200,
@@ -38,7 +44,7 @@
       bar: {
         columnWidth: '90%',
         horizontal: false,
-        borderRadius: 7,
+        borderRadius: 5,
         dataLabels: {
           show: false,
         },
@@ -50,9 +56,9 @@
     
     xaxis: {
       labels: {
-        show: true,
+        show: false,
       },
-      categories: <%= (0..24).to_a %>,
+      categories: categories,
       position: 'bottom',
       axisBorder: {
         show: false
@@ -85,10 +91,9 @@
       },
       labels: {
         show: false,
-      }
-    
-    },
-    };
+      },
+    }
+  };
 
   var chart = new ApexCharts(document.querySelector("#heat-chart"), options);
   chart.render();
