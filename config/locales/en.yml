@@ -142,6 +142,13 @@ en:
     index:
       title: 'Analytics'
       month_activity: 'Month activity'
+      month_activity_description: 'The darker the color, the more active the day.'
+      time_by_categories: 'Spent time by category'
+      all_time: 'All time'
+      last_30_days: 'Last 30 days'
+      last_7_days: 'Last 7 days'
+      top_level: 'Top-level'
+      lower_level: 'Lower-level'
 
   public:
     index:

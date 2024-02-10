@@ -55,8 +55,6 @@ module CategoriesAnalyticsService
     percentage_difference(avg_last_30_days, avg_previous_30_days)
   end
 
-  private
-
   def self.total_time_in_range(category, start_date, end_date)
     total_time = 0
     categories = [category] + category.descendants
@@ -71,6 +69,8 @@ module CategoriesAnalyticsService
 
     total_time
   end
+
+  private
 
   def self.valid_period?(period, start_date, end_date)
     period.end && period.end >= start_date && period.start <= end_date

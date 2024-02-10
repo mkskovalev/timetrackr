@@ -144,6 +144,13 @@ ru:
     index:
       title: 'Аналитика'
       month_activity: 'Месячная активность'
+      month_activity_description: 'Чем темнее, тем более активный день.'
+      time_by_categories: 'Время по категориям'
+      all_time: 'Всё время'
+      last_30_days: 'Последние 30 дней'
+      last_7_days: 'Последние 7 дней'
+      top_level: 'Верхний уровень'
+      lower_level: 'Нижний уровень'
 
   public:
     index:
