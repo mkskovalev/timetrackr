@@ -70,6 +70,10 @@ module CategoriesAnalyticsService
     total_time
   end
 
+  def self.pad_with_leading_zero(number)
+    number >= 10 ? number.to_s : "0#{number}"
+  end
+  
   private
 
   def self.valid_period?(period, start_date, end_date)
@@ -87,9 +91,5 @@ module CategoriesAnalyticsService
     return 0 if previous_period.zero?
   
     ((current_period - previous_period) / previous_period * 100).round(0)
-  end
-
-  def self.pad_with_leading_zero(number)
-    number >= 10 ? number.to_s : "0#{number}"
   end
 end

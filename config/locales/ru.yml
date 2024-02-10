@@ -152,6 +152,9 @@ ru:
       top_level: 'Верхний уровень'
       lower_level: 'Нижний уровень'
       total_spent_time: 'суммарное время'
+      hourly_activity: 'Почасовая активность'
+      hourly_activity_description: 'Показывает в какое время суток вы наиболее активны.'
+      periods_count: 'Кол-во периодов'
 
   public:
     index:

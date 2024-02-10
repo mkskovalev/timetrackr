@@ -150,6 +150,10 @@ en:
       top_level: 'Top-level'
       lower_level: 'Lower-level'
       total_spent_time: 'total spent time'
+      hourly_activity: 'Hourly Activity'
+      hourly_activity_description: 'Shows what times of the day you are most active.'
+      periods_count: 'Periods count'
+
 
   public:
     index:
