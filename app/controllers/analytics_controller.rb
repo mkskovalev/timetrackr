@@ -8,12 +8,21 @@ class AnalyticsController < ApplicationController
   def chart_donut_time_categories_data
     time_period = params[:timePeriod]
     category_level = params[:categoryLevel]
-
-    puts time_period
-    puts category_level
-
     chart_data = ChartDataService.categories_data_for_chart(current_user, time_period, category_level)
 
-    render json: chart_data
+    respond_to do |format|
+      format.json { render json: chart_data }
+    end
+  end
+
+  def chart_bar_hourly_activity_data
+    time_period = params[:timePeriod]
+    chart_data = ChartDataService.average_hourly_activity(current_user, time_period)
+    categories = chart_data.keys
+    series = chart_data.values
+
+    respond_to do |format|
+      format.json { render json: { categories: categories, series: series } }
+    end
   end
 end

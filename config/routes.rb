@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :analytics, only: [:index] do
     collection do
       post '/get-chart-donut-time-categories-data', to: 'analytics#chart_donut_time_categories_data'
+      post '/get-chart-bar-hourly-activity-data', to: 'analytics#chart_bar_hourly_activity_data'
     end
   end
 
