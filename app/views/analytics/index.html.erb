@@ -1,5 +1,8 @@
+<% total_spent_time = t('.total_spent_time') %>
+
 <%= javascript_tag do %>
   const colorsHex = <%= TAILWIND_COLORS_HEX.to_json.html_safe %>;
+  totalSpentTimeText = '<%= total_spent_time %>';
 <% end %>
 
 <div class="border border-gray-200 rounded-xl shadow-md mt-8">

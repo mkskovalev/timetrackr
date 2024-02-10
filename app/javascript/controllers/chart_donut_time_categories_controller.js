@@ -109,7 +109,7 @@ export default class extends Controller {
               total: {
                 showAlways: true,
                 show: true,
-                label: "total spent time",
+                label: totalSpentTimeText,
                 fontFamily: "Helvetica, Arial, sans-serif",
                 formatter: function (w) {
                   const sum = w.globals.seriesTotals.reduce((a, b) => {

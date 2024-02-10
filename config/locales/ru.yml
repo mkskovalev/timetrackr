@@ -151,6 +151,7 @@ ru:
       last_7_days: 'Последние 7 дней'
       top_level: 'Верхний уровень'
       lower_level: 'Нижний уровень'
+      total_spent_time: 'суммарное время'
 
   public:
     index:
