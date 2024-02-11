@@ -14,6 +14,8 @@ The [TimeTrackr](https://timetrackr.dev/) is a powerful time management tool bui
 - **Time Tracking:** Start and stop timers for tasks, accurately recording the time spent on each. Pause and resume timers as needed.
 
 - **Statistics:** Gain insights into your time management habits with comprehensive statistics. View time distribution by category, task, or date range.
+  
+- **Goals:** Define clear objectives with custom goals to improve focus and productivity. Set goals for daily, weekly, or monthly achievements to stay on track and measure progress over time.
 
 - [Soon] **Reminders:** Set reminders and notifications to help you stay on track with your tasks.
 
