@@ -1,0 +1,27 @@
+<div id="<%= dom_id goal %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Duration:</strong>
+    <%= goal.duration %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Schedule:</strong>
+    <%= goal.schedule %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= goal.user_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Category:</strong>
+    <%= goal.category_id %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this goal", goal, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this goal", edit_goal_path(goal), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
