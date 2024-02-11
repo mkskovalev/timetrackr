@@ -1,0 +1,26 @@
+<div class="mt-6">
+  <% if @goals.size > 0 %>
+    <%= link_to new_goal_path, class: 'inline-flex items-center py-1 pl-2 pr-3 text-xs border-2 border-purple-600 text-purple-600 rounded-lg gap-1 justify-center' do %>
+      <%= inline_svg('icons/add.svg', class: 'w-6 h-6 fill-current text-purple-600') %>
+      <%= t('.new_goal') %>
+    <% end %>
+  <% end %>
+</div>
+
+<% if @goals.size == 0 %>
+  <%= link_to new_goal_path, class: 'relative block w-full border-2 border-gray-300 border-dashed rounded-lg p-12 text-center hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' do %>
+  <%= inline_svg('icons/folder-plus.svg', class: 'w-12 h-12 stroke-gray-500 mx-auto') %>
+    <span class="mt-2 block text-sm font-medium text-gray-900"><%= t('.create_a_new_goal') %></span>
+    <div class="mt-4">
+      <div class="inline-flex items-center py-1 pl-2 pr-3 text-xs border-2 border-purple-600 text-purple-600 rounded-lg gap-1 justify-center">
+        <%= inline_svg('icons/add.svg', class: 'w-6 h-6 fill-current text-purple-600') %>
+        <%= t('.new_goal') %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div data-controller="confirmation" class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6 mt-8">
+    <%= render @goals %>
+    <%= render 'shared/confirmation_modal' %>
+  </div>
+<% end%>

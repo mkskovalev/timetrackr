@@ -16,6 +16,10 @@ ru:
   time:
     formats:
       long: "%A, %d %B %Y"
+    hours:
+      one: "%{count} час"
+      few: "%{count} часа"
+      many: "%{count} часов"
   date:
     formats:
       long: "%A, %d %B %Y"
@@ -33,21 +37,32 @@ ru:
   activerecord:
     models:
       category: "Категория"
+      goal: 'Цель'
     attributes:
       category:
         name: "Название"
+      goal:
+        duration: 'Время'
     errors:
       models:
         category:
           attributes:
             name:
               blank: "не может быть пустым"
+        goal:
+          attributes:
+            duration:
+              greater_than: "должно быть больше %{count}"
+      messages:
+        greater_than: "должно быть больше %{count}"
+        only_one_goal_per_category: "Возможно назначить только одну цель для категории"
 
   layouts:
     menu_items:
       tracker: 'Трекер'
       periods: 'Периоды'
       analytics: 'Аналитика'
+      goals: 'Цели'
     menu_profile:
       view_profile: 'Перейти в профиль'
     public:
@@ -60,6 +75,7 @@ ru:
   profiles:
     show:
       page_title: 'Профиль'
+      profile_success: 'Профиль успешно обновлен'
     general:
       general_settings: 'Общие настройки'
       update_notice: 'Обновите ваши основные настройки. Обратите внимание, что обновление вашего часового пояса может повлиять на корректность времени в вашем аккаунте.'
@@ -164,6 +180,37 @@ ru:
       for_any_task: 'для любых задач'
       organize_your_tasks: 'Организуйте свои задачи по категориям, погрузитесь в аналитику для получения более глубокой информации и наслаждайтесь постоянно улучшающимся набором функций.'
       unlock_full_teatures: 'Сервис полностью бесплатный. Не теряйте времени, начните пользоваться прямо сейчас.'
+
+  goals:
+    index:
+      title: 'Цели'
+      create_a_new_goal: 'Поставьте вашу первую цель'
+      new_goal: 'Добавить цель'
+    new:
+      title: 'Новая цель'
+    edit:
+      title: 'Редактирование цели'
+    form:
+      hours: 'часов'
+      minutes: 'минут'
+      daily: 'день'
+      weekly: 'неделю'
+      monthly: 'месяц'
+      i_want_to_spend: 'Я хочу уделять '
+      pretext_in: 'в '
+      pretext_on: 'на '
+    goal:
+      pretext_in: 'в '
+      minutes: 'мин'
+      daily: 'день'
+      weekly: 'неделю'
+      monthly: 'месяц'
+    create:
+      success: 'Цель успешно создана'
+    update:
+      success: 'Цель успешно обновлена'
+    destroy:
+      success: 'Цель успешно удалена'
 
   shared:
     confirmation_modal:

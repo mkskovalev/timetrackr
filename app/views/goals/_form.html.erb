@@ -1,0 +1,43 @@
+<%= form_with model: goal, method: method, data: { turbo: false } do |f| %>
+  <%= render 'shared/error_messages', resource: goal %>
+  <div class="md:flex items-center mt-8 grid grid-cols-1 bg-white border border-gray-200 rounded-xl shadow-md p-6">
+    <div class="flex items-center gap-4">
+
+      <%= t('.i_want_to_spend') %>
+
+      <div class="relative border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
+        <%= f.label :hours, t('.hours'), class: 'absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-400' %>
+        <%= f.number_field :hours, value: goal.hours ? goal.hours : nil, placeholder: '2', min: "0", step: "1", class: 'block w-16 border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm' %>
+      </div>
+    
+      <div class="relative border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
+        <%= f.label :minutes, t('.minutes'), class: 'absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-400' %>
+        <%= f.number_field :minutes, value: goal.minutes ? goal.minutes : nil, placeholder: '30', min: "0", max: "59", step: "1", class: 'block w-16 border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm' %>
+      </div>
+    </div>
+    <div class="flex items-center gap-4 mt-4 md:mt-0 md:ml-4">
+      <%= t('.pretext_in') %>
+
+      <div class="relative border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
+        <%= f.select :schedule, Goal::SCHEDULES.map { |schedule| [t(".#{schedule}"), schedule] }, {}, class: 'block w-44 border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm' %>
+      </div>
+    </div>
+    <div class="flex items-center gap-4 mt-4 md:mt-0 md:ml-4">
+      <%= t('.pretext_on') %>
+
+      <div class="relative border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
+        <%= f.select :category_id, options_from_collection_for_select(categories, :id, :name, goal.category ? goal.category.id : nil), {}, { class: 'block w-44 border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm', placeholder: t('.choose_category') } %>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <div class="pt-8">
+    <div class="flex">
+      <%= link_to t(:cancel), goals_path, class: 'bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
+      <%= f.submit btn_text, class: 'ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
+    </div>
+  </div>
+<% end %>

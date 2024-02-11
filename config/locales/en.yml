@@ -16,6 +16,9 @@ en:
   time:
     formats:
       long: "%A, %d %B %Y"
+    hours:
+      one: "%{count} hour"
+      other: "%{count} hours"
   date:
     formats:
       long: "%A, %d %B %Y"
@@ -31,21 +34,32 @@ en:
   activerecord:
     models:
       category: "Category"
+      goal: 'Goal'
     attributes:
       category:
         name: "Name"
+      goal:
+        duration: 'Duration'
     errors:
       models:
         category:
           attributes:
             name:
               blank: "can't be blank"
+        goal:
+          attributes:
+            duration:
+              greater_than: "must be greater than %{count}"
+      messages:
+        greater_than: "must be greater than %{count}"
+        only_one_goal_per_category: "You can only have one goal per category"
 
   layouts:
     menu_items:
       tracker: 'Tracker'
       periods: 'Periods'
       analytics: 'Analytics'
+      goals: 'Goals'
     menu_profile:
       view_profile: 'View profile'
     public:
@@ -58,6 +72,7 @@ en:
   profiles:
     show:
       page_title: 'Profile'
+      profile_success: 'Profile was successfully updated'
     general:
       general_settings: 'General settings'
       update_notice: 'Update your general settings. Please note that updating your time zone may affect the correct time in your account.'
@@ -154,7 +169,6 @@ en:
       hourly_activity_description: 'Shows what times of the day you are most active.'
       periods_count: 'Periods count'
 
-
   public:
     index:
       opensourced: 'opensourced'
@@ -163,6 +177,37 @@ en:
       for_any_task: 'for any task'
       organize_your_tasks: 'Organize your tasks into categories, dive into analytics for in-depth insights, and enjoy an ever-improving feature set.'
       unlock_full_teatures: 'Unlock full features for free and make the most of your time now.'
+
+  goals:
+    index:
+      title: 'Goals'
+      create_a_new_goal: 'Create a new goal'
+      new_goal: 'New goal'
+    new:
+      title: 'New goal'
+    edit:
+      title: 'Edit goal'
+    form:
+      hours: 'hours'
+      minutes: 'minutes'
+      daily: 'day'
+      weekly: 'week'
+      monthly: 'month'
+      i_want_to_spend: "I wan't to spend "
+      pretext_in: 'a '
+      pretext_on: 'on '
+    goal:
+      pretext_in: 'a '
+      minutes: 'min'
+      daily: 'day'
+      weekly: 'week'
+      monthly: 'month'
+    create:
+      success: 'Goal was successfully created'
+    update:
+      success: 'Goal was successfully updated'
+    destroy:
+      success: 'Goal was successfully deleted'
 
   shared:
     confirmation_modal:

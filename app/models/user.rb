@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   has_many :categories, dependent: :destroy
   has_many :periods, dependent: :destroy
+  has_many :goals, dependent: :destroy
 
   validates :locale, presence: true, 
                      inclusion: { in: I18n.available_locales.map(&:to_s) }
