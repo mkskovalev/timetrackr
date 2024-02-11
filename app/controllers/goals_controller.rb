@@ -3,6 +3,8 @@ class GoalsController < ApplicationController
   before_action :set_title, only: [:index, :new, :edit]
   before_action :set_categories, only: [:new, :edit, :create, :update]
 
+  include Authorizable
+
   def index
     @goals = current_user.goals.all
   end
