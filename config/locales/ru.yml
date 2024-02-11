@@ -19,7 +19,7 @@ ru:
     hours:
       one: "%{count} час"
       few: "%{count} часа"
-      other: "%{count} часов"
+      many: "%{count} часов"
   date:
     formats:
       long: "%A, %d %B %Y"
