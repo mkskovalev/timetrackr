@@ -6,7 +6,7 @@ class Goal < ApplicationRecord
 
   validates :duration, presence: true, numericality: { greater_than: 0 }
   validates :schedule, presence: true, inclusion: { in: SCHEDULES }
-  validates :category_id, uniqueness: { scope: :user_id, message: "You can only have one goal per category" }
+  validates :category_id, uniqueness: { scope: :user_id, message: I18n.t('activerecord.errors.messages.only_one_goal_per_category') }
 
   def hours
     duration / 60 if duration

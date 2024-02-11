@@ -7,13 +7,9 @@ class ProfilesController < ApplicationController
 
   def update
     if current_user.update(user_params)
-      flash[:notice] = 'Profile was successfully updated'
-      respond_to do |format|
-        format.turbo_stream
-        format.html { redirect_to profile_path }
-      end
+      redirect_to profile_path, success: I18n.t('profiles.show.profile_success')
     else
-      render :show, alert: 'Profile was not updated'
+      render :show
     end
   end
 

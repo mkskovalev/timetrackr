@@ -9,3 +9,15 @@
   font-size: 1.875rem;
   font-weight: 700;
 }
+
+svg.pie-chart {
+  --radius: 20;
+  --circumference: calc( var( --radius ) * 2 * 3.1415 );
+
+  transform: rotate(-90deg);
+  border-radius: 50%;
+
+  stroke-width: calc( var( --radius ) * 2 );
+  stroke-dasharray: calc( var(--circumference) * var(--fill-percent)/100 ) var(--circumference);
+  transition: stroke-dasharray 700ms ease;
+}

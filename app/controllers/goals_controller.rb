@@ -1,6 +1,7 @@
 class GoalsController < ApplicationController
   before_action :set_goal, only: [:show, :edit, :update, :destroy]
   before_action :set_title, only: [:index, :new, :edit]
+  before_action :set_categories, only: [:new, :edit, :create, :update]
 
   def index
     @goals = current_user.goals.all
@@ -11,11 +12,9 @@ class GoalsController < ApplicationController
 
   def new
     @goal = current_user.goals.new
-    @categories = current_user.categories.all
   end
 
   def edit
-    @categories = current_user.categories.all
   end
 
   def create
@@ -23,7 +22,7 @@ class GoalsController < ApplicationController
     @goal.duration = params[:goal][:hours].to_i * 60 + params[:goal][:minutes].to_i
 
     if @goal.save
-      redirect_to goal_url(@goal), notice: "Goal was successfully created."
+      redirect_to goals_path, success: t('.success')
     else
       render :new
     end
@@ -35,7 +34,7 @@ class GoalsController < ApplicationController
     total_duration = hours_to_minutes + minutes
 
     if @goal.update(goal_params.merge(duration: total_duration))
-      redirect_to goal_url(@goal), notice: "Goal was successfully updated."
+      redirect_to goals_path, success: t('.success')
     else
       render :edit
     end
@@ -43,7 +42,7 @@ class GoalsController < ApplicationController
 
   def destroy
     @goal.destroy!
-    redirect_to goals_url, notice: "Goal was successfully destroyed."
+    redirect_to goals_url, success: t('.success')
   end
 
   private
@@ -54,6 +53,10 @@ class GoalsController < ApplicationController
 
   def set_goal
     @goal = current_user.goals.find(params[:id])
+  end
+
+  def set_categories
+    @categories = current_user.categories.all
   end
 
   def set_title

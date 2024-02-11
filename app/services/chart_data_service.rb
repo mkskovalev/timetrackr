@@ -66,9 +66,37 @@ module ChartDataService
   
     average_hours
   end
-  
+
+  def self.completion_percentage(goal)
+    schedule = goal.schedule
+    start_date, end_date = period_for_schedule(schedule)
+
+    total_seconds = CategoriesAnalyticsService.total_time_in_range(goal.category, start_date, end_date)
+    total_minutes = total_seconds.to_f / 60
+
+    percentage = ((total_minutes / goal.duration) * 100).round(0)
+    percentage > 100 ? 100 : percentage
+  end
 
   private
+
+  def self.period_for_schedule(schedule)
+    case schedule
+    when 'daily'
+      start_date = Time.zone.now.beginning_of_day
+      end_date = Time.zone.now.end_of_day
+    when 'weekly'
+      start_date = Time.zone.now.beginning_of_week
+      end_date = Time.zone.now.end_of_week
+    when 'monthly'
+      start_date = Time.zone.now.beginning_of_month
+      end_date = Time.zone.now.end_of_month
+    else
+      raise ArgumentError, "Unknown schedule: #{schedule}"
+    end
+
+    [start_date, end_date]
+  end
 
   def self.collect_all_periods(category, start_date, end_date)
     periods = []

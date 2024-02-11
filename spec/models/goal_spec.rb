@@ -18,7 +18,7 @@ RSpec.describe Goal, type: :model do
     subject { FactoryBot.create(:goal, user: user) }
 
     it 'validates uniqueness of category_id scoped to user_id with a custom message' do
-      should validate_uniqueness_of(:category_id).scoped_to(:user_id).with_message("You can only have one goal per category")
+      should validate_uniqueness_of(:category_id).scoped_to(:user_id).with_message(I18n.t('activerecord.errors.messages.only_one_goal_per_category'))
     end
   end
 

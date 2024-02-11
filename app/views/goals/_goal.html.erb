@@ -1,27 +1,53 @@
-<div id="<%= dom_id goal %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Duration:</strong>
-    <%= goal.duration %>
-  </p>
+<% completion = ChartDataService.completion_percentage(goal) %>
+<div class="relative col-span-1 border border-gray-200 shadow-md rounded-xl pl-6 pr-4 py-3">
+  <div class="absolute -top-4 left-5 -mt-px inline-block px-1 bg-white text-lg font-semibold text-black tracking-tight">
+    <%= goal.category.name %>
+  </div>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Schedule:</strong>
-    <%= goal.schedule %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= goal.user_id %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Category:</strong>
-    <%= goal.category_id %>
-  </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this goal", goal, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this goal", edit_goal_path(goal), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+  <div class="absolute top-0 left-0 w-3 h-full rounded-l-xl <%= goal.category.color %>"></div>
+  
+  <div class="flex items-center gap-4 mt-2 justify-between">
+    <div class="text-sm text-gray-700">
+      <%= goal.hours > 0 ? "#{ t('time.hours', count: goal.hours) } " : '' %>
+      <%= goal.minutes > 0 ? "#{ goal.minutes } #{ t('.minutes') } " : '' %>
+      <%= "#{ t('.pretext_in') } " %>
+      <%= t(".#{goal.schedule}") %>
+    </div>
+    <div class="flex items-center gap-2">
+      <div class="relative">
+        <svg style="--fill-percent:<%= completion %>" class="pie-chart w-14 fill-gray-200 stroke-black" viewBox="0 0 20 20">
+          <circle r="20" cx="10" cy="10" />
+        </svg>
+        <div class="absolute w-10 h-10 bg-white rounded-full top-2 left-2 text-xs font-semibold flex items-center justify-center">
+          <%= completion %>%
+        </div>
+      </div>
+      <div class="relative flex items-center justify-end" data-controller="dropdown">
+        <button type="button" class="text-gray-500 group bg-white rounded-md inline-flex items-center" aria-expanded="false" data-action="click->dropdown#toggleMenu">
+          <%= inline_svg('icons/more-square.svg', class: 'w-5 h-5 fill-current text-gray-400') %>
+        </button>
+    
+        <div class="absolute z-50 right-0 top-6 px-2 max-w-xs sm:px-0 bg-white shadow-lg border border-gray-200 rounded-lg hidden" data-dropdown-target="menu">
+          <ul class="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto">
+            <li class="p-2">
+              <ul class="text-xs text-gray-700">
+                <%= link_to edit_goal_path(goal) do %>
+                  <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
+                    <%= inline_svg('icons/edit.svg', class: 'w-4 h-4 fill-current text-gray-400') %>
+                    <span class="ml-2 truncate"><%= t(:edit) %></span>
+                  </li>
+                <% end %>
+                <%= button_to goal_path(goal), method: :delete, data: { action: "click->confirmation#open click->dropdown#toggleMenu" } do %>
+                  <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
+                    <%= inline_svg('icons/trash.svg', class: 'w-4 h-4 fill-current text-red-400') %>
+                    <span class="ml-2 truncate text-red-500"><%= t(:delete) %></span>
+                  </li>
+                <% end %>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
