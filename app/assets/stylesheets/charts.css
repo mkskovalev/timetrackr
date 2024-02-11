@@ -1,0 +1,11 @@
+.apexcharts-canvas .apexcharts-datalabels-group .apexcharts-text.apexcharts-datalabel-label {
+  fill: #6b7280!important;
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.apexcharts-datalabels-group .apexcharts-text.apexcharts-datalabel-value {
+  fill: #111827!important;
+  font-size: 1.875rem;
+  font-weight: 700;
+}

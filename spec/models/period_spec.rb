@@ -25,4 +25,10 @@ RSpec.describe Period, type: :model do
       expect(non_overlapping_period).to be_valid
     end
   end
+
+  describe 'factory' do
+    it 'has a valid factory' do
+      expect(build(:period)).to be_valid
+    end
+  end
 end
