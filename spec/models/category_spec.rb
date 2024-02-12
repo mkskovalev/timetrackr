@@ -6,7 +6,7 @@ RSpec.describe Category, type: :model do
     it { should belong_to(:parent).class_name('Category').optional }
     it { should have_many(:children).class_name('Category').with_foreign_key('parent_id').dependent(:destroy) }
     it { should have_many(:periods).dependent(:destroy) }
-    it { should have_many(:goals).dependent(:destroy) }
+    it { should have_one(:goal).dependent(:destroy) }
   end
 
   describe 'validations' do
