@@ -17,7 +17,9 @@
       </div>
       <%= render_categories(category.children, unfinished_period) if category.children.any? %>
     <% elsif category.level === 1 %>
-      <%= render 'categories/category_core', category: category, period: active_period_by_category(category), unfinished_period: unfinished_period %>
+      <div class="mt-6">
+        <%= render 'categories/category_core', category: category, period: active_period_by_category(category), unfinished_period: unfinished_period %>
+      </div>
     <% else %>
       <%= render 'categories/category_core', category: category, period: active_period_by_category(category), unfinished_period: unfinished_period %>
       <div class="ml-6 mt-2">
