@@ -12,6 +12,7 @@ en:
   cancel: 'Cancel'
   access_denied: "Access denied"
   existing_customer: 'Existing customer?'
+  minutes: 'min'
 
   time:
     formats:
@@ -84,13 +85,12 @@ en:
     index:
       title: 'Tracker'
       categories: 'Categories'
-      top_level_categories: 'Top-level categories'
-      total_time_for_today: 'Total time for today'
+      spent_today: 'spent today'
       new_category: 'New category'
       create_a_new_category: 'Create a new category'
     category_core:
-      start: 'Start'
-      view_details: 'View details'
+      start: 'start'
+      stop: 'stop'
     timeline:
       today: 'Today'
       category: 'Category'
@@ -121,6 +121,8 @@ en:
     destroy:
       success: 'Category was successfully deleted'
       error: 'Category was not deleted'
+    more_dropdown_btn:
+      view_details: 'View details'
 
   periods:
     index:

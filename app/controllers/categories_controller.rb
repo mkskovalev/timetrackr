@@ -11,7 +11,7 @@ class CategoriesController < ApplicationController
 
     total_seconds_today = current_user.periods.sum { |period| period.total_seconds_for_date(Time.now.to_date) }
 
-    @total_time_for_today = CategoriesAnalyticsService.seconds_to_time_format(total_seconds_today)
+    @total_time_for_today = CategoriesAnalyticsService.seconds_to_time_format(total_seconds_today, true)
   end
 
   def show

@@ -10,7 +10,7 @@ module CategoriesAnalyticsService
     percentage_difference(last_30_days, previous_30_days)
   end
 
-  def self.seconds_to_time_format(total_seconds)
+  def self.seconds_to_time_format(total_seconds, long = false)
     hours = total_seconds.div(3600)
     minutes = total_seconds.div(60) % 60
     seconds = (total_seconds % 60).round(0)
@@ -26,9 +26,15 @@ module CategoriesAnalyticsService
     end
   
     format_string = ''
-    format_string += "#{pad_with_leading_zero(hours)}:" if hours > 0
-    format_string += "#{pad_with_leading_zero(minutes)}:"
-    format_string += "#{pad_with_leading_zero(seconds)}"
+
+    if long
+      format_string += hours > 0 ? "#{ I18n.t('time.hours', count: hours) } " : ''
+      format_string += minutes > 0 ? "#{ minutes } #{ I18n.t(:minutes) } " : ''
+    else
+      format_string += "#{pad_with_leading_zero(hours)}:" if hours > 0
+      format_string += "#{pad_with_leading_zero(minutes)}:"
+      format_string += "#{pad_with_leading_zero(seconds)}"
+    end
   
     format_string.strip
   end

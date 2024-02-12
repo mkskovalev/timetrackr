@@ -30,7 +30,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Raleway', 'sans-serif'],
       },
       colors: {
         green: colors.emerald,

@@ -11,6 +11,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
 
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.css" rel="stylesheet">
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -80,7 +81,7 @@
             </svg>
           </button>
         </div>
-        <main class="flex-1 <%= 'bg-gray-100' if current_page?(periods_path) %>">
+        <main class="flex-1 <%= 'bg-gray-100' if current_page?(periods_path) || current_page?(tracker_path) %>">
           <div class="py-6">
             <div class="max-w-7xl px-4 sm:px-6 lg:px-8">
               <h1 class="text-2xl font-semibold text-gray-900"><%= @page_title %></h1>
