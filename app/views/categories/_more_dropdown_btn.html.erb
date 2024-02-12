@@ -1,0 +1,30 @@
+<div class="relative flex items-center" data-controller="dropdown">
+  <button type="button" class="text-gray-500 group rounded-md inline-flex items-center pl-2" aria-expanded="false" data-action="click->dropdown#toggleMenu">
+    <%= inline_svg('icons/ellipsis-vertical.svg', class: "w-6 h-6 fill-current text-black") %>
+  </button>
+
+  <div class="absolute z-50 right-0 top-6 px-2 max-w-xs sm:px-0 bg-white shadow-lg border border-gray-200 rounded-lg hidden" data-dropdown-target="menu">
+    <ul class="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto">
+      <li class="p-2">
+        <ul class="text-xs text-gray-700">
+          <%= link_to category_path(category) do %>
+            <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
+              <%= inline_svg('icons/eye.svg', class: 'w-4 h-4 fill-current text-gray-400') %>
+              <span class="ml-2 flex-auto truncate"><%= t('.view_details') %></span>
+            </li>
+          <% end %>
+          <%= link_to edit_category_path(category) do %>
+            <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
+              <%= inline_svg('icons/edit.svg', class: 'w-4 h-4 fill-current text-gray-400') %>
+              <span class="ml-2 flex-auto truncate"><%= t(:edit) %></span>
+            </li>
+          <% end %>
+          <%= button_to category_path(category), method: :delete, data: { action: "click->confirmation#open click->dropdown#toggleMenu" }, class: 'group flex w-full text-left cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100' do %>
+              <%= inline_svg('icons/trash.svg', class: 'w-4 h-4 fill-current text-red-400') %>
+              <span class="ml-2 flex-auto truncate text-red-500"><%= t(:delete) %></span>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,92 +1,40 @@
-<div class="relative flex items-center justify-between p-3 h-14 rounded-lg <%= "#{category.color} #{TEXT_COLORS[category.color]}" %> border border-gray-200 <%= 'tree_label' if category.parent %>" id="category-card-<%= category.id %>">
-  <div class="flex items-center justify-center">
-    <% unless category.can_have_timer? %>
-      <div class="w-10">
-        <div class="number-square w-8 h-8 rounded-lg <%= adjust_color_intensity('bg', category.color, 200) %> flex justify-center items-center">
-          <div class="<%= category.color %> <%= adjust_color_intensity('text', category.color, 500) %> text-xs rounded-lg h-7 w-7 flex justify-center items-center border-2 <%= adjust_color_intensity('border', category.color, 400) %>">
-            <%= category.children.count %>
+<div class="relative bg-white rounded p-2" id="category-card-<%= category.id %>">
+  <div class="absolute top-0 left-0 w-2 h-full rounded-l <%= category.color == 'bg-white' ? 'bg-gray-200' : category.color %>"></div>
+  <div class="flex items-center justify-between">
+    <div class="ml-4">
+      <div class="text-md font-medium text-black leading-4">
+        <%= link_to category.name, category_path(category) %>
+        <div class="text-gray-500 text-sm font-normal"><%= category.formatted_total_time %></div>
+      </div>
+    </div>
+    <div class="flex items-center">
+      <% if period %>
+        <%= form_with url: '/periods/stop', method: :post, data: { turbo_stream: true }, class: "flex items-center p-1 text-sm gap-1 justify-between" do |f| %>
+          <%= f.hidden_field :category_id, name: 'period[category_id]', value: category.id %>
+          <%= f.hidden_field :start, name: 'period[start]', value: period.start_in_zone, id: 'period_start' %>
+          <%= f.hidden_field :period_id, value: period.id %>
+          
+          <div data-controller="timer" class="flex items-center mr-2 text-gray-400">
+            <span data-timer-target="output">00:00:00</span>
           </div>
-        </div>
-      </div>
-    <% end %>
-    <div class="flex items-center ml-2">
-      <div class="text-md text-left"><%= link_to category.name, category_path(category) %></div>
-    </div>
-  </div>
-  <div class="flex justify-end items-center gap-4">
-    <% if category.can_have_timer? %>
-      <div class="flex items-center" data-popover-target="popover-periods-<%= category.id %>">
-        <%= inline_svg('icons/calendar.svg', class: "w-4 h-4 fill-current #{ adjust_color_intensity('text', category.color, 300) }") %>
-        <span class="text-xs <%= category.color %> ml-1"><%= category.periods.count %></span>
-      </div>
-    <% end %>
-    <div class="flex items-center" data-popover-target="popover-periods-<%= category.id %>">
-      <%= inline_svg('icons/clock.svg', class: "w-4 h-4 fill-current #{ adjust_color_intensity('text', category.color, 300) }") %>
-      <span class="text-xs <%= category.color %> ml-1"><%= category.formatted_total_time %></span>
-    </div>
-    <% if period %>
-      <%= form_with url: '/periods/stop', method: :post, data: { turbo_stream: true }, class: "relative flex items-center p-1 text-xs border-2 #{ adjust_color_intensity('border', category.color, 500) } #{ adjust_color_intensity('border', category.color, 500) } rounded-lg gap-1 justify-between" do |f| %>
-        <%= f.hidden_field :category_id, name: 'period[category_id]', value: category.id %>
-        <%= f.hidden_field :start, name: 'period[start]', value: period.start_in_zone, id: 'period_start' %>
-        <%= f.hidden_field :period_id, value: period.id %>
+          <%= button_tag type: 'submit', id: "category-stop-#{category.id}", class: 'flex items-center md:mx-2' do %>
+            <%= inline_svg('icons/stop-solid.svg', class: 'w-6 h-6 text-black') %>
+            <span class="text-sm ml-2 hidden md:block"><%= t('.stop') %></span>
+          <% end %>
 
-        <div class="mx-2">
-          <div class="neomorph-spinner">
-            <div class="<%= adjust_color_intensity('bg', category.color, 500) %>"></div>
-            <div class="<%= adjust_color_intensity('bg', category.color, 500) %>"></div>
-            <div class="<%= adjust_color_intensity('bg', category.color, 500) %>"></div>
-            <div class="<%= adjust_color_intensity('bg', category.color, 500) %>"></div>
-          </div>
-        </div>
-        
-        <div data-controller="timer" class="flex items-center">
-          <span data-timer-target="output">00:00:00</span>
-        </div>
-        <%= button_tag type: 'submit', id: "category-stop-#{category.id}" do %>
-          <%= inline_svg('icons/stop.svg', class: 'w-6 h-6') %>
         <% end %>
-
-      <% end %>
-    <% else %>
-      <% if category.can_have_timer? && !unfinished_period %>
-        <%= form_with url: '/periods/run', method: :post, data: { turbo_stream: true } do |f| %>
-          <%= f.hidden_field :category_id, value: category.id, name: 'period[category_id]' %>
-          <%= button_tag type: 'submit', id: "category-start-#{category.id}", class: "flex items-center py-1 px-3 text-xs border-2 #{ adjust_color_intensity('border', category.color, 500) } #{ adjust_color_intensity('text', category.color, 500) } rounded-lg gap-1 justify-center" do %>
-            <%= inline_svg('icons/play.svg', class: 'w-6 h-6') %>
-            <%= t('.start') %>
+      <% else %>
+        <% if category.can_have_timer? && !unfinished_period %>
+          <%= form_with url: '/periods/run', method: :post, data: { turbo_stream: true } do |f| %>
+            <%= f.hidden_field :category_id, value: category.id, name: 'period[category_id]' %>
+            <%= button_tag type: 'submit', id: "category-start-#{category.id}", class: 'flex items-center md:mx-2' do %>
+              <%= inline_svg('icons/play-solid.svg', class: 'w-6 h-6 text-black') %>
+              <span class="text-sm ml-2 hidden md:block"><%= t('.start') %></span>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
-    <% end %>
-    <div class="relative flex items-center" data-controller="dropdown">
-      <button type="button" class="text-gray-500 group bg-white rounded-md inline-flex items-center" aria-expanded="false" data-action="click->dropdown#toggleMenu">
-        <%= inline_svg('icons/more-square.svg', class: "w-6 h-6 fill-current #{ adjust_color_intensity('text', category.color, 500) } #{ category.color }") %>
-      </button>
-
-      <div class="absolute z-50 right-0 top-6 px-2 max-w-xs sm:px-0 bg-white shadow-lg border border-gray-200 rounded-lg hidden" data-dropdown-target="menu">
-        <ul class="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto">
-          <li class="p-2">
-            <ul class="text-xs text-gray-700">
-              <%= link_to category_path(category) do %>
-                <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
-                  <%= inline_svg('icons/eye.svg', class: 'w-4 h-4 fill-current text-gray-400') %>
-                  <span class="ml-2 flex-auto truncate"><%= t('.view_details') %></span>
-                </li>
-              <% end %>
-              <%= link_to edit_category_path(category) do %>
-                <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
-                  <%= inline_svg('icons/edit.svg', class: 'w-4 h-4 fill-current text-gray-400') %>
-                  <span class="ml-2 flex-auto truncate"><%= t(:edit) %></span>
-                </li>
-              <% end %>
-              <%= button_to category_path(category), method: :delete, data: { action: "click->confirmation#open click->dropdown#toggleMenu" }, class: 'group flex w-full text-left cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100' do %>
-                  <%= inline_svg('icons/trash.svg', class: 'w-4 h-4 fill-current text-red-400') %>
-                  <span class="ml-2 flex-auto truncate text-red-500"><%= t(:delete) %></span>
-              <% end %>
-            </ul>
-          </li>
-        </ul>
-      </div>
+      <%= render 'categories/more_dropdown_btn', category: category %>
     </div>
   </div>
 </div>

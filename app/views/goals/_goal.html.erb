@@ -9,7 +9,7 @@
   <div class="flex items-center gap-4 mt-2 justify-between">
     <div class="text-sm text-gray-700">
       <%= goal.hours > 0 ? "#{ t('time.hours', count: goal.hours) } " : '' %>
-      <%= goal.minutes > 0 ? "#{ goal.minutes } #{ t('.minutes') } " : '' %>
+      <%= goal.minutes > 0 ? "#{ goal.minutes } #{ t(:minutes) } " : '' %>
       <%= "#{ t('.pretext_in') } " %>
       <%= t(".#{goal.schedule}") %>
     </div>

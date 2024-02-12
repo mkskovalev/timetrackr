@@ -12,6 +12,7 @@ ru:
   cancel: 'Отмена'
   access_denied: "У вас нет доступа"
   existing_customer: 'Уже зарегистрированы?'
+  minutes: 'мин'
 
   time:
     formats:
@@ -87,13 +88,12 @@ ru:
     index:
       title: 'Трекер'
       categories: 'Категории'
-      top_level_categories: 'Категории верхнего уровня'
-      total_time_for_today: 'Общее время за сегодня'
+      spent_today: 'за сегодня'
       new_category: 'Добавить категорию'
       create_a_new_category: 'Cоздайте вашу первую категорию'
     category_core:
-      start: 'Включить'
-      view_details: 'Подробнее'
+      start: 'старт'
+      stop: 'стоп'
     timeline:
       today: 'Сегодня'
       category: 'Категория'
@@ -124,6 +124,8 @@ ru:
     destroy:
       success: 'Категория успешно удалена'
       error: 'Категория не удалена'
+    more_dropdown_btn:
+      view_details: 'Подробнее'
 
   periods:
     index:
