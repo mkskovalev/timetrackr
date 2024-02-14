@@ -15,15 +15,13 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @page_title = "#{ t('.category') } #{ @category.name }"
-    @periods_by_day = ChartDataService.aggregate_periods_by_days(@category, 14)
-    @total_time_last_30_days = CategoriesAnalyticsService.total_time_last_30_days(@category)
-    @time_difference = CategoriesAnalyticsService.calculate_time_difference(@category)
-    @avg_time_last_30_days = CategoriesAnalyticsService.average_time_per_day_last_30_days(@category)
-    @avg_time_difference = CategoriesAnalyticsService.average_time_difference_last_60_days(@category)
+    @page_title = t('.category')
 
-    category_ids = [@category.id] + @category.descendants.pluck(:id)
-    @last_5_periods = current_user.periods.where(category_id: category_ids).where.not(end: nil).order(start: :desc).first(5)
+    @total_time = CategoriesAnalyticsService.seconds_to_time_format(@category.total_seconds, true)
+
+    earliest_start = Period.where(category_id: @category.ids_including_children).minimum(:start)
+    total_seconds = CategoriesAnalyticsService.average_time_per_day_in_range(@category, earliest_start, Time.now)
+    @avg_time = CategoriesAnalyticsService.seconds_to_time_format(total_seconds, true)
   end
 
   def new

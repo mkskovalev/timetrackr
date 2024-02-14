@@ -18,7 +18,7 @@ class User < ApplicationRecord
               .distinct 
   end
 
-  def activity_for_month(month)
+  def activity_for_month(month, category = nil)
     today = Date.today
     start_date = month.beginning_of_month
     end_date = [month.end_of_month, today].min
@@ -32,7 +32,13 @@ class User < ApplicationRecord
       current_time_utc = Time.now.utc
       end_of_period_utc = date == today ? [current_time_utc, end_of_day_local.utc].min : end_of_day_local.utc
   
-      periods_for_day = periods.where('start < ? AND ("end" IS NULL OR "end" > ?)', end_of_period_utc, beginning_of_day_local.utc)
+      if category
+        category_ids = category.ids_including_children
+      else
+        category_ids = self.categories.pluck(:id)
+      end
+  
+      periods_for_day = self.periods.where(category_id: category_ids).where('start < ? AND ("end" IS NULL OR "end" > ?)', end_of_period_utc, beginning_of_day_local.utc)
   
       total_seconds = periods_for_day.reduce(0) do |sum, period|
         period_start = [period.start, date.beginning_of_day].max

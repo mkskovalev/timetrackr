@@ -101,9 +101,9 @@ ru:
       time: 'Время'
     show:
       category: 'Категория'
-      spent_over_time: 'За все время'
+      spent_over_time: 'за все время'
       last_30_days: 'За последние 30 дней'
-      avg_daily_last_30_days: 'Ср. в день (за последние 30 дней)'
+      avg_daily: 'среднее в день'
       periods: 'Периоды'
       all_periods: 'Все периоды'
       date: 'Дата'
