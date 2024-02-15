@@ -21,3 +21,7 @@ svg.pie-chart {
   stroke-dasharray: calc( var(--circumference) * var(--fill-percent)/100 ) var(--circumference);
   transition: stroke-dasharray 700ms ease;
 }
+
+#area-time-by-months .apexcharts-tooltip-text-y-label {
+  display: none;
+}

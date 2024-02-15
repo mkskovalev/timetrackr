@@ -1,9 +1,12 @@
-<% start_date = month.beginning_of_month %>
-<% end_date = month.end_of_month %>
-<% activity_data = current_user.activity_for_month(month, category || nil) %>
-<% days_in_month = (start_date..end_date).to_a %>
-<% days_in_previous_month = (start_date - 1).downto(start_date.beginning_of_week).to_a.reverse %>
-<% days_in_next_month = (end_date + 1).upto(end_date.end_of_week).to_a %>
+<% 
+  start_date = month.beginning_of_month
+  end_date = month.end_of_month
+  category ||= nil
+  activity_data = current_user.activity_for_month(month, category)
+  days_in_month = (start_date..end_date).to_a
+  days_in_previous_month = (start_date - 1).downto(start_date.beginning_of_week).to_a.reverse
+  days_in_next_month = (end_date + 1).upto(end_date.end_of_week).to_a 
+%>
 
 <div class="bg-white">
   <div class="mx-auto">

@@ -22,6 +22,8 @@ class CategoriesController < ApplicationController
     earliest_start = Period.where(category_id: @category.ids_including_children).minimum(:start)
     total_seconds = CategoriesAnalyticsService.average_time_per_day_in_range(@category, earliest_start, Time.now)
     @avg_time = CategoriesAnalyticsService.seconds_to_time_format(total_seconds, true)
+
+    @time_by_months = ChartDataService.time_by_months_with_format(current_user, @category)
   end
 
   def new

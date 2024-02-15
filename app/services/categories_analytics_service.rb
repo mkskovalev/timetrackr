@@ -1,5 +1,7 @@
 module CategoriesAnalyticsService
   def self.seconds_to_time_format(total_seconds, long = false)
+    return I18n.t(:no_data) if total_seconds.blank? || total_seconds.zero?
+
     hours = total_seconds.div(3600)
     minutes = total_seconds.div(60) % 60
     seconds = (total_seconds % 60).round(0)
@@ -44,6 +46,8 @@ module CategoriesAnalyticsService
   end
 
   def self.average_time_per_day_in_range(category, start_date, end_date)
+    return 0 if start_date.blank?
+
     total_time = total_time_in_range(category, start_date, end_date)
     days_count = (end_date.to_date - start_date.to_date).to_i + 1
     average_time_per_day = total_time / days_count.to_f

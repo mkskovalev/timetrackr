@@ -60,6 +60,23 @@ module ChartDataService
     percentage > 100 ? 100 : percentage
   end
 
+  def self.time_by_months_with_format(user, category, months_ago = 5)
+    time_by_seconds = {}
+    time_formatted = {}
+  
+    months_ago.downto(0) do |i|
+      month = Date.today << i
+      month_name = I18n.l(month, format: '%B').capitalize
+      seconds = user.activity_for_month(month, category).except(:max).values.sum
+      formatted_time = CategoriesAnalyticsService.seconds_to_time_format(seconds, true)
+      
+      time_by_seconds[month_name] = seconds
+      time_formatted[month_name] = formatted_time.present? ? formatted_time : '0'
+    end
+  
+    { seconds: time_by_seconds, formatted: time_formatted }
+  end
+
   private
 
   def self.period_for_schedule(schedule)

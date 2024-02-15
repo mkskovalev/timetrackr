@@ -1,13 +1,22 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
   <div class="col-span-1">
-    <div class="flex items-end gap-8">
+    <div class="flex items-end">
       <div class="text-6xl font-semibold tracking-tight"><%= @category.name %></div>
-      <div class="w-72 text-sm text-gray-700 mb-1">Вы уделяете на 26% меньше внимания этой категории чем другим.</div>
+      <%= link_to edit_category_path(@category) do %>
+        <div class="w-10 h-10 bg-white rounded-full mb-1 flex items-center justify-center ml-4">
+          <%= inline_svg('icons/edit.svg', class: 'w-5 h-5 fill-current text-gray-500') %>
+        </div>
+      <% end %>
+      <%= button_to category_path(@category), method: :delete do %>
+        <div class="w-10 h-10 bg-white rounded-full mb-1 flex items-center justify-center ml-2">
+          <%= inline_svg('icons/trash.svg', class: 'w-5 h-5 fill-current text-red-600') %>
+        </div>
+      <% end %>
     </div>
-    <div class="grid grid-cols-2 gap-x-4 gap-y-6">
-      <div class="col-span-1 shadow rounded-xl p-3 bg-white">
-        <h3 class="flex items-center">
-          <%= inline_svg('icons/clock.svg', class: "w-5 h-5 fill-current text-gray-400 mr-2 mt-1.5") %>
+    <div class="grid grid-cols-2 gap-x-4 mt-8">
+      <div class="col-span-1 shadow rounded-xl px-4 py-3 bg-white">
+        <h3 class="flex items-start">
+          <%= inline_svg('icons/clock.svg', class: "w-5 h-5 fill-current text-purple-600 mr-3 mt-1.5") %>
           <div>
             <span class="text-md font-semibold"><%= @total_time %></span>
             <div class="text-xs text-neutral-500">
@@ -16,9 +25,9 @@
           </div>
         </h3>
       </div>
-      <div class="col-span-1 shadow rounded-xl p-3 bg-white">
-        <h3 class="flex items-center">
-          <%= inline_svg('icons/clock.svg', class: "w-5 h-5 fill-current text-gray-400 mr-2 mt-1.5") %>
+      <div class="col-span-1 shadow rounded-xl px-4 py-3 bg-white">
+        <h3 class="flex items-start">
+          <%= inline_svg('icons/arrow-swap-horizontal.svg', class: "w-5 h-5 text-purple-600 mr-3 mt-1.5") %>
           <div>
             <span class="text-md font-semibold"><%= @avg_time %></span>
             <div class="text-xs text-neutral-500">
@@ -27,10 +36,25 @@
           </div>
         </h3>
       </div>
+      <div data-controller="chart-area-time-by-months" class="col-span-2 mt-4">
+        <%= hidden_field_tag :time_by_months, '',
+          value: @time_by_months.to_json.html_safe, 
+          data: { chart_area_time_by_months_target: "timeByMonths" } 
+        %>
+        <div class="w-full bg-white rounded-xl shadow overflow-hidden">
+          <div class="flex justify-between">
+            <div class="flex flex-col space-y-1.5 p-6">
+              <h3 class="font-semibold leading-none tracking-tight"><%= t('.time_by_month') %></h3>
+              <p class="text-xs text-gray-500"><%= t('.time_by_month_description') %></p>
+            </div>
+          </div>
+          <div id="area-time-by-months" class="-mt-12"></div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="col-span-1">
-    <div class="border border-gray-200 rounded-xl shadow bg-white">
+    <div class="rounded-xl shadow bg-white">
       <div class="flex flex-col space-y-1.5 p-6">
         <h3 class="font-semibold leading-none tracking-tight"><%= t('analytics.index.month_activity') %></h3>
         <p class="text-xs text-gray-500"><%= t('analytics.index.month_activity_description') %></p>
