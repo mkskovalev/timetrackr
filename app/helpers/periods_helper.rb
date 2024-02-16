@@ -40,6 +40,6 @@ module PeriodsHelper
 
   def daily_periods_time(periods, date)
     total_seconds = periods.sum { |period| period.total_seconds_for_date(date) }
-    CategoriesAnalyticsService.seconds_to_time_format(total_seconds)
+    CategoriesAnalyticsService.seconds_to_time_format(total_seconds, true)
   end
 end

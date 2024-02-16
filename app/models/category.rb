@@ -45,4 +45,8 @@ class Category < ApplicationRecord
     end
     ids
   end
+
+  def all_periods
+    periods + children.flat_map(&:all_periods)
+  end
 end

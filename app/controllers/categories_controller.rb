@@ -24,6 +24,8 @@ class CategoriesController < ApplicationController
     @avg_time = CategoriesAnalyticsService.seconds_to_time_format(total_seconds, true)
 
     @time_by_months = ChartDataService.time_by_months_with_format(current_user, @category)
+
+    @grouped_periods = Period.group_periods_by_date(@category.all_periods)
   end
 
   def new

@@ -112,6 +112,9 @@ ru:
       time: 'Время'
       time_by_month: 'Время по месяцам'
       time_by_month_description: 'Ваша активность за последние 6 месяцев'
+      timeline: 'События'
+      last_5_days: 'За последние 5 дней'
+      goal: 'Цель: '
     new:
       title: 'Новая категория'
     form:

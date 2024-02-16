@@ -1,19 +1,29 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
   <div class="col-span-1">
-    <div class="flex items-end">
+    <div class="flex items-end" data-controller="confirmation">
+      <div class="w-4 h-4 <%= @category.color %> rounded-full mb-5 mr-2"></div>
       <div class="text-6xl font-semibold tracking-tight"><%= @category.name %></div>
-      <%= link_to edit_category_path(@category) do %>
-        <div class="w-10 h-10 bg-white rounded-full mb-1 flex items-center justify-center ml-4">
-          <%= inline_svg('icons/edit.svg', class: 'w-5 h-5 fill-current text-gray-500') %>
-        </div>
-      <% end %>
-      <%= button_to category_path(@category), method: :delete do %>
-        <div class="w-10 h-10 bg-white rounded-full mb-1 flex items-center justify-center ml-2">
-          <%= inline_svg('icons/trash.svg', class: 'w-5 h-5 fill-current text-red-600') %>
-        </div>
+      <div class="mb-2 ml-1">
+        <%= render 'categories/more_dropdown_btn', category: @category, show_page: true %>
+        <%= render 'shared/confirmation_modal' %>
+      </div>
+    </div>
+    <div>
+      <% if @category.goal.present? %>
+        <span class="px-3 py-1 inline-flex items-center justify-center rounded-full bg-purple-500 text-white group transition-all duration-500 mt-2" role="alert" tabindex="0">
+          <%= inline_svg('icons/flag.svg', class: 'block w-4 h-4 fill-current text-white') %>
+        
+          <span class="whitespace-nowrap inline-block max-w-screen-2xl scale-100 overflow-hidden transition-all duration-500 px-1.5 text-xs">
+            <%= t('.goal') %>
+            <%= @category.goal.hours > 0 ? "#{ t('time.hours', count: @category.goal.hours) } " : '' %>
+            <%= @category.goal.minutes > 0 ? "#{ @category.goal.minutes } #{ t(:minutes) } " : '' %>
+            <%= "#{ t('goals.goal.pretext_in') } " %>
+            <%= t("goals.goal.#{ @category.goal.schedule }") %>
+          </span>
+        </span>
       <% end %>
     </div>
-    <div class="grid grid-cols-2 gap-x-4 mt-8">
+    <div class="grid grid-cols-2 gap-4 mt-8">
       <div class="col-span-1 shadow rounded-xl px-4 py-3 bg-white">
         <h3 class="flex items-start">
           <%= inline_svg('icons/clock.svg', class: "w-5 h-5 fill-current text-purple-600 mr-3 mt-1.5") %>
@@ -36,7 +46,29 @@
           </div>
         </h3>
       </div>
-      <div data-controller="chart-area-time-by-months" class="col-span-2 mt-4">
+      <div class="col-span-1 shadow rounded-xl px-4 py-3 bg-white">
+        <h3 class="flex items-start">
+          <%= inline_svg('icons/arrow-swap-horizontal.svg', class: "w-5 h-5 text-purple-600 mr-3 mt-1.5") %>
+          <div>
+            <span class="text-md font-semibold">12%</span>
+            <div class="text-xs text-neutral-500">
+              от общего времени
+            </div>
+          </div>
+        </h3>
+      </div>
+      <div class="col-span-1 shadow rounded-xl px-4 py-3 bg-white">
+        <h3 class="flex items-start">
+          <%= inline_svg('icons/arrow-swap-horizontal.svg', class: "w-5 h-5 text-purple-600 mr-3 mt-1.5") %>
+          <div>
+            <span class="text-md font-semibold">32</span>
+            <div class="text-xs text-neutral-500">
+              периода
+            </div>
+          </div>
+        </h3>
+      </div>
+      <div data-controller="chart-area-time-by-months" class="col-span-2">
         <%= hidden_field_tag :time_by_months, '',
           value: @time_by_months.to_json.html_safe, 
           data: { chart_area_time_by_months_target: "timeByMonths" } 
@@ -49,6 +81,100 @@
             </div>
           </div>
           <div id="area-time-by-months" class="-mt-12"></div>
+        </div>
+      </div>
+      <div class="col-span-2">
+        <div class="w-full bg-white rounded-xl shadow p-6">
+          <div class="flex justify-between">
+            <div class="flex flex-col space-y-1.5 pb-6">
+              <h3 class="font-semibold leading-none tracking-tight"><%= t('.time_by_month') %></h3>
+              <p class="text-xs text-gray-500"><%= t('.time_by_month_description') %></p>
+            </div>
+          </div>
+          <div class="pb-4">
+            <div class="text-sm text-black mb-2 flex items-center justify-between">
+              <div>
+                Февраль
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ml-1">
+                  +23%
+                </span>
+              </div>
+              <div class="text-xs">25 часов 15 минут</div>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-gray-300">
+              <div class="absolute h-full rounded-full bg-purple-500" style="width: 75%"></div>
+            </div>
+          </div>
+          <div class="pb-4">
+            <div class="text-sm text-black mb-2 flex items-center justify-between">
+              <div>
+                Январь
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 ml-1">
+                  -43%
+                </span>
+              </div>
+              <div class="text-xs">12 часов</div>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-gray-300">
+              <div class="absolute h-full rounded-full bg-purple-500" style="width: 45%"></div>
+            </div>
+          </div>
+          <div class="pb-4">
+            <div class="text-sm text-black mb-2 flex items-center justify-between">
+              <div>
+                Декабрь
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ml-1">
+                  +10%
+                </span>
+              </div>
+              <div class="text-xs">2 часа 12 минут</div>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-gray-300">
+              <div class="absolute h-full rounded-full bg-purple-500" style="width: 10%"></div>
+            </div>
+          </div>
+          <div class="pb-4">
+            <div class="text-sm text-black mb-2 flex items-center justify-between">
+              <div>
+                Ноябрь
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 ml-1">
+                  0%
+                </span>
+              </div>
+              <div class="text-xs">1 час 45 минут</div>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-gray-300">
+              <div class="absolute h-full rounded-full bg-purple-500" style="width: 5%"></div>
+            </div>
+          </div>
+          <div class="pb-4">
+            <div class="text-sm text-black mb-2 flex items-center justify-between">
+              <div>
+                Октябрь
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 ml-1">
+                  0%
+                </span>
+              </div>
+              <div class="text-xs">0 часов 0 минут</div>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-gray-300">
+              <div class="absolute h-full rounded-full bg-purple-500" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="pb-4">
+            <div class="text-sm text-black mb-2 flex items-center justify-between">
+              <div>
+                Сентябрь
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 ml-1">
+                  0%
+                </span>
+              </div>
+              <div class="text-xs">0 часов 0 минут</div>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-gray-300">
+              <div class="absolute h-full rounded-full bg-purple-500" style="width: 0%"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -68,6 +194,28 @@
         </div>
       </div>
     </div>
+    <div class="rounded-xl shadow bg-white mt-4">
+      <div class="flex justify-between">
+        <div class="flex flex-col space-y-1.5 p-6">
+          <h3 class="font-semibold leading-none tracking-tight"><%= t('.timeline') %></h3>
+          <p class="text-xs text-gray-500"><%= t('.last_5_days') %></p>
+        </div>
+      </div>
+      <div class="px-12">
+        <div class="space-y-5 border-l-2 border-purple-300 pb-6">
+          <% @grouped_periods.first(5).each do |date, periods| %>
+            <div class="relative w-full">
+              <div class="absolute top-0 z-10 mt-0.5 -ml-2 h-4 w-4 rounded-full bg-purple-300 flex items-center justify-center">
+                <div class="w-3 h-3 bg-white rounded-full"></div>
+              </div>
+              <div class="ml-6">
+                <h4 class="text-sm text-purple-500"><%= humanize_date(date) %></h4>
+                <p class="mt-1 max-w-screen-sm text-xs text-gray-600"><%= daily_periods_time(periods, date) %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-

@@ -109,6 +109,9 @@ en:
       time: 'Time'
       time_by_month: 'Time by months'
       time_by_month_description: 'Activity in last 6 months'
+      timeline: 'Timeline'
+      last_5_days: 'Activity in last 5 days'
+      goal: 'Goal: '
     new:
       title: 'New category'
     form:
