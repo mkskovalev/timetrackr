@@ -13,6 +13,7 @@ en:
   access_denied: "Access denied"
   existing_customer: 'Existing customer?'
   minutes: 'min'
+  access_denied: 'Access denied'
 
   time:
     formats:

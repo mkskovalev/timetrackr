@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
+  helper_method :admin?
   layout :choose_layout
+  add_flash_types :danger, :info, :warning, :success, :messages
 
   before_action :apply_timezone, 
                 :set_locale
-
-  add_flash_types :danger, :info, :warning, :success, :messages
 
   def set_timezone
     session[:timezone] = params[:timezone]
@@ -31,5 +31,16 @@ class ApplicationController < ActionController::Base
 
   def current_user_locale
     current_user&.locale if current_user&.locale.present?
+  end
+
+  def admin?
+    current_user&.admin?
+  end
+
+  def require_admin
+    unless admin?
+      flash[:danger] = I18n.t(:access_denied)
+      redirect_to root_path
+    end
   end
 end

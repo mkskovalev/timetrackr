@@ -13,6 +13,7 @@ ru:
   access_denied: "У вас нет доступа"
   existing_customer: 'Уже зарегистрированы?'
   minutes: 'мин'
+  access_denied: 'У вас нет доступа'
 
   time:
     formats:

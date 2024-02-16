@@ -1,6 +1,7 @@
 module ApplicationHelper
-  def menu_item(name, path)
-    active_class = current_page?(path) ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+  def menu_item(name, path, admin_panel = false)
+    color_name = admin_panel ? 'purple' : 'gray'
+    active_class = current_page?(path) ? "bg-#{ color_name }-900 text-white" : "text-#{ color_name }-300 hover:bg-#{ color_name }-700 hover:text-white"
 
     content_tag :a, href: path, class: "#{active_class} group flex items-center px-2 py-2 text-sm font-medium rounded-md" do
     yield if block_given?
