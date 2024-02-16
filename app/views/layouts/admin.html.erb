@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="h-full bg-white">
+  <head>
+    <title>TimeTracker</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.css" rel="stylesheet">
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr@4/dist/flatpickr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <%= javascript_importmap_tags %>
+  </head>
+  <body class="h-full overflow-x-hidden">
+    <%= render 'shared/flash' %>
+    <div data-controller="timezone"></div>
+    <div data-controller="menu">
+      <div data-menu-target="internalMenu" class="fixed inset-0 flex z-40 md:hidden" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-600/75" aria-hidden="true"></div>
+        <div class="relative flex-1 flex flex-col max-w-xs w-full bg-gray-800">
+          <div class="absolute top-0 right-0 -mr-12 pt-2">
+            <button type="button" data-action="click->menu#toggleInternalMenu" class="ml-1 flex items-center justify-center h-10 w-10 rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+              <span class="sr-only">Close sidebar</span>
+              <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
+            <div class="shrink-0 flex items-center px-4 text-2xl font-bold text-white">
+              <a href="/" class="flex items-center">
+                <span class="sr-only">TimeTrackr</span>
+                <%= inline_svg('peng.svg', class: 'w-10 h-10 text-white fill-current mx-2') %>
+                <span class="text-2xl font-bold">TimeTrackr</span>
+              </a>
+            </div>
+            <nav class="mt-5 px-2 space-y-1">
+              <%= render 'layouts/admin_menu_items' %>
+            </nav>
+          </div>
+          <%= render 'layouts/menu_profile' %>
+        </div>
+
+        <div class="shrink-0 w-14">
+        </div>
+      </div>
+
+      <div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
+        <div class="flex-1 flex flex-col min-h-0 bg-purple-800">
+          <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
+            <div class="flex items-center shrink-0 text-2xl font-bold text-white">
+              <a href="/" class="flex items-center">
+                <%= inline_svg('peng.svg', class: 'w-10 h-10 text-white fill-current mx-2') %>
+                <span class="text-2xl font-bold">
+                  TimeTrackr
+                  <div class="text-sm font-medium">admin panel</div>
+                </span>
+              </a>
+            </div>
+            <nav class="mt-5 flex-1 px-2 space-y-1">
+              <%= render 'layouts/admin_menu_items' %>
+            </nav>
+          </div>
+          <%= render 'layouts/menu_profile' %>
+        </div>
+      </div>
+      <div class="md:pl-64 flex flex-col flex-1">
+        <div class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-gray-100">
+          <button type="button" data-action="click->menu#toggleInternalMenu" class="-ml-0.5 -mt-0.5 h-12 w-12 inline-flex items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+            <span class="sr-only">Open sidebar</span>
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+        <main class="flex-1 <%= 'bg-gray-100' if current_page?(periods_path) || current_page?(tracker_path) %>">
+          <div class="py-6">
+            <div class="max-w-7xl px-4 sm:px-6 lg:px-8">
+              <h1 class="text-2xl font-semibold text-gray-900"><%= @page_title %></h1>
+            </div>
+            <div class="max-w-7xl px-4 sm:px-6 md:px-8">
+              <%= yield %>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>
