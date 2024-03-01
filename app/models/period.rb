@@ -94,7 +94,7 @@ class Period < ApplicationRecord
     overlapping_periods = overlapping_periods.where('start < ? AND ("end" > ? OR "end" IS NULL)', actual_end, self.start)
 
     if overlapping_periods.exists?
-      errors.add(:base, 'The period overlaps with an existing period')
+      errors.add(:base, I18n.t('activerecord.errors.messages.overlaps'))
     end
   end
 end

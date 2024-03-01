@@ -37,4 +37,16 @@ class Category < ApplicationRecord
   
     children.each(&:update_level)
   end
+
+  def ids_including_children
+    ids = [self.id]
+    children.each do |child|
+      ids.concat(child.ids_including_children)
+    end
+    ids
+  end
+
+  def all_periods
+    periods + children.flat_map(&:all_periods)
+  end
 end

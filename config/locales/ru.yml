@@ -13,6 +13,7 @@ ru:
   access_denied: "У вас нет доступа"
   existing_customer: 'Уже зарегистрированы?'
   minutes: 'мин'
+  no_data: 'Данные отсутствуют'
   access_denied: 'У вас нет доступа'
 
   time:
@@ -58,6 +59,7 @@ ru:
       messages:
         greater_than: "должно быть больше %{count}"
         only_one_goal_per_category: "Возможно назначить только одну цель для категории"
+        overlaps: 'Даты пересекаются с другим периодом'
 
   layouts:
     menu_items:
@@ -102,13 +104,18 @@ ru:
       time: 'Время'
     show:
       category: 'Категория'
-      spent_over_time: 'За все время'
+      spent_over_time: 'за все время'
       last_30_days: 'За последние 30 дней'
-      avg_daily_last_30_days: 'Ср. в день (за последние 30 дней)'
+      avg_daily: 'среднее в день'
       periods: 'Периоды'
       all_periods: 'Все периоды'
       date: 'Дата'
       time: 'Время'
+      time_by_month: 'Время по месяцам'
+      time_by_month_description: 'Ваша активность за последние 6 месяцев'
+      timeline: 'События'
+      last_5_days: 'За последние 5 дней'
+      goal: 'Цель: '
     new:
       title: 'Новая категория'
     form:

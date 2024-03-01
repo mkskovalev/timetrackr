@@ -13,6 +13,7 @@ en:
   access_denied: "Access denied"
   existing_customer: 'Existing customer?'
   minutes: 'min'
+  no_data: 'No data available'
   access_denied: 'Access denied'
 
   time:
@@ -55,6 +56,7 @@ en:
       messages:
         greater_than: "must be greater than %{count}"
         only_one_goal_per_category: "You can only have one goal per category"
+        overlaps: 'The period overlaps with an existing period'
 
   layouts:
     menu_items:
@@ -99,13 +101,18 @@ en:
       time: 'Time'
     show:
       category: 'Category'
-      spent_over_time: 'Spent over time'
+      spent_over_time: 'spent over time'
       last_30_days: 'Last 30 days'
-      avg_daily_last_30_days: 'Avg. daily (last 30 days)'
+      avg_daily: 'avg. daily'
       periods: 'Periods'
       all_periods: 'All periods'
       date: 'Date'
       time: 'Time'
+      time_by_month: 'Time by months'
+      time_by_month_description: 'Activity in last 6 months'
+      timeline: 'Timeline'
+      last_5_days: 'Activity in last 5 days'
+      goal: 'Goal: '
     new:
       title: 'New category'
     form:

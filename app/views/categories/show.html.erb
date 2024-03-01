@@ -1,69 +1,221 @@
-<div class="mt-8">
-  <dl class="mt-5 grid grid-cols-1 rounded-lg bg-white overflow-hidden shadow divide-y divide-gray-200 md:grid-cols-3 md:divide-y-0 md:divide-x">
-    <div class="px-4 py-5 sm:p-6">
-      <dt class="text-base font-normal text-gray-900"><%= t('.spent_over_time') %></dt>
-      <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-        <div class="flex items-baseline text-2xl font-semibold text-indigo-600">
-          <%= @category.formatted_total_time %>
-        </div>
-      </dd>
-    </div>
-
-    <div class="px-4 py-5 sm:p-6">
-      <dt class="text-base font-normal text-gray-900"><%= t('.last_30_days') %></dt>
-      <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-        <div class="flex items-baseline text-2xl font-semibold text-indigo-600">
-          <%= @total_time_last_30_days %>
-        </div>
-
-        <%= render 'shared/difference_indicator', value: @time_difference %>
-      </dd>
-    </div>
-
-    <div class="px-4 py-5 sm:p-6">
-      <dt class="text-base font-normal text-gray-900"><%= t('.avg_daily_last_30_days') %></dt>
-      <dd class="mt-1 flex justify-between items-baseline md:block lg:flex">
-        <div class="flex items-baseline text-2xl font-semibold text-indigo-600">
-          <%= @avg_time_last_30_days %>
-        </div>
-
-        <%= render 'shared/difference_indicator', value: @avg_time_difference %>
-      </dd>
-    </div>
-  </dl>
-</div>
-
-<div class="grid grid-cols-12 gap-4">
-  <div class="col-span-6 bg-white relative px-4 pt-4 pb-2 sm:px-6 lg:px-8 mt-4 rounded-lg drop-shadow">
-    <div data-controller="apex-chart" data-apex-chart-periods-by-day-value="<%= @periods_by_day.to_json %>"></div>
-  </div>
-</div>
-
-<div class="mt-4 flex flex-col bg-white px-4 pt-4 pb-2 sm:px-6 lg:px-8 rounded-lg drop-shadow">
-  <h2 class="text-lg font-bold"><%= t('.periods') %></h2>
-  <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 mt-4">
-      <div class="overflow-hidden ring-1 ring-gray-200 md:rounded-lg">
-        <table class="min-w-full divide-y divide-gray-300">
-          <thead class="bg-gray-50">
-            <tr>
-              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t('.date') %></th>
-              <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t('.time') %></th>
-            </tr>
-          </thead>
-          <tbody class="bg-white">
-            <% @last_5_periods.each do |period| %>
-              <tr>
-                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= period.start_in_zone.strftime('%Y-%m-%d') %></td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= period.formatted_time %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+  <div class="col-span-1">
+    <div class="flex items-end" data-controller="confirmation">
+      <div class="w-4 h-4 <%= @category.color %> rounded-full mb-5 mr-2"></div>
+      <div class="text-6xl font-semibold tracking-tight"><%= @category.name %></div>
+      <div class="mb-2 ml-1">
+        <%= render 'categories/more_dropdown_btn', category: @category, show_page: true %>
+        <%= render 'shared/confirmation_modal' %>
       </div>
     </div>
-    <div class="md:px-6 lg:px-8 mt-2 mb-6">
-      <%= link_to t('.all_periods'), periods_path, class: 'inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' %>
+    <div>
+      <% if @category.goal.present? %>
+        <span class="px-3 py-1 inline-flex items-center justify-center rounded-full bg-purple-500 text-white group transition-all duration-500 mt-2" role="alert" tabindex="0">
+          <%= inline_svg('icons/flag.svg', class: 'block w-4 h-4 fill-current text-white') %>
+        
+          <span class="whitespace-nowrap inline-block max-w-screen-2xl scale-100 overflow-hidden transition-all duration-500 px-1.5 text-xs">
+            <%= t('.goal') %>
+            <%= @category.goal.hours > 0 ? "#{ t('time.hours', count: @category.goal.hours) } " : '' %>
+            <%= @category.goal.minutes > 0 ? "#{ @category.goal.minutes } #{ t(:minutes) } " : '' %>
+            <%= "#{ t('goals.goal.pretext_in') } " %>
+            <%= t("goals.goal.#{ @category.goal.schedule }") %>
+          </span>
+        </span>
+      <% end %>
+    </div>
+    <div class="grid grid-cols-2 gap-4 mt-8">
+      <div class="col-span-1 shadow rounded-xl px-4 py-3 bg-white">
+        <h3 class="flex items-start">
+          <%= inline_svg('icons/clock.svg', class: "w-5 h-5 fill-current text-purple-600 mr-3 mt-1.5") %>
+          <div>
+            <span class="text-md font-semibold"><%= @total_time %></span>
+            <div class="text-xs text-neutral-500">
+              <%= t('.spent_over_time') %>
+            </div>
+          </div>
+        </h3>
+      </div>
+      <div class="col-span-1 shadow rounded-xl px-4 py-3 bg-white">
+        <h3 class="flex items-start">
+          <%= inline_svg('icons/arrow-swap-horizontal.svg', class: "w-5 h-5 text-purple-600 mr-3 mt-1.5") %>
+          <div>
+            <span class="text-md font-semibold"><%= @avg_time %></span>
+            <div class="text-xs text-neutral-500">
+              <%= t('.avg_daily') %>
+            </div>
+          </div>
+        </h3>
+      </div>
+      <div class="col-span-1 shadow rounded-xl px-4 py-3 bg-white">
+        <h3 class="flex items-start">
+          <%= inline_svg('icons/arrow-swap-horizontal.svg', class: "w-5 h-5 text-purple-600 mr-3 mt-1.5") %>
+          <div>
+            <span class="text-md font-semibold">12%</span>
+            <div class="text-xs text-neutral-500">
+              от общего времени
+            </div>
+          </div>
+        </h3>
+      </div>
+      <div class="col-span-1 shadow rounded-xl px-4 py-3 bg-white">
+        <h3 class="flex items-start">
+          <%= inline_svg('icons/arrow-swap-horizontal.svg', class: "w-5 h-5 text-purple-600 mr-3 mt-1.5") %>
+          <div>
+            <span class="text-md font-semibold">32</span>
+            <div class="text-xs text-neutral-500">
+              периода
+            </div>
+          </div>
+        </h3>
+      </div>
+      <div data-controller="chart-area-time-by-months" class="col-span-2">
+        <%= hidden_field_tag :time_by_months, '',
+          value: @time_by_months.to_json.html_safe, 
+          data: { chart_area_time_by_months_target: "timeByMonths" } 
+        %>
+        <div class="w-full bg-white rounded-xl shadow overflow-hidden">
+          <div class="flex justify-between">
+            <div class="flex flex-col space-y-1.5 p-6">
+              <h3 class="font-semibold leading-none tracking-tight"><%= t('.time_by_month') %></h3>
+              <p class="text-xs text-gray-500"><%= t('.time_by_month_description') %></p>
+            </div>
+          </div>
+          <div id="area-time-by-months" class="-mt-12"></div>
+        </div>
+      </div>
+      <!-- <div class="col-span-2">
+        <div class="w-full bg-white rounded-xl shadow p-6">
+          <div class="flex justify-between">
+            <div class="flex flex-col space-y-1.5 pb-6">
+              <h3 class="font-semibold leading-none tracking-tight"><%= t('.time_by_month') %></h3>
+              <p class="text-xs text-gray-500"><%= t('.time_by_month_description') %></p>
+            </div>
+          </div>
+          <div class="pb-4">
+            <div class="text-sm text-black mb-2 flex items-center justify-between">
+              <div>
+                Февраль
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ml-1">
+                  +23%
+                </span>
+              </div>
+              <div class="text-xs">25 часов 15 минут</div>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-gray-300">
+              <div class="absolute h-full rounded-full bg-purple-500" style="width: 75%"></div>
+            </div>
+          </div>
+          <div class="pb-4">
+            <div class="text-sm text-black mb-2 flex items-center justify-between">
+              <div>
+                Январь
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 ml-1">
+                  -43%
+                </span>
+              </div>
+              <div class="text-xs">12 часов</div>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-gray-300">
+              <div class="absolute h-full rounded-full bg-purple-500" style="width: 45%"></div>
+            </div>
+          </div>
+          <div class="pb-4">
+            <div class="text-sm text-black mb-2 flex items-center justify-between">
+              <div>
+                Декабрь
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 ml-1">
+                  +10%
+                </span>
+              </div>
+              <div class="text-xs">2 часа 12 минут</div>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-gray-300">
+              <div class="absolute h-full rounded-full bg-purple-500" style="width: 10%"></div>
+            </div>
+          </div>
+          <div class="pb-4">
+            <div class="text-sm text-black mb-2 flex items-center justify-between">
+              <div>
+                Ноябрь
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 ml-1">
+                  0%
+                </span>
+              </div>
+              <div class="text-xs">1 час 45 минут</div>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-gray-300">
+              <div class="absolute h-full rounded-full bg-purple-500" style="width: 5%"></div>
+            </div>
+          </div>
+          <div class="pb-4">
+            <div class="text-sm text-black mb-2 flex items-center justify-between">
+              <div>
+                Октябрь
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 ml-1">
+                  0%
+                </span>
+              </div>
+              <div class="text-xs">0 часов 0 минут</div>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-gray-300">
+              <div class="absolute h-full rounded-full bg-purple-500" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="pb-4">
+            <div class="text-sm text-black mb-2 flex items-center justify-between">
+              <div>
+                Сентябрь
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 ml-1">
+                  0%
+                </span>
+              </div>
+              <div class="text-xs">0 часов 0 минут</div>
+            </div>
+            <div class="relative w-full h-1.5 rounded-full bg-gray-300">
+              <div class="absolute h-full rounded-full bg-purple-500" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <div class="col-span-1">
+    <div class="rounded-xl shadow bg-white">
+      <div class="flex flex-col space-y-1.5 p-6">
+        <h3 class="font-semibold leading-none tracking-tight"><%= t('analytics.index.month_activity') %></h3>
+        <p class="text-xs text-gray-500"><%= t('analytics.index.month_activity_description') %></p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6 pt-0">
+        <div class="hidden sm:block col-span-1">
+          <%= render 'analytics/month_activity', month: Date.today.prev_month, category: @category %>
+        </div>
+        <div class="col-span-1">
+          <%= render 'analytics/month_activity', month: Date.today.beginning_of_month, category: @category %>  
+        </div>
+      </div>
+    </div>
+    <div class="rounded-xl shadow bg-white mt-4">
+      <div class="flex justify-between">
+        <div class="flex flex-col space-y-1.5 p-6">
+          <h3 class="font-semibold leading-none tracking-tight"><%= t('.timeline') %></h3>
+          <p class="text-xs text-gray-500"><%= t('.last_5_days') %></p>
+        </div>
+      </div>
+      <div class="px-12">
+        <div class="space-y-5 border-l-2 border-purple-300 pb-6">
+          <% @grouped_periods.first(5).each do |date, periods| %>
+            <div class="relative w-full">
+              <div class="absolute top-0 z-10 mt-0.5 -ml-2 h-4 w-4 rounded-full bg-purple-300 flex items-center justify-center">
+                <div class="w-3 h-3 bg-white rounded-full"></div>
+              </div>
+              <div class="ml-6">
+                <h4 class="text-sm text-purple-500"><%= humanize_date(date) %></h4>
+                <p class="mt-1 max-w-screen-sm text-xs text-gray-600"><%= daily_periods_time(periods, date) %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
