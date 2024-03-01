@@ -14,6 +14,7 @@ en:
   existing_customer: 'Existing customer?'
   minutes: 'min'
   no_data: 'No data available'
+  access_denied: 'Access denied'
 
   time:
     formats:

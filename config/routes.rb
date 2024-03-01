@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   get "/service-worker.js", to: "service_worker#service_worker"
   get "/manifest.json", to: "service_worker#manifest"
 
+  namespace :admin do
+    resources :users, only: :index
+  end
+
   resource :profile, only: [:show, :update]
   resource :timeline, only: [:update]
 
