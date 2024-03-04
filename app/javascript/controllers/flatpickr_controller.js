@@ -9,6 +9,7 @@ export default class extends Controller {
       time_24hr: true,
       disableMobile: true,
       maxDate: "today",
+      defaultDate: this.element.value || new Date(),
       onChange: this.handleDateChange.bind(this),
     });
   }
