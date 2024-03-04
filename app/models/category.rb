@@ -1,4 +1,6 @@
 class Category < ApplicationRecord
+  acts_as_list scope: [:parent_id]
+
   belongs_to :user
   belongs_to :parent, class_name: 'Category', optional: true
   has_many :children, class_name: 'Category', foreign_key: 'parent_id', dependent: :destroy
@@ -7,6 +9,8 @@ class Category < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :color, inclusion: { in: BG_COLORS.values.flatten }
+
+  scope :sorted, -> { order(position: :asc) }
 
   after_save :update_level
 

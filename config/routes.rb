@@ -24,7 +24,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :categories, except: :index
+  resources :categories, except: :index do
+    patch :update_position, on: :member
+  end
   get :tracker, to: 'categories#index'
 
   resources :periods, except: :show do

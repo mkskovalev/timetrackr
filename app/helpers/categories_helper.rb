@@ -1,7 +1,7 @@
 module CategoriesHelper
   def render_categories(categories, unfinished_period)
-    content_tag(:div, class: "categories-list") do
-      categories.each do |category|
+    content_tag(:div, class: "categories-list", data: { controller: "sortable", sortable_resource_name_value: "category" }) do
+      categories.sorted.each do |category|
         concat(render(partial: 'categories/category_card', locals: { category: category, unfinished_period: unfinished_period }))
       end
     end
