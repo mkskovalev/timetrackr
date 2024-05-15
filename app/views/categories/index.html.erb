@@ -4,10 +4,7 @@
 <div class="mt-6 sm:flex sm:items-center sm:justify-between">
   <div class="flex items-center text-xs leading-6 text-neutral-700">
     <h2 class="text-lg text-neutral-600 font-semibold"><%= t('.categories') %></h2>
-    <h3 class="pl-6 flex text-sm items-center text-neutral-500">
-      <%= inline_svg('icons/clock.svg', class: "w-4 h-4 fill-current text-gray-400 mr-2 mt-0.5") %>
-      <%= @total_time_for_today %>&nbsp;<%= t('.spent_today') %>
-    </h3>
+    <%= render 'categories/time_for_today', total_time_for_today: @total_time_for_today %>
   </div>
   <div class="mt-3 sm:mt-0 sm:ml-4">
     <% if @categories.size > 0 %>

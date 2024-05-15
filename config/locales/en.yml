@@ -88,7 +88,6 @@ en:
     index:
       title: 'Tracker'
       categories: 'Categories'
-      spent_today: 'spent today'
       new_category: 'New category'
       create_a_new_category: 'Create a new category'
     category_core:
@@ -131,6 +130,8 @@ en:
       error: 'Category was not deleted'
     more_dropdown_btn:
       view_details: 'View details'
+    time_for_today:
+      spent_today: 'spent today'
 
   periods:
     index:

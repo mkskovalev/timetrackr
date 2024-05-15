@@ -91,7 +91,6 @@ ru:
     index:
       title: 'Трекер'
       categories: 'Категории'
-      spent_today: 'за сегодня'
       new_category: 'Добавить категорию'
       create_a_new_category: 'Cоздайте вашу первую категорию'
     category_core:
@@ -134,6 +133,8 @@ ru:
       error: 'Категория не удалена'
     more_dropdown_btn:
       view_details: 'Подробнее'
+    time_for_today:
+      spent_today: 'за сегодня'
 
   periods:
     index:
