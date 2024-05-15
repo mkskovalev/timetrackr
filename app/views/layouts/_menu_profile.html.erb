@@ -1,25 +1,18 @@
-<% 
-  if request.path.start_with?('/admin')
-    path =  tracker_path
-    btn_text = t('.back_to_tracker')
-  else
-    path = admin_users_path
-    btn_text = t('.admin_panel')
-  end
-%>
+<% if current_user.admin? %>
+  <div class="shrink-0 flex bg-purple-600 p-4">
+    <a href="<%= admin_btn_settings[:path] %>" class="shrink-0 w-full group block">
+      <div class="flex items-center">
+        <div>
+          <%= inline_svg('icons/user-octagon.svg', class: 'text-gray-300 shrink-0 h-6 w-6') %>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm font-medium text-white"><%= admin_btn_settings[:btn_text] %></p>
+        </div>
+      </div>
+    </a>
+  </div>
+<% end %>
 
-<div class="shrink-0 flex bg-purple-600 p-4">
-  <a href="<%= path %>" class="shrink-0 w-full group block">
-    <div class="flex items-center">
-      <div>
-        <%= inline_svg('icons/user-octagon.svg', class: 'text-gray-300 shrink-0 h-6 w-6') %>
-      </div>
-      <div class="ml-3">
-        <p class="text-sm font-medium text-white"><%= btn_text %></p>
-      </div>
-    </div>
-  </a>
-</div>
 <div class="shrink-0 flex bg-gray-700 p-4">
   <a href="<%= profile_path %>" class="shrink-0 w-full group block">
     <div class="flex items-center">

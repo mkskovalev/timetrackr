@@ -26,4 +26,18 @@ module ApplicationHelper
       'bg-blue-500'
     end
   end
+
+  def admin_btn_settings
+    settings = {}
+
+    if request.path.start_with?('/admin')
+      settings[:path] =  tracker_path
+      settings[:btn_text] = t('.back_to_tracker')
+    else
+      settings[:path] = admin_users_path
+      settings[:btn_text] = t('.admin_panel')
+    end
+    
+    settings
+  end
 end

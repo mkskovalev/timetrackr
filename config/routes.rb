@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     devise_for :users, controllers: { registrations: 'registrations' }
     root to: 'public#index', as: :localized_root
   end
+
+  root to: 'categories#index'
   
   post :set_timezone, to: 'application#set_timezone'
 

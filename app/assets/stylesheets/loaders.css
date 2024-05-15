@@ -43,4 +43,53 @@
   }
 }
 
+.dot-pulse-spinner {
+  --uib-size: 20px;
+  --uib-color: black;
+  --uib-speed: 1.3s;
+  --uib-dot-size: calc(var(--uib-size) * 0.24);
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--uib-dot-size);
+  width: var(--uib-size);
+}
 
+.dot-pulse-spinner .dot,
+.dot-pulse-spinner::before,
+.dot-pulse-spinner::after {
+  content: '';
+  display: block;
+  height: var(--uib-dot-size);
+  width: var(--uib-dot-size);
+  border-radius: 50%;
+  background-color: var(--uib-color);
+  transform: scale(0);
+  transition: background-color 0.3s ease;
+}
+
+.dot-pulse-spinner::before {
+  animation: pulse var(--uib-speed) ease-in-out calc(var(--uib-speed) * -0.375)
+    infinite;
+}
+
+.dot-pulse-spinner .dot {
+  animation: pulse var(--uib-speed) ease-in-out calc(var(--uib-speed) * -0.25)
+    infinite both;
+}
+
+.dot-pulse-spinner::after {
+  animation: pulse var(--uib-speed) ease-in-out calc(var(--uib-speed) * -0.125)
+    infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+}

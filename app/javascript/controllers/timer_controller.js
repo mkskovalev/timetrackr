@@ -1,16 +1,20 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["output"];
+  static targets = ["output", "button", "spinner", "clock"];
 
   connect() {
-    const startTimeString = document.getElementById('period_start').value.replace(' ', 'T').replace(' ', '');
-    this.startTime = new Date(startTimeString);
-  
-    this.updateTimer();
-    this.timer = setInterval(() => {
+    let period_start = document.getElementById('period_start');
+
+    if (period_start) {
+      const startTimeString = period_start.value.replace(' ', 'T').replace(' ', '');
+      this.startTime = new Date(startTimeString);
+    
       this.updateTimer();
-    }, 1000);
+      this.timer = setInterval(() => {
+        this.updateTimer();
+      }, 1000);
+    }
   }
 
   disconnect() {
@@ -28,6 +32,15 @@ export default class extends Controller {
 
       this.outputTarget.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
     }
+  }
+
+  showSpinner() {
+    if (this.hasClockTarget) {
+      this.clockTarget.classList.add('hidden');
+    }
+    this.buttonTarget.classList.add('hidden');
+    this.spinnerTarget.classList.remove('hidden');
+    this.spinnerTarget.classList.add('flex');
   }
 }
 
