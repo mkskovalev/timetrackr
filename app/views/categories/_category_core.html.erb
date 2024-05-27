@@ -1,41 +1,48 @@
-<div class="relative bg-white rounded p-2" id="category-card-<%= category.id %>">
-  <div class="absolute top-0 left-0 w-2 h-full rounded-l <%= category.color == 'bg-white' ? 'bg-gray-200' : category.color %>"></div>
-  <div class="flex items-center justify-between">
-    <div class="ml-4">
-      <div class="text-md font-medium text-black leading-4">
-        <%= link_to category.name, category_path(category) %>
-        <div class="text-gray-500 text-sm font-normal"><%= category.formatted_total_time %></div>
-      </div>
-    </div>
-    <div class="flex items-center">
-      <% if period %>
-        <%= form_with url: '/periods/stop', method: :post, data: { turbo_stream: true, controller: "timer", action: 'submit->timer#showSpinner' }, class: "flex items-center p-1 text-sm gap-1 justify-between" do |f| %>
-          <%= f.hidden_field :category_id, name: 'period[category_id]', value: category.id %>
-          <%= f.hidden_field :start, name: 'period[start]', value: period.start_in_zone, id: 'period_start' %>
-          <%= f.hidden_field :period_id, value: period.id %>
-          
-          <div class="flex items-center mr-2 text-gray-400" data-timer-target="clock">
-            <span data-timer-target="output">00:00:00</span>
+<div class="flex items-start">
+  <div class="drag-handle p-1 mt-2.5">
+    <%= inline_svg('icons/chevron-up-down.svg', class: 'w-6 h-6 text-gray-300') %>
+  </div>
+  <div class="flex flex-col flex-grow">
+    <div class="relative bg-white rounded p-2" id="category-card-<%= category.id %>">
+      <div class="absolute top-0 left-0 w-2 h-full rounded-l <%= category.color == 'bg-white' ? 'bg-gray-200' : category.color %>"></div>
+      <div class="flex items-center justify-between">
+        <div class="ml-4">
+          <div class="text-md font-medium text-black leading-4">
+            <%= link_to category.name, category_path(category) %>
+            <div class="text-gray-500 text-sm font-normal"><%= category.formatted_total_time %></div>
           </div>
-          <%= button_tag type: 'submit', id: "category-stop-#{category.id}", class: 'flex items-center md:mx-2', data: { timer_target: 'button' } do %>
-            <%= inline_svg('icons/stop-solid.svg', class: 'w-6 h-6 text-black') %>
-            <span class="text-sm ml-2 hidden md:block"><%= t('.stop') %></span>
-          <% end %>
-          <div class="dot-pulse-spinner md:mx-2 hidden" data-timer-target="spinner"><div class="dot"></div></div>
-        <% end %>
-      <% else %>
-        <% if category.can_have_timer? && !unfinished_period %>
-          <%= form_with url: '/periods/run', method: :post, data: { turbo_stream: true, controller: 'timer', action: 'submit->timer#showSpinner' } do |f| %>
-            <%= f.hidden_field :category_id, value: category.id, name: 'period[category_id]' %>
-            <%= button_tag type: 'submit', id: "category-start-#{category.id}", class: 'flex items-center md:mx-2', data: { timer_target: 'button' } do %>
-              <%= inline_svg('icons/play-solid.svg', class: 'w-6 h-6 text-black') %>
-              <span class="text-sm ml-2 hidden md:block"><%= t('.start') %></span>
+        </div>
+        <div class="flex items-center">
+          <% if period %>
+            <%= form_with url: '/periods/stop', method: :post, data: { turbo_stream: true, controller: "timer", action: 'submit->timer#showSpinner' }, class: "flex items-center p-1 text-sm gap-1 justify-between" do |f| %>
+              <%= f.hidden_field :category_id, name: 'period[category_id]', value: category.id %>
+              <%= f.hidden_field :start, name: 'period[start]', value: period.start_in_zone, id: 'period_start' %>
+              <%= f.hidden_field :period_id, value: period.id %>
+              
+              <div class="flex items-center mr-2 text-gray-400" data-timer-target="clock">
+                <span data-timer-target="output">00:00:00</span>
+              </div>
+              <%= button_tag type: 'submit', id: "category-stop-#{category.id}", class: 'flex items-center md:mx-2', data: { timer_target: 'button' } do %>
+                <%= inline_svg('icons/stop-solid.svg', class: 'w-6 h-6 text-black') %>
+                <span class="text-sm ml-2 hidden md:block"><%= t('.stop') %></span>
+              <% end %>
+              <div class="dot-pulse-spinner md:mx-2 hidden" data-timer-target="spinner"><div class="dot"></div></div>
             <% end %>
-            <div class="dot-pulse-spinner md:mx-2 hidden" data-timer-target="spinner"><div class="dot"></div></div>
+          <% else %>
+            <% if category.can_have_timer? && !unfinished_period %>
+              <%= form_with url: '/periods/run', method: :post, data: { turbo_stream: true, controller: 'timer', action: 'submit->timer#showSpinner' } do |f| %>
+                <%= f.hidden_field :category_id, value: category.id, name: 'period[category_id]' %>
+                <%= button_tag type: 'submit', id: "category-start-#{category.id}", class: 'flex items-center md:mx-2', data: { timer_target: 'button' } do %>
+                  <%= inline_svg('icons/play-solid.svg', class: 'w-6 h-6 text-black') %>
+                  <span class="text-sm ml-2 hidden md:block"><%= t('.start') %></span>
+                <% end %>
+                <div class="dot-pulse-spinner md:mx-2 hidden" data-timer-target="spinner"><div class="dot"></div></div>
+              <% end %>
+            <% end %>
           <% end %>
-        <% end %>
-      <% end %>
-      <%= render 'categories/more_dropdown_btn', category: category %>
+          <%= render 'categories/more_dropdown_btn', category: category %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
