@@ -1,4 +1,4 @@
-<div data-sortable-update-url="<%= update_position_category_path(category) %>" data-sortable-param-name-value="position" <%= category.children.count > 0 ? 'class="relative parent-category-container"'.html_safe : '' %>>
+<div data-sortable-update-url="<%= update_position_category_path(category) %>" data-sortable-param-name-value="position" <%= category.children.count > 0 ? 'class="relative parent-category-container"'.html_safe : '' %> data-position="<%= category.position %>">
   <div class="mt-2">
     <% if category.level === 1 && category.children.present? %>
       <div class="pb-1 pt-4" id="category-card-<%= category.id %>">

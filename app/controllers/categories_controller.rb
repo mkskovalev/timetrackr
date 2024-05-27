@@ -79,11 +79,17 @@ class CategoriesController < ApplicationController
   def update_position
     new_position = params[:category][:position].to_i
 
-    if new_position >= 1 && @category.insert_at(new_position)
+    ActiveRecord::Base.transaction do
+      @category.insert_at(new_position)
+    end
+  
+    if @category.errors.empty?
       head :ok
     else
       render json: { ok: false, errors: @category.errors.full_messages }, status: :unprocessable_entity
     end
+  rescue => e
+    render json: { ok: false, errors: [e.message] }, status: :unprocessable_entity
   end
 
   private
