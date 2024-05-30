@@ -7,6 +7,7 @@ en:
   sign_out: 'Sign out'
   sign_in: 'Sign in'
   sign_up: 'Sign up'
+  sign_up_for_free: 'Sign up for free'
   none_option: 'None'
   delete_title: 'Deletion'
   cancel: 'Cancel'
@@ -72,6 +73,7 @@ en:
       meta_keywords: 'time tracking, productivity, efficiency, task management, TimeTrackr'
       meta_og_title: 'TimeTrackr - Efficient Time Tracking'
       meta_og_description: 'Improve your productivity with TimeTrackr.'
+      all_rights_reserved: 'All rights reserved'
 
   profiles:
     show:
@@ -188,6 +190,25 @@ en:
       for_any_task: 'for any task'
       organize_your_tasks: 'Organize your tasks into categories, dive into analytics for in-depth insights, and enjoy an ever-improving feature set.'
       unlock_full_teatures: 'Unlock full features for free and make the most of your time now.'
+      optimize_work: 'Optimize your work: a universal solution for any profession'
+      for_freelancers_title: 'For freelancers'
+      for_freelancers_subtitle: 'Effective time and project management'
+      for_freelancers_text: 'The time tracker helps freelancers accurately track the time spent on each project. You can easily invoice clients by providing detailed reports of the work done. Improve your productivity and keep track of deadlines to always complete projects on time.'
+      for_students_title: 'For students'
+      for_students_subtitle: 'Organizing study time'
+      for_students_text: 'Students can use our time tracker to plan and manage their study time. Divide study sessions, assignments, and projects to effectively prepare for exams. Set goals and track your progress to succeed in your studies.'
+      for_remoters_title: 'For remote workers'
+      for_remoters_subtitle: 'Flexibility and discipline'
+      for_remoters_text: 'Remote workers can easily track their working hours and stay productive while working from home. Our time tracker helps you structure your workday, avoid procrastination, and achieve your goals. Manage your time with maximum flexibility and discipline.'
+      for_creatives_title: 'For creative professionals'
+      for_creatives_subtitle: 'Balance between creativity and discipline'
+      for_creatives_text: 'Creative professionals can use our time tracker to find a balance between creative freedom and discipline. Track the time spent on various stages of the creative process and improve your productivity. Get accurate data for analysis and optimization of your work.'
+      analytics: 'Analytics'
+      analytics_title: 'Powerful insights at your fingertips'
+      analytics_text: 'Our time tracker offers advanced analytics that provide a deep understanding of how you spend your time. With detailed reports and data visualizations, you can easily track your monthly activity, analyze time spent on different categories, identify peak hours, and optimize your workflow for maximum productivity.'
+      boost_productivity: 'Boost your productivity.'
+      start_using: 'Start using TimeTrackr today.'
+      start_using_text: 'Organize your tasks by categories, dive into analytics for deeper insights, and enjoy a continuously improving set of features.'
 
   goals:
     index:
