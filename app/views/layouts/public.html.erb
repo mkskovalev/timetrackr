@@ -9,8 +9,12 @@
     <meta property="og:title" content="<%= t('.meta_og_title') %>"/>
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://timetrackr.dev/"/>
-    <meta property="og:image" content="<%= image_url('logo.png') %>"/>
+    <meta property="og:image" content="<%= image_url('main_screen.png') %>"/>
     <meta property="og:description" content="<%= t('.meta_og_description') %>"/>
+
+    <% if devise_controller? %>
+      <meta name="robots" content="noindex, follow">
+    <% end %>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -32,7 +36,7 @@
         "@type": "Organization",
         "name": "TimeTrackr",
         "url": "https://timetrackr.dev",
-        "logo": "<%= image_tag(image_url('logo.png')) %>",
+        "logo": "<%= image_tag(image_url('main_screen.png')) %>",
         "contactPoint": {
           "@type": "ContactPoint",
           "email": "box@timetrackr.dev",
@@ -80,6 +84,22 @@
           </div>
         </div>
         <%= yield %>
+
+        <footer class="bg-white border-t border-gray-200">
+          <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+            <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
+              <!-- Here will be menu items -->
+            </nav>
+            <div class="mt-8 flex justify-center space-x-6">
+              <a href="https://github.com/mkskovalev/timetrackr" class="text-gray-400 hover:text-gray-500">
+                <span class="sr-only">GitHub</span>
+                <%= inline_svg('icons/github.svg', class: 'w-6 h-6') %>
+              </a>
+            </div>
+            <p class="mt-8 text-center text-base text-gray-400">&copy; 2023-<%= Time.now.year %> TimeTrackr.dev. <%= t('.all_rights_reserved') %>.</p>
+          </div>
+        </footer>
+
       </div>
     
       <div data-menu-target="publicMenu" class="absolute top-0 inset-x-0 p-2 transition origin-top-right md:hidden">
