@@ -45,6 +45,8 @@ ru:
     attributes:
       category:
         name: "Название"
+      period:
+        category: "Категория"
       goal:
         duration: 'Время'
     errors:
@@ -53,6 +55,11 @@ ru:
           attributes:
             name:
               blank: "не может быть пустым"
+        period:
+          attributes:
+            category:
+              required: "не может быть пустым"
+          required: "должен быть заполнен"
         goal:
           attributes:
             duration:
@@ -61,6 +68,7 @@ ru:
         greater_than: "должно быть больше %{count}"
         only_one_goal_per_category: "Возможно назначить только одну цель для категории"
         overlaps: 'Даты пересекаются с другим периодом'
+        required: "не может быть пустым"
 
   layouts:
     menu_items:
@@ -156,7 +164,7 @@ ru:
       start: 'Начало'
       end: 'Конец'
       blank_end_hint: "Оставьте пустым, если период активен.<br/>Примечание: Не должно быть другого активного периода."
-      parent_category: 'Родительская категория'
+      category: 'Категория'
       choose_category: 'Выберите категорию...'
     create:
       start_date_is_missing: 'Начало периода не может быть пустым'
