@@ -42,6 +42,8 @@ en:
     attributes:
       category:
         name: "Name"
+      period:
+        category: "Category"
       goal:
         duration: 'Duration'
     errors:
@@ -50,6 +52,11 @@ en:
           attributes:
             name:
               blank: "can't be blank"
+        period:
+          attributes:
+            category:
+              required: "can't be blank"
+          required: "must be filled"
         goal:
           attributes:
             duration:
@@ -58,6 +65,7 @@ en:
         greater_than: "must be greater than %{count}"
         only_one_goal_per_category: "You can only have one goal per category"
         overlaps: 'The period overlaps with an existing period'
+        required: "can't be blank"
 
   layouts:
     menu_items:
@@ -153,7 +161,7 @@ en:
       start: 'Start'
       end: 'End'
       blank_end_hint: "Leave blank to set the period as ongoing, which will continue until manually ended.<br/>Note: There cannot be other active periods without an end time."
-      parent_category: 'Parent category'
+      category: 'Category'
       choose_category: 'Choose category...'
     create:
       start_date_is_missing: 'Start date is missing'

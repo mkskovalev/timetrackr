@@ -32,7 +32,7 @@ class PeriodsController < ApplicationController
     start_time = DateTime.parse(period_params[:start])
     end_time = period_params[:end].present? ? DateTime.parse(period_params[:end]) : 0
 
-    if (start_time < end_time || end_time.zero?) && @period.save
+    if (start_time < end_time || (end_time.is_a?(Numeric) && end_time.zero?)) && @period.save
       redirect_to periods_path, success: t('.period_success')
     else
       @categories = current_user.categories.select { |category| category.can_have_timer? }
@@ -60,7 +60,7 @@ class PeriodsController < ApplicationController
     start_time = DateTime.parse(period_params[:start])
     end_time = period_params[:end].present? ? DateTime.parse(period_params[:end]) : 0
 
-    if (start_time < end_time || end_time.zero?) && @period.update(period_params)
+    if (start_time < end_time || (end_time.is_a?(Numeric) && end_time.zero?)) && @period.update(period_params)
       redirect_to periods_path, success: t('.period_success')
     else
       @categories = current_user.categories.select { |category| category.can_have_timer? }

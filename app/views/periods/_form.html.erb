@@ -16,8 +16,8 @@
       </div>
     
       <div class="relative mt-8 border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
-        <%= f.label :category_id, t('.parent_category'), class: "absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900" %>
-        <%= f.select :category_id, options_from_collection_for_select(categories, :id, :name, period.category ? period.category.id : nil), {}, { class: 'block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm', placeholder: t('.choose_category') } %>
+        <%= f.label :category_id, t('.category'), class: "absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900" %>
+        <%= f.select :category_id, options_from_collection_for_select(categories, :id, :name, period.category ? period.category.id : nil), { prompt: t('.choose_category') }, { class: 'block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm' } %>
       </div>
     
       <div class="pt-5">
