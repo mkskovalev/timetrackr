@@ -29,7 +29,8 @@ end
 group :development do
   gem "web-console"
   gem "rack-mini-profiler"
-  gem "letter_opener"
+  gem 'letter_opener'
+  gem 'letter_opener_web'
   gem 'capistrano', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', require: false

@@ -11,7 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:locale])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:locale, :remember_me])
     devise_parameter_sanitizer.permit(:account_update, keys: [:locale])
   end
 

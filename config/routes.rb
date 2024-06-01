@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end  
 
   scope "(:locale)", locale: /en|ru/ do
     devise_for :users, controllers: { registrations: 'registrations' }
