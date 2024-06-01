@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   validates :locale, presence: true, 
                      inclusion: { in: I18n.available_locales.map(&:to_s) }
+  
+  after_create :send_admin_notification
 
   def categories_for_timeline
     filtered_periods = periods.where("periods.end >= ? OR periods.end IS NULL", Time.zone.now.beginning_of_day)
@@ -51,5 +53,11 @@ class User < ApplicationRecord
   
     data[:max] = data.values.max
     data
+  end
+
+  private
+
+  def send_admin_notification
+    AdminMailer.new_user_registered(self).deliver_now
   end
 end
