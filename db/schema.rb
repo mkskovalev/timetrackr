@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_27_055206) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_01_080842) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_055206) do
     t.index ["user_id"], name: "index_periods_on_user_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "start_date", null: false
+    t.datetime "end_date", null: false
+    t.string "unique_identifier", null: false
+    t.string "password_digest", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_reports_on_category_id"
+    t.index ["unique_identifier"], name: "index_reports_on_unique_identifier", unique: true
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -90,4 +104,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_055206) do
   add_foreign_key "goals", "categories"
   add_foreign_key "goals", "users"
   add_foreign_key "periods", "users"
+  add_foreign_key "reports", "categories"
+  add_foreign_key "reports", "users"
 end

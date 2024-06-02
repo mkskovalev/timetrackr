@@ -92,6 +92,12 @@ class CategoriesController < ApplicationController
     render json: { ok: false, errors: [e.message] }, status: :unprocessable_entity
   end
 
+  def report_modal_content
+    @category = Category.find(params[:id])
+    @report = Report.new
+    render partial: 'categories/report_modal_content', locals: { category: @category, report: @report }
+  end
+
   private
 
   def category_params
