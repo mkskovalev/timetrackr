@@ -6,6 +6,7 @@ class Category < ApplicationRecord
   has_many :children, class_name: 'Category', foreign_key: 'parent_id', dependent: :destroy
   has_many :periods, dependent: :destroy
   has_one :goal, dependent: :destroy
+  has_many :reports, dependent: :destroy
 
   validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :color, inclusion: { in: BG_COLORS.values.flatten }

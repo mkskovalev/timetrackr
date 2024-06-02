@@ -11,6 +11,8 @@ ru:
   none_option: 'Нет'
   delete_title: 'Удаление'
   cancel: 'Отмена'
+  close: 'Закрыть'
+  copied: 'Скопировано!'
   access_denied: "У вас нет доступа"
   existing_customer: 'Уже зарегистрированы?'
   minutes: 'мин'
@@ -145,6 +147,13 @@ ru:
       view_details: 'Подробнее'
     time_for_today:
       spent_today: 'за сегодня'
+    report_modal_content:
+      new_report_text: 'Выберите период, создастся отчет за выбранный период. Вам будет предоставлена ссылка на отчет и пароль. Просматривать этот отчет по ссылке и паролю смогут даже не зарегистрированные пользователи.'
+      start: 'Начало'
+      end: 'Конец'
+    more_dropdown_btn:
+      view_details: 'Подробнее'
+      create_report: 'Создать отчет'
 
   periods:
     index:
@@ -251,6 +260,11 @@ ru:
       success: 'Цель успешно обновлена'
     destroy:
       success: 'Цель успешно удалена'
+
+  reports:
+    report_url:
+      report_url_text_html: 'Теперь вы можете скопировать ссылку и пароль. Также вы можете найти этот отчет в <a href="/reports" class="text-indigo-700">разделе отчетов</a>'
+      created: "Отчет для %{category} создан!"
 
   shared:
     confirmation_modal:

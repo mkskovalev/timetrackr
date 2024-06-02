@@ -28,5 +28,8 @@
     </div>
   <% end %>
 <% else %>
-  <%= render 'categories/categories_list', categories: @categories, unfinished_period: @unfinished_period %>
+  <div data-controller="modal">
+    <%= render 'categories/categories_list', categories: @categories, unfinished_period: @unfinished_period %>
+    <%= render 'categories/modal' %>
+  </div>
 <% end%>

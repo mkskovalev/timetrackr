@@ -22,6 +22,12 @@
               <span class="ml-2 flex-auto truncate"><%= t(:edit) %></span>
             </li>
           <% end %>
+          <%= link_to "javascript:void(0)", data: { action: "click->modal#show", contentUrl: report_modal_content_category_path(category), action: "click->modal#show click->dropdown#toggleMenu" } do %>
+            <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
+              <%= inline_svg('icons/clipboard-text.svg', class: 'w-4 h-4 fill-current text-gray-400') %>
+              <span class="ml-2 flex-auto truncate"><%= t('.create_report') %></span>
+            </li>
+          <% end %>
           <%= button_to category_path(category), method: :delete, data: { action: "click->confirmation#open click->dropdown#toggleMenu" }, class: 'group flex w-full text-left cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100' do %>
               <%= inline_svg('icons/trash.svg', class: 'w-4 h-4 fill-current text-red-400') %>
               <span class="ml-2 flex-auto truncate text-red-500"><%= t(:delete) %></span>

@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   resources :categories, except: :index do
     patch :update_position, on: :member
+    post :report_modal_content, on: :member
   end
   get :tracker, to: 'categories#index'
 
@@ -40,4 +41,5 @@ Rails.application.routes.draw do
   end
 
   resources :goals
+  resources :reports, param: :unique_identifier, only: [:new, :create, :show]
 end
