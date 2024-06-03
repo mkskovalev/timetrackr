@@ -17,7 +17,6 @@ en:
   existing_customer: 'Existing customer?'
   minutes: 'min'
   no_data: 'No data available'
-  access_denied: 'Access denied'
 
   time:
     formats:
@@ -75,6 +74,7 @@ en:
       periods: 'Periods'
       analytics: 'Analytics'
       goals: 'Goals'
+      reports: 'Reports'
     menu_profile:
       view_profile: 'View profile'
     public:
@@ -262,6 +262,22 @@ en:
     report_url:
       report_url_text_html: 'Now you can copy the link and password. You can also find this report in the <a href="/reports" class="text-indigo-700">reports section</a>'
       created: "Report for %{category} created!"
+    password:
+      enter_password: 'Please enter your password'
+      enter_password_text: 'To access the report, please enter the password'
+      confirm: 'Confirm'
+      password: 'Password'
+      wrong_password: 'You have entered an incorrect password'
+    report:
+      report: 'Report'
+      user: 'User'
+      period: 'Period'
+      date: 'Date'
+      category: 'Category'
+      duration: 'Duration'
+      total: 'Total'
+    create:
+      no_data: 'No data found for the selected date range'
 
   shared:
     confirmation_modal:

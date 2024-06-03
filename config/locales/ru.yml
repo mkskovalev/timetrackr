@@ -17,7 +17,6 @@ ru:
   existing_customer: 'Уже зарегистрированы?'
   minutes: 'мин'
   no_data: 'Данные отсутствуют'
-  access_denied: 'У вас нет доступа'
 
   time:
     formats:
@@ -78,6 +77,7 @@ ru:
       periods: 'Периоды'
       analytics: 'Аналитика'
       goals: 'Цели'
+      reports: 'Отчеты'
     menu_profile:
       view_profile: 'Перейти в профиль'
     public:
@@ -265,6 +265,22 @@ ru:
     report_url:
       report_url_text_html: 'Теперь вы можете скопировать ссылку и пароль. Также вы можете найти этот отчет в <a href="/reports" class="text-indigo-700">разделе отчетов</a>'
       created: "Отчет для %{category} создан!"
+    password:
+      enter_password: 'Введите пароль'
+      enter_password_text: 'Для доступа к отчету необходимо ввести пароль'
+      confirm: 'Войти'
+      password: 'Пароль'
+      wrong_password: 'Вы ввели неверный пароль'
+    report:
+      report: 'Отчет'
+      user: 'Пользователь'
+      period: 'Период'
+      date: 'Дата'
+      category: 'Категория'
+      duration: 'Время'
+      total: 'Итого'
+    create:
+      no_data: 'Нет данных за выбранный период'
 
   shared:
     confirmation_modal:

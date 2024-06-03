@@ -11,8 +11,10 @@
         </div>
       </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 mb-4">
+    <div class="mt-4">
       <%= render 'shared/error_messages', resource: report %>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8 mb-4">
       <div class="relative border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600">
         <%= f.label :start_date, t('.start'), class: 'absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900' %>
         <%= f.text_field :start_date, data: { controller: 'flatpickr' }, value: report.start_date ? format_utc_datetime(report.start_date.in_time_zone) : nil, class: 'block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm' %>

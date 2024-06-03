@@ -41,5 +41,8 @@ Rails.application.routes.draw do
   end
 
   resources :goals
-  resources :reports, param: :unique_identifier, only: [:new, :create, :show]
+
+  resources :reports, param: :unique_identifier do
+    post :access_report, on: :member
+  end
 end
