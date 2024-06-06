@@ -6,6 +6,9 @@ require_relative '../config/environment'
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'warden'
+require 'devise'
+require 'capybara/rspec'
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -31,9 +34,14 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 RSpec.configure do |config|
+  config.include Warden::Test::Helpers
+  config.after :each do
+    Warden.test_reset!
+  end
+
   config.include FactoryBot::Syntax::Methods
 
-  Capybara.javascript_driver = :selenium_chrome_headless
+  Capybara.javascript_driver = :selenium_chrome
   Capybara.default_max_wait_time = 5
 
   config.before(:suite) do
