@@ -3,7 +3,7 @@
     <div>
       <div class="text-xl font-bold"><%= t('.report') %></div>
       <div class="text-sm"><b><%= t('.user') %>:</b> <%= report.user.email %></div>
-      <div class="text-sm"><b><%= t('.period') %>:</b> <%= format_utc_datetime(report.start_date) %> - <%= format_utc_datetime(report.end_date) %></div>
+      <div class="text-sm"><b><%= t('.period') %>:</b> <%= report_period_range(report) %></div>
     </div>
     <div class="mt-4 flex flex-col">
       <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
