@@ -19,6 +19,7 @@ gem "devise", "~> 4.9"
 gem 'inline_svg'
 gem 'groupdate'
 gem 'acts_as_list'
+gem 'sitemap_generator'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
