@@ -284,6 +284,8 @@ GEM
       websocket (~> 1.0)
     shoulda-matchers (6.0.0)
       activesupport (>= 5.2.0)
+    sitemap_generator (6.3.0)
+      builder (~> 3.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -363,6 +365,7 @@ DEPENDENCIES
   rspec-rails (~> 6.1.0)
   selenium-webdriver
   shoulda-matchers (~> 6.0)
+  sitemap_generator
   sprockets-rails
   stimulus-rails
   tailwindcss-rails
