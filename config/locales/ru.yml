@@ -265,6 +265,9 @@ ru:
     report_url:
       report_url_text_html: 'Теперь вы можете скопировать ссылку и пароль. Также вы можете найти этот отчет в <a href="/reports" class="text-indigo-700">разделе отчетов</a>'
       created: "Отчет для %{category} создан!"
+      link: 'Ссылка'
+      password: 'Пароль'
+      copy: 'Копировать'
     password:
       enter_password: 'Введите пароль'
       enter_password_text: 'Для доступа к отчету необходимо ввести пароль'

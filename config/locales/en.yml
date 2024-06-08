@@ -262,6 +262,9 @@ en:
     report_url:
       report_url_text_html: 'Now you can copy the link and password. You can also find this report in the <a href="/reports" class="text-indigo-700">reports section</a>'
       created: "Report for %{category} created!"
+      link: 'Link'
+      password: 'Password'
+      copy: 'Copy'
     password:
       enter_password: 'Please enter your password'
       enter_password_text: 'To access the report, please enter the password'

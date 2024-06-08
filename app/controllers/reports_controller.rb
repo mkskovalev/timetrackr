@@ -7,17 +7,62 @@ class ReportsController < ApplicationController
   end
 
   def create
-    @category = Category.find(report_params[:category_id])
+    @category = current_user.categories.find(report_params[:category_id])
     @report = current_user.reports.new(report_params)
     @report.password = SecureRandom.hex(5)
 
     start_date = @report.start_date
     end_date = @report.end_date
     category_ids = @category.ids_including_children
-    periods = Period.where(category_id: category_ids).where('"start" <= ? AND "end" >= ?', end_date, start_date)  
+    periods = current_user.periods.where(category_id: category_ids).where('"start" <= ? AND "end" >= ?', end_date, start_date)  
     
     if periods.exists?
       if @report.save
+        respond_to do |format|
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace(
+              'modal_content',
+              partial: 'reports/report_url',
+              locals: { report: @report, category: @category }
+            )
+          end
+        end
+      else
+        respond_to do |format|
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace(
+              'modal_content',
+              partial: 'categories/report_modal_content',
+              locals: { report: @report, category: @category }
+            )
+          end
+        end
+      end
+    else
+      @report.errors.add(:base, t('.no_data'))
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            'modal_content',
+            partial: 'categories/report_modal_content',
+            locals: { report: @report, category: @category }
+          )
+        end
+      end
+    end
+  end
+
+  def update
+    @category = current_user.categories.find(report_params[:category_id])
+    @report = current_user.reports.find_by!(unique_identifier: params[:unique_identifier])
+
+    start_date = Date.parse(report_params[:start_date])
+    end_date = Date.parse(report_params[:end_date])
+    category_ids = @category.ids_including_children
+    periods = current_user.periods.where(category_id: category_ids).where('"start" <= ? AND "end" >= ?', end_date, start_date)  
+    
+    if periods.exists?
+      if @report.update(report_params)
         respond_to do |format|
           format.turbo_stream do
             render turbo_stream: turbo_stream.replace(
@@ -56,14 +101,14 @@ class ReportsController < ApplicationController
   end
 
   def access_report
-    @report = Report.find_by!(unique_identifier: params[:unique_identifier])
+    @report = current_user.reports.find_by!(unique_identifier: params[:unique_identifier])
 
     if @report.password == params[:password]
       category_ids = @report.category.ids_including_children
       periods = @report.user.periods.where(category_id: category_ids).order(start: :desc)
       start_date = @report.start_date
       end_date = @report.end_date
-      @grouped_periods = Period.group_periods_by_date_with_limits(periods, start_date, end_date)
+      @grouped_periods = current_user.periods.group_periods_by_date_with_limits(periods, start_date, end_date)
 
       respond_to do |format|
         format.turbo_stream do
@@ -87,6 +132,11 @@ class ReportsController < ApplicationController
     end
   end
 
+  def deletion_confirmation_modal_content
+    @report = current_user.reports.find_by!(unique_identifier: params[:unique_identifier])
+    render partial: 'reports/deletion_confirmation_modal_content', locals: { report: @report }
+  end
+
   private
 
   def report_params
@@ -94,7 +144,7 @@ class ReportsController < ApplicationController
   end
 
   def set_locale
-    @report = Report.find_by!(unique_identifier: params[:unique_identifier])
+    @report = current_user.reports.find_by!(unique_identifier: params[:unique_identifier])
     I18n.locale = @report.user.try(:locale) || I18n.default_locale
   end
 end

@@ -94,7 +94,7 @@ class CategoriesController < ApplicationController
 
   def report_modal_content
     @category = Category.find(params[:id])
-    @report = Report.new
+    @report = params[:report_id].present? ? Report.find(params[:report_id]) : Report.new
     render partial: 'categories/report_modal_content', locals: { category: @category, report: @report }
   end
 

@@ -13,7 +13,7 @@
     </div>
   </div>
   <div data-controller="clipboard" data-clipboard-success-content-value="<%= t(:copied) %>" class="mt-8">
-    <label for="link" class="block text-sm font-medium text-gray-700">Ссылка</label>
+    <label for="link" class="block text-sm font-medium text-gray-700"><%= t('.link') %></label>
     <div class="mt-1 flex rounded-md shadow-sm">
       <div class="relative flex items-stretch flex-grow focus-within:z-10">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -23,12 +23,12 @@
       </div>
       <button data-action="clipboard#copy" data-clipboard-target="button" type="button" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
         <%= inline_svg('icons/clipboard.svg', class: 'h-5 w-5 text-gray-400') %>
-        <span>Копировать</span>
+        <span><%= t('.copy') %></span>
       </button>
     </div>
   </div>
   <div data-controller="clipboard" data-clipboard-success-content-value="<%= t(:copied) %>" class="mt-4">
-    <label for="pass" class="block text-sm font-medium text-gray-700">Пароль</label>
+    <label for="pass" class="block text-sm font-medium text-gray-700"><%= t('.password') %></label>
     <div class="mt-1 flex rounded-md shadow-sm">
       <div class="relative flex items-stretch flex-grow focus-within:z-10">
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -38,7 +38,7 @@
       </div>
       <button data-action="clipboard#copy" data-clipboard-target="button" type="button" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500">
         <%= inline_svg('icons/clipboard.svg', class: 'h-5 w-5 text-gray-400') %>
-        <span>Копировать</span>
+        <span><%= t('.copy') %></span>
       </button>
     </div>
   </div>

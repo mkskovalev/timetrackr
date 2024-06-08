@@ -1,5 +1,6 @@
 <div id="modal_content">
-  <%= form_with model: report, method: :post do |f| %>
+  <% method = report.start_date.present? ? :patch : :post %>
+  <%= form_with model: report, method: method do |f| %>
     <div>
       <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
         <%= inline_svg('icons/note-favorite.svg', class: 'h-6 w-6 text-green-600') %>
@@ -28,7 +29,7 @@
     </div>
     <div class="mt-12 mb-4 flex flex-wrap sm:flex-nowrap items-center justify-center gap-4 px-4">
       <button data-action="click->modal#hide" type="button" class="w-24 inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:col-start-1 sm:text-sm"><%= t(:cancel) %></button>
-      <button type="submit" class="w-40 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"><%= t(:create) %></button>
+      <button type="submit" class="w-40 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"><%= t(:save) %></button>
     </div>
   <% end %>
 </div>
