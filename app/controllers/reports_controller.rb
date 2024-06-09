@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   before_action :set_public_locale, only: [:show]
 
   def index
-    @reports = current_user.reports
+    @reports = current_user.reports.order(created_at: :desc)
   end
 
   def create
