@@ -61,6 +61,16 @@ class Period < ApplicationRecord
     sorted_grouped_periods.transform_values { |periods| periods.map { |p| p[:period] } }
   end
 
+  def self.group_periods_by_date_with_limits(periods, start_date, end_date)
+    filtered_periods = filter_periods_by_date_limits(periods, start_date, end_date)
+    grouped_periods = expand_periods_with_limits(filtered_periods).group_by { |p| p[:date] }
+
+    # Sort the grouped periods by date in descending order (from most recent to oldest)
+    sorted_grouped_periods = grouped_periods.sort_by { |date, _periods| -date.to_time.to_i }.to_h
+
+    sorted_grouped_periods.transform_values { |periods| periods.map { |p| p[:period] } }
+  end
+
   def formatted_time_for_date(date)
     if self.start.to_date != date && actual_end.to_date != date
       seconds = 60 * 60 * 24 # full day
@@ -96,5 +106,31 @@ class Period < ApplicationRecord
     if overlapping_periods.exists?
       errors.add(:base, I18n.t('activerecord.errors.messages.overlaps'))
     end
+  end
+
+  def self.filter_periods_by_date_limits(periods, start_date, end_date)
+    periods.flat_map do |period|
+      adjusted_periods = []
+
+      if period.start < start_date && period.end > end_date
+        adjusted_periods << { period: period, start: start_date, end: end_date }
+      elsif period.start < start_date && period.end > start_date
+        adjusted_periods << { period: period, start: start_date, end: period.end }
+      elsif period.start < end_date && period.end > end_date
+        adjusted_periods << { period: period, start: period.start, end: end_date }
+      elsif period.start >= start_date && period.end <= end_date
+        adjusted_periods << { period: period, start: period.start, end: period.end }
+      end
+
+      adjusted_periods
+    end
+  end
+
+  def self.expand_periods_with_limits(periods)
+    periods.map do |period|
+      (period[:start].to_date..period[:end].to_date).map do |date|
+        { date: date, period: period[:period] }
+      end
+    end.flatten
   end
 end

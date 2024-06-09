@@ -1,8 +1,4 @@
 module PeriodsHelper
-  def format_utc_datetime(datetime)
-    datetime.strftime('%Y-%m-%d %H:%M:%S')
-  end
-
   def total_seconds_for_date(date, periods)
     total_seconds = 0
 
@@ -39,7 +35,15 @@ module PeriodsHelper
   end
 
   def daily_periods_time(periods, date)
-    total_seconds = periods.sum { |period| period.total_seconds_for_date(date) }
+    total_seconds = daily_periods_seconds(periods, date)
+    humanize_time_from_seconds(total_seconds)
+  end
+
+  def daily_periods_seconds(periods, date)
+    periods.sum { |period| period.total_seconds_for_date(date) }
+  end
+
+  def humanize_time_from_seconds(total_seconds)
     CategoriesAnalyticsService.seconds_to_time_format(total_seconds, true)
   end
 end

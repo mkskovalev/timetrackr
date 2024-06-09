@@ -63,7 +63,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_01_080842) do
     t.datetime "start_date", null: false
     t.datetime "end_date", null: false
     t.string "unique_identifier", null: false
-    t.string "password_digest", null: false
+    t.string "password", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_reports_on_category_id"

@@ -41,5 +41,9 @@ Rails.application.routes.draw do
   end
 
   resources :goals
-  resources :reports, param: :unique_identifier, only: [:new, :create, :show]
+
+  resources :reports, param: :unique_identifier do
+    post :access_report, on: :member
+    post :deletion_confirmation_modal_content, on: :member
+  end
 end
