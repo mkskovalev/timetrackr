@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   layout 'public', only: [:show]
-  before_action :set_locale, only: [:show]
+  before_action :set_public_locale, only: [:show]
 
   def index
     @reports = current_user.reports
@@ -137,14 +137,32 @@ class ReportsController < ApplicationController
     render partial: 'reports/deletion_confirmation_modal_content', locals: { report: @report }
   end
 
+  def destroy
+    @report = current_user.reports.find_by!(unique_identifier: params[:unique_identifier])
+    @report_id = @report.id
+    @report.destroy
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace(
+            'report-deletion-content',
+            partial: 'reports/report_successfully_deleted'
+          ),
+          turbo_stream.remove("report-#{@report_id}")
+        ]
+      end
+    end
+  end
+
   private
 
   def report_params
     params.require(:report).permit(:user_id, :category_id, :start_date, :end_date)
   end
 
-  def set_locale
-    @report = current_user.reports.find_by!(unique_identifier: params[:unique_identifier])
+  def set_public_locale
+    @report = Report.find_by!(unique_identifier: params[:unique_identifier])
     I18n.locale = @report.user.try(:locale) || I18n.default_locale
   end
 end

@@ -281,6 +281,18 @@ en:
       total: 'Total'
     create:
       no_data: 'No data found for the selected date range'
+    deletion_confirmation_modal_content:
+      report_deletion: 'Report deletion'
+      report_deletion_text: 'Are you sure you want to delete the report?'
+    index:
+      reports: 'Reports'
+      created: 'Creation date'
+      category: 'Category'
+      period: 'Period'
+      link: 'Link'
+      password: 'Password'
+    report_successfully_deleted:
+      report_deleted: 'Report successfully deleted'
 
   shared:
     confirmation_modal:

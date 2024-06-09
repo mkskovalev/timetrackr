@@ -284,6 +284,18 @@ ru:
       total: 'Итого'
     create:
       no_data: 'Нет данных за выбранный период'
+    deletion_confirmation_modal_content:
+      report_deletion: 'Удаление отчета'
+      report_deletion_text: 'Вы уверены что хотите удалить отчет?'
+    index:
+      reports: 'Отчеты'
+      created: 'Дата создания'
+      category: 'Категория'
+      period: 'Период'
+      link: 'Ссылка'
+      password: 'Пароль'
+    report_successfully_deleted:
+      report_deleted: 'Отчет успешно удалён'
 
   shared:
     confirmation_modal:
