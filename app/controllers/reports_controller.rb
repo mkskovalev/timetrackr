@@ -9,7 +9,7 @@ class ReportsController < ApplicationController
   def create
     @category = current_user.categories.find(report_params[:category_id])
     @report = current_user.reports.new(report_params)
-    @report.password = SecureRandom.hex(5)
+    @report.pass = SecureRandom.hex(5)
 
     start_date = @report.start_date
     end_date = @report.end_date
@@ -103,7 +103,7 @@ class ReportsController < ApplicationController
   def access_report
     @report = current_user.reports.find_by!(unique_identifier: params[:unique_identifier])
 
-    if @report.password == params[:password]
+    if @report.pass == params[:pass]
       category_ids = @report.category.ids_including_children
       periods = @report.user.periods.where(category_id: category_ids).order(start: :desc)
       start_date = @report.start_date
@@ -158,7 +158,7 @@ class ReportsController < ApplicationController
   private
 
   def report_params
-    params.require(:report).permit(:user_id, :category_id, :start_date, :end_date)
+    params.require(:report).permit(:user_id, :category_id, :start_date, :end_date, :pass)
   end
 
   def set_public_locale

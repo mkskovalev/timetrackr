@@ -2,7 +2,7 @@ class Report < ApplicationRecord
   belongs_to :user
   belongs_to :category
 
-  validates :start_date, :end_date, :unique_identifier, :password, presence: true
+  validates :start_date, :end_date, :unique_identifier, :pass, presence: true
   validates :unique_identifier, uniqueness: true
 
   before_validation :generate_unique_identifier, on: :create
