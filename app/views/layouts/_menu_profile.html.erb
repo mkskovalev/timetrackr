@@ -1,3 +1,10 @@
+<div class="px-2 mb-2">
+  <%= button_to destroy_user_session_path, class: 'text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full', method: :delete do %>
+    <%= inline_svg('icons/logout.svg', class: 'fill-current text-gray-300 mr-4 shrink-0 h-6 w-6') %>
+    <%= t(:sign_out) %>
+  <% end %>
+</div>
+
 <% if current_user.admin? %>
   <div class="shrink-0 flex bg-purple-600 p-4">
     <a href="<%= admin_btn_settings[:path] %>" class="shrink-0 w-full group block">
