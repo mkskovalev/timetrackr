@@ -1,116 +1,120 @@
-<div class="sm:flex sm:items-center">
-  <div class="sm:flex-auto">
-    <p class="mt-2 text-sm text-gray-700"><%= t('.periods_desc') %></p>
+<div class="flex items-center mt-8">
+  <div class="flex-auto">
+    <%= search_form_for @q, data: { turbo_frame: :results, turbo_action: 'advance' }, target: '_top' do |f| %>
+        <%= f.select :category_name_eq, options_from_collection_for_select(@categories, :name, :name, params.dig(:q, :category_name_eq)), { include_blank: t('.all_categories') }, class: "block w-auto py-2 pl-3 pr-8 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm", onchange: 'this.form.requestSubmit()' %>
+    <% end %>
   </div>
-  <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+  <div>
     <%= link_to t('.new_period'), new_period_path, class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto' %>
   </div>
 </div>
-<div data-controller="confirmation" class="mt-8 flex flex-col">
-  <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-      <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-        <table id="periods_list" class="min-w-full">
-          <thead class="bg-white">
-            <tr>
-              <th scope="col" width="20%" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%= t('.category')%></th>
-              <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t('.period') %></th>
-              <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t('.ratio') %></th>
-              <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t('.duration')%></th>
-              <th scope="col" width="20%" class="px-3 py-3.5 text-sm font-semibold text-gray-900"></th>
-            </tr>
-          </thead>
-          <tbody class="bg-white">
-            <% @grouped_periods.each do |date, periods| %>
-              <tr class="border-t border-gray-200">
-                <th colspan="4" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
-                  <%= humanize_date(date) %>
-                </th>
-                <th class="bg-gray-50 px-4 py-2 text-right text-xs font-normal text-gray-900 sm:px-6">
-                  <%= daily_periods_time(periods, date) %>
-                </th>
+<div data-controller="confirmation" class="mt-2 flex flex-col">
+  <%= turbo_frame_tag :results do %>
+    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">  
+          <table id="periods_list" class="min-w-full">
+            <thead class="bg-white">
+              <tr>
+                <th scope="col" width="20%" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"><%= t('.category')%></th>
+                <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t('.period') %></th>
+                <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t('.ratio') %></th>
+                <th scope="col" width="20%" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"><%= t('.duration')%></th>
+                <th scope="col" width="20%" class="px-3 py-3.5 text-sm font-semibold text-gray-900"></th>
               </tr>
-              <% periods.each do |period| %>
+            </thead>
+            <tbody class="bg-white">
+              <% @grouped_periods.each do |date, periods| %>
                 <tr class="border-t border-gray-200">
-                  <td class="relative py-3 pl-4 pr-3 text-xs text-gray-900 sm:pl-6">
-                    <div class="flex items-center text-left">
-                      <%= period.category.name %>
-                      <% if period.end.blank? %>
-                        <div class="neomorph-spinner ml-2">
-                          <div></div>
-                          <div></div>
-                          <div></div>
-                          <div></div>
-                        </div>
-                      <% end %>
-                      <% if period.start.to_date != period.actual_end.to_date %>
-                        <div class="group relative">
-                          <%= inline_svg('icons/arrow-3.svg', class: 'w-3 h-3 fill-current text-red-400 ml-2') %>
-                          <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 left-0 bottom-6 w-60 opacity-0 transition-opacity group-hover:opacity-100">
-                            <%= t('.long_period_explanation') %>
-                          </span>
-                        </div>
-                      <% end %>
-                    </div>
-                  </td>
-                  <td class="whitespace-nowrap px-3 py-3 text-left text-xs text-gray-500">
-                    <%= format_period_start(period, date) %> - <%= format_period_end(period, date) %>
-                  </td>
-                  <td class="whitespace-nowrap px-3 py-3 text-left text-xs text-gray-500">
-                    <% if periods.size > 1 %>
-                      <div class="relative max-w-32 h-2 border border-gray-200 rounded-full bg-gray-100">
-                        <div 
-                        class="group absolute h-full bg-purple-600 rounded-full"
-                        style="width: <%= period.end ? daily_period_ratio(date, period, periods) : 0 %>%;">
-                          <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 bottom-3 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
-                            <%= t('.ratio') %>: <%= period.end ? daily_period_ratio(date, period, periods) : 0 %>%
-                          </span>
-                        </div>
-                      </div>
-                    <% end %>
-                  </td>
-                  <td class="whitespace-nowrap px-3 py-4 text-xs text-gray-500">
-                    <div class="flex items-center">
-                      <%= inline_svg('icons/clock.svg', class: 'w-4 h-4 fill-current text-purple-600 mr-2') %>
-                      <%= period.formatted_time_for_date(date) %>
-                    </div>
-                  </td>
-                  <td class="whitespace-nowrap px-4 py-3 text-right text-sm text-gray-500 sm:px-6">
-                    <div class="relative flex items-center justify-end" data-controller="dropdown">
-                      <button type="button" class="text-gray-500 group bg-white rounded-md inline-flex items-center" aria-expanded="false" data-action="click->dropdown#toggleMenu">
-                        <%= inline_svg('icons/more-square.svg', class: 'w-5 h-5 fill-current text-gray-400') %>
-                      </button>
-                
-                      <div class="absolute z-50 right-0 top-6 px-2 max-w-xs sm:px-0 bg-white shadow-lg border border-gray-200 rounded-lg hidden" data-dropdown-target="menu">
-                        <ul class="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto">
-                          <li class="p-2">
-                            <ul class="text-xs text-gray-700">
-                              <%= link_to edit_period_path(period) do %>
-                                <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
-                                  <%= inline_svg('icons/edit.svg', class: 'w-4 h-4 fill-current text-gray-400') %>
-                                  <span class="ml-2 truncate"><%= t(:edit) %></span>
-                                </li>
-                              <% end %>
-                              <%= button_to period_path(period), method: :delete, data: { action: "click->confirmation#open click->dropdown#toggleMenu" } do %>
-                                <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
-                                  <%= inline_svg('icons/trash.svg', class: 'w-4 h-4 fill-current text-red-400') %>
-                                  <span class="ml-2 truncate text-red-500"><%= t(:delete) %></span>
-                                </li>
-                              <% end %>
-                            </ul>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </td>
+                  <th colspan="4" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
+                    <%= humanize_date(date) %>
+                  </th>
+                  <th class="bg-gray-50 px-4 py-2 text-right text-xs font-normal text-gray-900 sm:px-6">
+                    <%= daily_periods_time(periods, date) %>
+                  </th>
                 </tr>
+                <% periods.each do |period| %>
+                  <tr class="border-t border-gray-200">
+                    <td class="relative py-3 pl-4 pr-3 text-xs text-gray-900 sm:pl-6">
+                      <div class="flex items-center text-left">
+                        <%= period.category.name %>
+                        <% if period.end.blank? %>
+                          <div class="neomorph-spinner ml-2">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                          </div>
+                        <% end %>
+                        <% if period.start.to_date != period.actual_end.to_date %>
+                          <div class="group relative">
+                            <%= inline_svg('icons/arrow-3.svg', class: 'w-3 h-3 fill-current text-red-400 ml-2') %>
+                            <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 left-0 bottom-6 w-60 opacity-0 transition-opacity group-hover:opacity-100">
+                              <%= t('.long_period_explanation') %>
+                            </span>
+                          </div>
+                        <% end %>
+                      </div>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-3 text-left text-xs text-gray-500">
+                      <%= format_period_start(period, date) %> - <%= format_period_end(period, date) %>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-3 text-left text-xs text-gray-500">
+                      <% if periods.size > 1 %>
+                        <div class="relative max-w-32 h-2 border border-gray-200 rounded-full bg-gray-100">
+                          <div 
+                          class="group absolute h-full bg-purple-600 rounded-full"
+                          style="width: <%= period.end ? daily_period_ratio(date, period, periods) : 0 %>%;">
+                            <span class="pointer-events-none absolute bg-black text-2xs leading-4 text-white rounded-md px-3 py-1 bottom-3 left-0 w-max opacity-0 transition-opacity group-hover:opacity-100">
+                              <%= t('.ratio') %>: <%= period.end ? daily_period_ratio(date, period, periods) : 0 %>%
+                            </span>
+                          </div>
+                        </div>
+                      <% end %>
+                    </td>
+                    <td class="whitespace-nowrap px-3 py-4 text-xs text-gray-500">
+                      <div class="flex items-center">
+                        <%= inline_svg('icons/clock.svg', class: 'w-4 h-4 fill-current text-purple-600 mr-2') %>
+                        <%= period.formatted_time_for_date(date) %>
+                      </div>
+                    </td>
+                    <td class="whitespace-nowrap px-4 py-3 text-right text-sm text-gray-500 sm:px-6">
+                      <div class="relative flex items-center justify-end" data-controller="dropdown">
+                        <button type="button" class="text-gray-500 group bg-white rounded-md inline-flex items-center" aria-expanded="false" data-action="click->dropdown#toggleMenu">
+                          <%= inline_svg('icons/more-square.svg', class: 'w-5 h-5 fill-current text-gray-400') %>
+                        </button>
+                  
+                        <div class="absolute z-50 right-0 top-6 px-2 max-w-xs sm:px-0 bg-white shadow-lg border border-gray-200 rounded-lg hidden" data-dropdown-target="menu">
+                          <ul class="max-h-80 scroll-py-2 divide-y divide-gray-500 divide-opacity-10 overflow-y-auto">
+                            <li class="p-2">
+                              <ul class="text-xs text-gray-700">
+                                <%= link_to edit_period_path(period), data: { turbo_frame: '_top' } do %>
+                                  <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
+                                    <%= inline_svg('icons/edit.svg', class: 'w-4 h-4 fill-current text-gray-400') %>
+                                    <span class="ml-2 truncate"><%= t(:edit) %></span>
+                                  </li>
+                                <% end %>
+                                <%= button_to period_path(period), method: :delete, data: { action: "click->confirmation#open click->dropdown#toggleMenu" } do %>
+                                  <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
+                                    <%= inline_svg('icons/trash.svg', class: 'w-4 h-4 fill-current text-red-400') %>
+                                    <span class="ml-2 truncate text-red-500"><%= t(:delete) %></span>
+                                  </li>
+                                <% end %>
+                              </ul>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                <% end %>
               <% end %>
-            <% end %>
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-  <%= render 'shared/pagy_navbar', pagy: @pagy %>
+    <%= render 'shared/pagy_navbar', pagy: @pagy %>
+  <% end %>
   <%= render 'shared/confirmation_modal' %>
 </div>

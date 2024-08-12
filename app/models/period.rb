@@ -5,6 +5,14 @@ class Period < ApplicationRecord
   validates :start, presence: true
   validate :no_overlap, on: [:create, :update]
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["category_id", "created_at", "end", "id", "id_value", "start", "updated_at", "user_id"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["category", "user"]
+  end
+
   def formatted_time(total_seconds = nil)
     total_seconds = total_seconds || (actual_end - self.start).to_i
     CategoriesAnalyticsService.seconds_to_time_format(total_seconds)

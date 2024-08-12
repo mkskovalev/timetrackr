@@ -6,12 +6,17 @@ class PeriodsController < ApplicationController
   include Pagy::Backend
 
   def index
-    @q = current_user.periods.ransack(params[:q])
+    @q = current_user.periods.includes(:category).ransack(params[:q])
 
     periods = @q.result.order(start: :desc)
 
+    @categories = current_user.categories
+                              .joins(:periods)
+                              .where.not(level: 0)
+                              .distinct
+
     grouped_periods = Period.group_periods_by_date(periods)
-    @pagy, @grouped_periods = pagy_array(grouped_periods.to_a, items: 10)
+    @pagy, @grouped_periods = pagy_array(grouped_periods.to_a)
   end
 
   def new
