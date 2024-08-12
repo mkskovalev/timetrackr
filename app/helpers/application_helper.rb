@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+  
   def menu_item(name, path, admin_panel = false)
     color_name = admin_panel ? 'purple' : 'gray'
     active_class = current_page?(path) ? "bg-#{ color_name }-900 text-white" : "text-#{ color_name }-300 hover:bg-#{ color_name }-700 hover:text-white"

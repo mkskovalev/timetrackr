@@ -3,10 +3,20 @@ class PeriodsController < ApplicationController
   before_action :set_title, only: [:index, :new, :edit]
   
   include Authorizable
+  include Pagy::Backend
 
   def index
-    periods = current_user.periods.order(start: :desc)
-    @grouped_periods = Period.group_periods_by_date(periods)
+    @q = current_user.periods.includes(:category).ransack(params[:q])
+
+    periods = @q.result.order(start: :desc)
+
+    @categories = current_user.categories
+                              .joins(:periods)
+                              .where.not(level: 0)
+                              .distinct
+
+    grouped_periods = Period.group_periods_by_date(periods)
+    @pagy, @grouped_periods = pagy_array(grouped_periods.to_a)
   end
 
   def new

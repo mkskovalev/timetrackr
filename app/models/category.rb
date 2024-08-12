@@ -15,6 +15,10 @@ class Category < ApplicationRecord
 
   after_save :update_level
 
+  def self.ransackable_attributes(auth_object = nil)
+    ["color", "created_at", "id", "id_value", "level", "name", "parent_id", "position", "updated_at", "user_id"]
+  end
+
   def total_seconds
     start_date = Date.new(2000, 1, 1)
     total_seconds = CategoriesAnalyticsService.total_time_in_range(self, start_date, Time.current)
