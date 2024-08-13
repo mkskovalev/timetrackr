@@ -34,15 +34,33 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 RSpec.configure do |config|
-  config.include Warden::Test::Helpers
-  config.after :each do
-    Warden.test_reset!
-  end
-
   config.include FactoryBot::Syntax::Methods
 
-  Capybara.javascript_driver = :selenium_chrome
-  Capybara.default_max_wait_time = 5
+  Capybara.server = :puma, { Silent: true }
+
+  Capybara.register_driver :chrome_headless do |app|
+    options = Selenium::WebDriver::Chrome::Options.new
+  
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--window-size=1400,1400')
+  
+    Capybara::Selenium::Driver.new(app, browser: :chrome, options:)
+  end
+  
+  Capybara.javascript_driver = :chrome_headless
+  
+  # Setup rspec
+  RSpec.configure do |config|
+    config.before(:each, type: :system) do
+      driven_by :rack_test
+    end
+  
+    config.before(:each, js: true, type: :system) do
+      driven_by :chrome_headless
+    end
+  end
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
