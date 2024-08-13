@@ -21,7 +21,7 @@ RSpec.describe 'Timeline', type: :feature do
   scenario 'only periods within the current day are displayed on the timeline' do
     current_day = Time.now.to_date
 
-    create(:period, category: category, user: user, start: current_day.yesterday.end_of_day - 1.hour, end: current_day.yesterday.end_of_day)
+    create(:period, category: category, user: user, start: current_day.yesterday.beginning_of_day, end: current_day.yesterday.end_of_day - 1.second)
     create(:period, category: category, user: user, start: current_day.beginning_of_day + 1.hour, end: current_day.beginning_of_day + 3.hours)
 
     login_as(user, scope: :user)
