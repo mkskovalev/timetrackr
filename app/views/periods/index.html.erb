@@ -94,8 +94,8 @@
                                     <span class="ml-2 truncate"><%= t(:edit) %></span>
                                   </li>
                                 <% end %>
-                                <%= button_to period_path(period), method: :delete, data: { action: "click->confirmation#open click->dropdown#toggleMenu" } do %>
-                                  <li class="group flex cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
+                                <%= button_to period_path(period), method: :delete, data: { action: "click->confirmation#open click->dropdown#toggleMenu" }, class: 'flex w-full' do %>
+                                  <li class="group flex w-full cursor-pointer select-none items-center rounded-md px-3 py-2 hover:bg-gray-100">
                                     <%= inline_svg('icons/trash.svg', class: 'w-4 h-4 fill-current text-red-400') %>
                                     <span class="ml-2 truncate text-red-500"><%= t(:delete) %></span>
                                   </li>
