@@ -17,7 +17,6 @@ en:
   existing_customer: 'Existing customer?'
   minutes: 'min'
   no_data: 'No data available'
-
   time:
     formats:
       long: "%A, %d %B %Y"
@@ -35,7 +34,6 @@ en:
       - Fri
       - Sat
       - Sun
-
   activerecord:
     models:
       category: "Category"
@@ -67,7 +65,6 @@ en:
         only_one_goal_per_category: "You can only have one goal per category"
         overlaps: 'The period overlaps with an existing period'
         required: "can't be blank"
-
   layouts:
     menu_items:
       tracker: 'Tracker'
@@ -84,7 +81,6 @@ en:
       meta_og_title: 'TimeTrackr - Efficient Time Tracking'
       meta_og_description: 'Improve your productivity with TimeTrackr.'
       all_rights_reserved: 'All rights reserved'
-
   profiles:
     show:
       page_title: 'Profile'
@@ -95,7 +91,6 @@ en:
       timezone_label: "Timezone"
       timezone_notice: ' We detect your timezone from your browser, but for more accurate information, you can specify your timezone manually.'
       language_label: 'Language'
-
   categories:
     index:
       title: 'Tracker'
@@ -151,7 +146,6 @@ en:
     more_dropdown_btn:
       view_details: 'More details'
       create_report: 'Create report'
-
   periods:
     index:
       title: 'Periods'
@@ -183,7 +177,6 @@ en:
       period_success: 'Period was successfully updated'
     destroy:
       period_success: 'Period was successfully deleted'
-
   analytics:
     index:
       title: 'Analytics'
@@ -199,7 +192,6 @@ en:
       hourly_activity: 'Hourly Activity'
       hourly_activity_description: 'Shows what times of the day you are most active.'
       periods_count: 'Periods count'
-
   public:
     index:
       opensourced: 'opensourced'
@@ -227,7 +219,6 @@ en:
       boost_productivity: 'Boost your productivity.'
       start_using: 'Start using TimeTrackr today.'
       start_using_text: 'Organize your tasks by categories, dive into analytics for deeper insights, and enjoy a continuously improving set of features.'
-
   goals:
     index:
       title: 'Goals'
@@ -258,7 +249,6 @@ en:
       success: 'Goal was successfully updated'
     destroy:
       success: 'Goal was successfully deleted'
-
   reports:
     report_url:
       report_url_text_html: 'Now you can copy the link and password. You can also find this report in the <a href="/reports" class="text-indigo-700">reports section</a>'
@@ -294,9 +284,16 @@ en:
       password: 'Password'
     report_successfully_deleted:
       report_deleted: 'Report successfully deleted'
-
   shared:
     confirmation_modal:
       delete_message: 'Are you sure you want to delete?'
     error_messages:
       you_have_errors: 'You have errors in the form:'
+  telegram:
+    webhook:
+      unknown_command: "Unknown command. Please use /start to begin."
+      already_registered: "Your Telegram account is already linked."
+      registration_successful: "Your Telegram account has been successfully linked!"
+      registration_failed: "Failed to link your Telegram account. Please try again."
+      retry_button: "Try Again"
+      message_not_found: "Message not found in update."

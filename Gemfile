@@ -22,6 +22,7 @@ gem 'acts_as_list'
 gem 'sitemap_generator'
 gem 'ransack'
 gem 'pagy'
+gem 'telegram-bot-ruby'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

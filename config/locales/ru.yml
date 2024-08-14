@@ -17,7 +17,6 @@ ru:
   existing_customer: 'Уже зарегистрированы?'
   minutes: 'мин'
   no_data: 'Данные отсутствуют'
-
   time:
     formats:
       long: "%A, %d %B %Y"
@@ -38,7 +37,6 @@ ru:
       - Пт
       - Сб
       - Вс
-
   activerecord:
     models:
       category: "Категория"
@@ -70,7 +68,6 @@ ru:
         only_one_goal_per_category: "Возможно назначить только одну цель для категории"
         overlaps: 'Даты пересекаются с другим периодом'
         required: "не может быть пустым"
-
   layouts:
     menu_items:
       tracker: 'Трекер'
@@ -87,7 +84,6 @@ ru:
       meta_og_title: 'TimeTrackr - эффективное управление временем'
       meta_og_description: 'Повысьте свою продуктивность с помощью TimeTrackr.'
       all_rights_reserved: 'Все права защищены'
-
   profiles:
     show:
       page_title: 'Профиль'
@@ -98,7 +94,6 @@ ru:
       timezone_label: "Часовой пояс"
       timezone_notice: 'Мы определяем ваш часовой пояс на основе данных браузера, но для более точной информации вы можете указать свой часовой пояс вручную.'
       language_label: 'Язык'
-
   categories:
     index:
       title: 'Трекер'
@@ -154,7 +149,6 @@ ru:
     more_dropdown_btn:
       view_details: 'Подробнее'
       create_report: 'Создать отчет'
-
   periods:
     index:
       title: 'Периоды'
@@ -186,7 +180,6 @@ ru:
       period_success: 'Период успешно обновлен'
     destroy:
       period_success: 'Период успешно удален'
-
   analytics:
     index:
       title: 'Аналитика'
@@ -202,7 +195,6 @@ ru:
       hourly_activity: 'Почасовая активность'
       hourly_activity_description: 'Показывает в какое время суток вы наиболее активны.'
       periods_count: 'Кол-во периодов'
-
   public:
     index:
       opensourced: 'открытый исходный код'
@@ -230,7 +222,6 @@ ru:
       boost_productivity: 'Увеличьте свою продуктивность.'
       start_using: 'Начните использовать TimeTrackr сегодня.'
       start_using_text: 'Организуйте свои задачи по категориям, погрузитесь в аналитику для получения более глубокой информации и наслаждайтесь постоянно улучшающимся набором функций.'
-
   goals:
     index:
       title: 'Цели'
@@ -261,7 +252,6 @@ ru:
       success: 'Цель успешно обновлена'
     destroy:
       success: 'Цель успешно удалена'
-
   reports:
     report_url:
       report_url_text_html: 'Теперь вы можете скопировать ссылку и пароль. Также вы можете найти этот отчет в <a href="/reports" class="text-indigo-700">разделе отчетов</a>'
@@ -297,9 +287,16 @@ ru:
       password: 'Пароль'
     report_successfully_deleted:
       report_deleted: 'Отчет успешно удалён'
-
   shared:
     confirmation_modal:
       delete_message: 'Вы действительно хотите удалить?'
     error_messages:
       you_have_errors: 'В форме есть ошибки:'
+  telegram:
+    webhook:
+      unknown_command: "Неизвестная команда. Пожалуйста, используйте /start для начала."
+      already_registered: "Ваш Telegram аккаунт уже привязан."
+      registration_successful: "Ваш Telegram аккаунт успешно привязан!"
+      registration_failed: "Не удалось привязать ваш Telegram аккаунт. Пожалуйста, попробуйте снова."
+      retry_button: "Попробовать снова"
+      message_not_found: "Сообщение не найдено в обновлении."

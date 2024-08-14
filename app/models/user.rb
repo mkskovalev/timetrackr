@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
   validates :locale, presence: true, 
                      inclusion: { in: I18n.available_locales.map(&:to_s) }
+  validates :telegram_id, uniqueness: true, 
+                          allow_nil: true
   
   after_create :send_admin_notification
 
