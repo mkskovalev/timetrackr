@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :periods, dependent: :destroy
   has_many :goals, dependent: :destroy
   has_many :reports, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
   validates :locale, presence: true, 
                      inclusion: { in: I18n.available_locales.map(&:to_s) }
@@ -56,6 +57,15 @@ class User < ApplicationRecord
   
     data[:max] = data.values.max
     data
+  end
+
+  def subscriptions_hash
+    subscriptions.each_with_object({}) do |subscription, result|
+      result[subscription.subscription_type.to_sym] = {
+        email: subscription.email,
+        telegram: subscription.telegram
+      }
+    end
   end
 
   private

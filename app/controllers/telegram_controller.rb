@@ -1,6 +1,7 @@
+require 'telegram/bot'
+
 class TelegramController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :authenticate_user!
 
   def webhook
     update = Telegram::Bot::Types::Update.new(params.permit!)
@@ -16,8 +17,7 @@ class TelegramController < ApplicationController
   private
 
   def handle_message(message)
-    case message.text
-    when '/start'
+    if message.text.start_with?('/start')
       handle_start_command(message)
     else
       send_message(message.chat.id, t('.unknown_command'))
@@ -25,14 +25,21 @@ class TelegramController < ApplicationController
   end
 
   def handle_start_command(message)
-    if current_user.telegram_id.present?
-      send_message(message.chat.id, t('.already_registered'))
-    else
-      if current_user.update(telegram_id: message.from.id, telegram_username: message.from.username)
-        send_message(message.chat.id, t('.registration_successful'))
+    if message.text.include?(' ')
+      user_id = message.text.split(' ', 2).last.to_i
+      user = User.find_by(id: user_id)
+
+      if user
+        if user.update(telegram_id: message.from.id, telegram_username: message.from.username)
+          send_message(message.chat.id, t('.registration_successful'))
+        else
+          send_retry_button(message.chat.id)
+        end
       else
-        send_retry_button(message.chat.id)
+        send_message(message.chat.id, t('.user_not_found'))
       end
+    else
+      send_message(message.chat.id, t('.no_email_provided'))
     end
   end
 
@@ -45,7 +52,8 @@ class TelegramController < ApplicationController
   end
 
   def send_message(chat_id, text, markup = nil)
-    Telegram::Bot::Client.run(TELEGRAM_BOT_TOKEN) do |bot|
+    token = Rails.application.credentials.telegram[Rails.env.to_sym][:api_token]
+    Telegram::Bot::Client.run(token) do |bot|
       bot.api.send_message(chat_id: chat_id, text: text, reply_markup: markup)
     end
   end

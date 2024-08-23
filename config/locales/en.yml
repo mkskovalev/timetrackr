@@ -17,6 +17,9 @@ en:
   existing_customer: 'Existing customer?'
   minutes: 'min'
   no_data: 'No data available'
+  type: 'Type'
+  email: 'Email'
+  telegram_name: 'Telegram'
   time:
     formats:
       long: "%A, %d %B %Y"
@@ -60,6 +63,10 @@ en:
           attributes:
             duration:
               greater_than: "must be greater than %{count}"
+        subscription:
+          attributes:
+            user:
+              taken: "You already have a subscription of this type"
       messages:
         greater_than: "must be greater than %{count}"
         only_one_goal_per_category: "You can only have one goal per category"
@@ -91,6 +98,13 @@ en:
       timezone_label: "Timezone"
       timezone_notice: ' We detect your timezone from your browser, but for more accurate information, you can specify your timezone manually.'
       language_label: 'Language'
+    notifications:
+      notifications: 'Notifications'
+      set_notifications_settings: 'Configure channels and select the types of notifications you want to receive.'
+      telegram_connected_html: "You are successfully connected to the Telegram bot. Current account: <b>%{username}</b>."
+      connect_to_telegram: 'Connect to the Telegram bot to receive notifications in the app.'
+      connect_telegram: 'Connect Telegram'
+      weekly_report: 'Weekly report'
   categories:
     index:
       title: 'Tracker'
@@ -297,3 +311,5 @@ en:
       registration_failed: "Failed to link your Telegram account. Please try again."
       retry_button: "Try Again"
       message_not_found: "Message not found in update."
+      user_not_found: "User not found. Please ensure you are using the correct link."
+      no_token_provided: "No user ID provided. Please use the link from your profile."

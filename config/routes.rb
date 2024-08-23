@@ -47,5 +47,9 @@ Rails.application.routes.draw do
     post :deletion_confirmation_modal_content, on: :member
   end
 
+  resources :subscriptions, only: [] do
+    post :toggle_channel, on: :collection
+  end
+
   post '/telegram/webhook', to: 'telegram#webhook'
 end

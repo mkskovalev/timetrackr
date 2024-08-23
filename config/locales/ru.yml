@@ -17,6 +17,9 @@ ru:
   existing_customer: 'Уже зарегистрированы?'
   minutes: 'мин'
   no_data: 'Данные отсутствуют'
+  type: 'Тип'
+  email: 'Email'
+  telegram_name: 'Telegram'
   time:
     formats:
       long: "%A, %d %B %Y"
@@ -63,6 +66,10 @@ ru:
           attributes:
             duration:
               greater_than: "должно быть больше %{count}"
+        subscription:
+          attributes:
+            user:
+              taken: "У вас уже есть подписка такого типа"
       messages:
         greater_than: "должно быть больше %{count}"
         only_one_goal_per_category: "Возможно назначить только одну цель для категории"
@@ -94,6 +101,13 @@ ru:
       timezone_label: "Часовой пояс"
       timezone_notice: 'Мы определяем ваш часовой пояс на основе данных браузера, но для более точной информации вы можете указать свой часовой пояс вручную.'
       language_label: 'Язык'
+    notifications:
+      notifications: 'Уведомления'
+      set_notifications_settings: 'Настройте каналы и выберите типы уведомлений, которые хотите получать.'
+      telegram_connected_html: "Вы успешно подключены к Telegram-боту. Текущий аккаунт: <b>%{username}</b>."
+      connect_to_telegram: 'Подключитесь к Telegram-боту, чтобы получать уведомления в приложении.'
+      connect_telegram: 'Подключить Telegram'
+      weekly_report: 'Еженедельный отчет'
   categories:
     index:
       title: 'Трекер'
@@ -300,3 +314,5 @@ ru:
       registration_failed: "Не удалось привязать ваш Telegram аккаунт. Пожалуйста, попробуйте снова."
       retry_button: "Попробовать снова"
       message_not_found: "Сообщение не найдено в обновлении."
+      user_not_found: "Пользователь не найден. Пожалуйста, убедитесь, что вы используете правильную ссылку."
+      no_token_provided: "ID пользователя не передан. Пожалуйста, используйте ссылку из вашего профиля."
