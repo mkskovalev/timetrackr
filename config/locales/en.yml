@@ -313,3 +313,17 @@ en:
       message_not_found: "Message not found in update."
       user_not_found: "User not found. Please ensure you are using the correct link."
       no_token_provided: "No user ID provided. Please use the link from your profile."
+  user_mailer:
+    weekly_report:
+      subject: "Weekly Report for %{start_date} - %{end_date}"
+      title: "Weekly Report"
+      period: "Period"
+      category: "Category"
+      time_spent: "Time"
+  telegram_service:
+    weekly_report:
+      title: "📊 *Weekly Report*"
+      period: "Period: *%{start_date} - %{end_date}*"
+      category: "Category"
+      time_spent: "Time"
+      change: "Change"

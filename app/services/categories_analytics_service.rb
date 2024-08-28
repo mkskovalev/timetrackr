@@ -57,6 +57,15 @@ module CategoriesAnalyticsService
   def self.pad_with_leading_zero(number)
     number >= 10 ? number.to_s : "0#{number}"
   end
+
+  def self.percentage_difference(current_period, previous_period)
+    current_period = current_period.to_f
+    previous_period = previous_period.to_f
+  
+    return 0 if previous_period.zero?
+  
+    ((current_period - previous_period) / previous_period * 100).round(0)
+  end
   
   private
 
@@ -66,14 +75,5 @@ module CategoriesAnalyticsService
 
   def self.calculate_period_time(period, start_date, end_date)
     [(period.end || end_date) - period.start, 0].max
-  end
-
-  def self.percentage_difference(current_period, previous_period)
-    current_period = current_period.to_f
-    previous_period = previous_period.to_f
-  
-    return 0 if previous_period.zero?
-  
-    ((current_period - previous_period) / previous_period * 100).round(0)
   end
 end

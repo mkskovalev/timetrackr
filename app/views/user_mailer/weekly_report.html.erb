@@ -1,0 +1,21 @@
+<h2><%= I18n.t('user_mailer.weekly_report.title') %></h2>
+<p><%= I18n.t('user_mailer.weekly_report.period') %>: <%= @start_date.strftime('%d.%m.%Y') %> - <%= @end_date.strftime('%d.%m.%Y') %></p>
+
+<table style="width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;"><%= I18n.t('user_mailer.weekly_report.category') %></th>
+      <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;"><%= I18n.t('user_mailer.weekly_report.time_spent') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @report[:categories].each do |category_name, data| %>
+      <tr>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;"><%= category_name %></td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd;">
+          <%= data[:time_spent] %>&nbsp;&nbsp;<%= percentage_change(data[:percentage_change]) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
