@@ -5,7 +5,8 @@
 :redis:
   :url: "redis://localhost:6379/0"
 
-:schedule:
-  weekly_report:
-    cron: "0 14 * * 1" # every monday at 14:00
-    class: WeeklyReportJob
+:scheduler:
+  :schedule:
+    weekly_report:
+      cron: "0 14 * * 1" # every monday at 14:00
+      class: "WeeklyReportJob"
