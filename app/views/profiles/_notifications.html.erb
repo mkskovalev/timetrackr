@@ -7,7 +7,7 @@
 
     <div class="block lg:flex items-center gap-2 bg-sky-50 px-4 py-4 rounded-lg mt-6">
       <% if current_user.telegram_id.blank? %>
-        <%= link_to "https://t.me/timetrackr_devmode_bot?start=#{current_user.id}", class: "inline-flex items-center border-2 border-sky-400 pl-3 pr-4 py-2 mr-2 rounded-full gap-2 bg-white text-sm", target: "_blank" do %>
+        <%= link_to telegram_bot_link(current_user), class: "inline-flex items-center border-2 border-sky-400 pl-3 pr-4 py-2 mr-2 rounded-full gap-2 bg-white text-sm", target: "_blank" do %>
           <%= inline_svg('icons/telegram.svg', class: 'h-6 w-6') %>
           <%= t('.connect_telegram') %>
         <% end %>

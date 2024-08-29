@@ -42,4 +42,9 @@ module ApplicationHelper
     
     settings
   end
+
+  def telegram_bot_link(user)
+    bot_name = Rails.env.production? ? 'timetrackr_bot' : 'timetrackr_devmode_bot'
+    "https://t.me/#{bot_name}?start=#{user.id}"
+  end
 end
