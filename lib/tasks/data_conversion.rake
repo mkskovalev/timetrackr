@@ -3,7 +3,7 @@ namespace :data_conversion do
     puts ">>> Base convertations started..."
 
     current_version = DataConversion.first_or_create.version
-    last_version = 1
+    last_version = 2
 
     (current_version + 1).upto(last_version) do |version|
       if respond_to?("conversion_#{version}", true)
@@ -18,6 +18,12 @@ namespace :data_conversion do
   end
 
   private
+
+  def conversion_2
+    User.find_each do |user|
+      user.subscriptions.create(subscription_type: 'weekly_report', email: true)
+    end
+  end
 
   def conversion_1
     Category.find_each do |category|

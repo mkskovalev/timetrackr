@@ -1,0 +1,8 @@
+:concurrency: 5
+:queues:
+  - default
+
+:schedule:
+  weekly_report:
+    cron: "0 14 * * 1" # every monday at 14:00
+    class: WeeklyReportJob

@@ -1,3 +1,9 @@
-<section class="mt-4">
-  <%= render 'profiles/general' %>
-</section>
+<%= form_with url: '/profile', method: :patch, data: { turbo_stream: true } do |f| %>
+  <section class="mt-4 space-y-6">
+    <%= render 'profiles/general', form: f %>
+    <%= render 'profiles/notifications', form: f %>
+  </section>
+  <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 mt-6">
+    <%= f.submit t(:save), class: "bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900" %>
+  </div>
+<% end %>

@@ -3,6 +3,7 @@ class ProfilesController < ApplicationController
 
   def show
     @page_title = t('.page_title')
+    @subscriptions = current_user.subscriptions_hash
   end
 
   def update
