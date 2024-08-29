@@ -1,6 +1,9 @@
 :concurrency: 5
 :queues:
   - default
+  - mailers
+:redis:
+  :url: redis://localhost:6379/0
 
 :schedule:
   weekly_report:
