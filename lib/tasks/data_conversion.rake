@@ -1,5 +1,5 @@
 namespace :data_conversion do
-  task :run do
+  task :run => :environment do
     puts ">>> Base convertations started..."
 
     current_version = DataConversion.first_or_create.version
