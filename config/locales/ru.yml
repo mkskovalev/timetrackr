@@ -91,6 +91,7 @@ ru:
       meta_og_title: 'TimeTrackr - эффективное управление временем'
       meta_og_description: 'Повысьте свою продуктивность с помощью TimeTrackr.'
       all_rights_reserved: 'Все права защищены'
+      project_on_github: 'Проект на GitHub'
   profiles:
     show:
       page_title: 'Профиль'
@@ -213,7 +214,7 @@ ru:
     index:
       opensourced: 'открытый исходный код'
       explore_github: 'Посмотреть на GitHub'
-      time_tracking: 'Трекер времени'
+      time_tracking: 'Тайм-трекер'
       for_any_task: 'для любых задач'
       organize_your_tasks: 'Организуйте свои задачи по категориям, погрузитесь в аналитику для получения более глубокой информации и наслаждайтесь постоянно улучшающимся набором функций.'
       unlock_full_teatures: 'Сервис полностью бесплатный. Не теряйте времени, начните пользоваться прямо сейчас.'

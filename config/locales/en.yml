@@ -88,6 +88,7 @@ en:
       meta_og_title: 'TimeTrackr - Efficient Time Tracking'
       meta_og_description: 'Improve your productivity with TimeTrackr.'
       all_rights_reserved: 'All rights reserved'
+      project_on_github: 'Project on GitHub'
   profiles:
     show:
       page_title: 'Profile'

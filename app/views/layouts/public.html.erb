@@ -94,12 +94,22 @@
               <!-- Here will be menu items -->
             </nav>
             <div class="mt-8 flex justify-center space-x-6">
-              <a href="https://github.com/mkskovalev/timetrackr" class="text-gray-400 hover:text-gray-500">
-                <span class="sr-only">GitHub</span>
+              <a href="https://github.com/mkskovalev/timetrackr" class="flex items-center gap-2 text-gray-400 hover:text-gray-500">
                 <%= inline_svg('icons/github.svg', class: 'w-6 h-6') %>
+                <%= t('.project_on_github') %>
               </a>
             </div>
-            <p class="mt-8 text-center text-base text-gray-400">&copy; 2023-<%= Time.now.year %> TimeTrackr.dev. <%= t('.all_rights_reserved') %>.</p>
+            <div class="mt-4 flex justify-center items-center text-sm gap-2">
+              <%= link_to url_for(locale: :en), class: "flex items-center border border-gray-200 rounded-lg px-3 py-1 #{'bg-gray-100 text-gray-500 pointer-events-none' if I18n.locale == :en}" do %>
+                <%= inline_svg('icons/flags/us.svg', class: 'w-3.5 h-3.5 mr-1.5 shadow-md') %>
+                English
+              <% end %>
+              <%= link_to url_for(locale: :ru), class: "flex items-center border border-gray-200 rounded-lg px-3 py-1 #{'bg-gray-100 text-gray-500 pointer-events-none' if I18n.locale == :ru}" do %>
+                <%= inline_svg('icons/flags/ru.svg', class: 'w-3.5 h-3.5 mr-1.5 shadow-md') %>
+                Русский
+              <% end %>
+            </div>
+            <p class="mt-4 text-center text-base text-gray-400">&copy; 2023-<%= Time.now.year %> TimeTrackr.dev. <%= t('.all_rights_reserved') %>.</p>
           </div>
         </footer>
 
