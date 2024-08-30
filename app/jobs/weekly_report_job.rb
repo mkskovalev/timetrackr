@@ -21,7 +21,6 @@ class WeeklyReportJob < ApplicationJob
         UserMailer.weekly_report(user, report).deliver_later
       end
 
-      puts weekly_report_subscription.inspect
       if weekly_report_subscription&.telegram
         TelegramService.send_weekly_report(user, report, start_date, end_date)
       end
