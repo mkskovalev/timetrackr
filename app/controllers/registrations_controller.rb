@@ -2,6 +2,15 @@ class RegistrationsController < Devise::RegistrationsController
   before_action :set_user_language, only: [:create]
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def create
+    if params[:user][:honeypot].present?
+      flash[:alert] = 'Bot detected'
+      redirect_to new_user_registration_path and return
+    end
+
+    super
+  end
+
   protected
 
   def set_user_language
