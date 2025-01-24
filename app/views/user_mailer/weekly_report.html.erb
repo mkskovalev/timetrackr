@@ -1,11 +1,11 @@
-<h2><%= I18n.t('user_mailer.weekly_report.title') %></h2>
-<p><%= I18n.t('user_mailer.weekly_report.period') %>: <%= @start_date.strftime('%d.%m.%Y') %> - <%= @end_date.strftime('%d.%m.%Y') %></p>
+<h2><%= I18n.t('user_mailer.weekly_report.title', locale: @user.locale) %></h2>
+<p><%= I18n.t('user_mailer.weekly_report.period', locale: @user.locale) %>: <%= @start_date.strftime('%d.%m.%Y') %> - <%= @end_date.strftime('%d.%m.%Y') %></p>
 
 <table style="width: 100%; border-collapse: collapse;">
   <thead>
     <tr>
-      <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;"><%= I18n.t('user_mailer.weekly_report.category') %></th>
-      <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;"><%= I18n.t('user_mailer.weekly_report.time_spent') %></th>
+      <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;"><%= I18n.t('user_mailer.weekly_report.category', locale: @user.locale) %></th>
+      <th style="text-align: left; padding: 8px; border-bottom: 1px solid #ddd;"><%= I18n.t('user_mailer.weekly_report.time_spent', locale: @user.locale) %></th>
     </tr>
   </thead>
   <tbody>

@@ -6,10 +6,7 @@ module ReportsService
     report[:end_date] = end_date
     report[:categories] = {}
 
-    user.categories.joins(:periods)
-                   .where('periods.start >= ? AND periods.end <= ?', start_date, end_date)
-                   .distinct
-                   .each do |category|
+    user.categories.joins(:periods).each do |category|
       total_time = CategoriesAnalyticsService.total_time_in_range(category, start_date, end_date)
       prev_total_time = CategoriesAnalyticsService.total_time_in_range(category, prev_start_date, prev_end_date)
 

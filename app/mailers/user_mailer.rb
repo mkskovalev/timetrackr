@@ -8,7 +8,8 @@ class UserMailer < ApplicationMailer
     subject = I18n.t(
       'user_mailer.weekly_report.subject',
       start_date: @start_date.strftime('%d.%m.%Y'),
-      end_date: @end_date.strftime('%d.%m.%Y')
+      end_date: @end_date.strftime('%d.%m.%Y'), 
+      locale: user.locale
     )
 
     mail(to: @user.email, subject: subject)
