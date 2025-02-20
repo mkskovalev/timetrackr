@@ -59,11 +59,11 @@ class Category < ApplicationRecord
     periods + children.flat_map(&:all_periods)
   end
 
-  def self.all_in_current_year
+  def self.all_in_current_year(user)
     start_of_year = Time.current.beginning_of_year
     today = Time.current.end_of_day
 
-    categories_with_periods = Category
+    categories_with_periods = user.categories
       .left_outer_joins(:children)
       .where(children_categories: { id: nil })
       .includes(:periods)

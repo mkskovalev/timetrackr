@@ -3,7 +3,7 @@ class AnalyticsController < ApplicationController
   
   def index
     @page_title = t('.title')
-    @days_in_year_data = Category.all_in_current_year
+    @days_in_year_data = Category.all_in_current_year(current_user)
   end
 
   def chart_donut_time_categories_data
