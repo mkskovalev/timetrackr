@@ -207,6 +207,8 @@ en:
       hourly_activity: 'Hourly Activity'
       hourly_activity_description: 'Shows what times of the day you are most active.'
       periods_count: 'Periods count'
+      days_by_year_title: 'Yearly Activity by Day'
+      days_by_year_desc: 'Shows the days when work was done across categories. Perfect for tracking goals that require consistent progress over time.'
   public:
     index:
       opensourced: 'opensourced'
@@ -304,6 +306,9 @@ en:
       delete_message: 'Are you sure you want to delete?'
     error_messages:
       you_have_errors: 'You have errors in the form:'
+    tabs:
+      overview: 'Overview'
+      by_days: 'By days'
   telegram:
     webhook:
       unknown_command: "Unknown command. Please use /start to begin."

@@ -210,6 +210,8 @@ ru:
       hourly_activity: 'Почасовая активность'
       hourly_activity_description: 'Показывает в какое время суток вы наиболее активны.'
       periods_count: 'Кол-во периодов'
+      days_by_year_title: 'Годовая активность по дням'
+      days_by_year_desc: 'Отображает дни, в которые велась работа по категориям. Отлично подходит для отслеживания целей, требующих регулярного выполнения.'
   public:
     index:
       opensourced: 'открытый исходный код'
@@ -307,6 +309,9 @@ ru:
       delete_message: 'Вы действительно хотите удалить?'
     error_messages:
       you_have_errors: 'В форме есть ошибки:'
+    tabs:
+      overview: 'Обзор'
+      by_days: 'По дням'
   telegram:
     webhook:
       unknown_command: "Неизвестная команда. Пожалуйста, используйте /start для начала."
