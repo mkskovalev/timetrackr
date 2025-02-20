@@ -58,4 +58,37 @@ class Category < ApplicationRecord
   def all_periods
     periods + children.flat_map(&:all_periods)
   end
+
+  def self.all_in_current_year
+    start_of_year = Time.current.beginning_of_year
+    today = Time.current.end_of_day
+
+    categories_with_periods = Category
+      .left_outer_joins(:children)
+      .where(children_categories: { id: nil })
+      .includes(:periods)
+      .group_by(&:id)
+
+    result = {}
+
+    categories_with_periods.each do |category_id, categories|
+      category_name = categories.first.name
+      periods = categories.flat_map(&:periods)
+                          .select { |period| period.start >= start_of_year }
+
+      category_data = Hash.new { |hash, month| hash[month] = Hash.new(0) }
+
+      periods.each do |period|
+        month = period.start.strftime("%m")
+        day = period.start.strftime("%d")
+        category_data[month][day] = 1
+      end
+
+      result[category_name] = category_data
+    end
+
+    result.sort_by do |_, category_data| 
+      -category_data.values.sum { |days| days.values.sum } 
+    end.to_h
+  end
 end

@@ -42,8 +42,15 @@ module.exports = {
         '1': '0.25rem', // min-w-2 like min width 0.25rem
       },
       fontSize: {
-        '2xs': '0.65rem'
+        '2xs': '0.65rem',
+        '3xs': '0.5rem'
       },
+      gap: {
+        '0.2': '1px'
+      },
+      space: {
+        '0.2': '1px'
+      }
     },
   },
   plugins: [
