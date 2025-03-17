@@ -47,4 +47,8 @@ module ApplicationHelper
     bot_name = Rails.env.production? ? 'timetrackr_dev_bot' : 'timetrackr_devmode_bot'
     "https://t.me/#{bot_name}?start=#{user.id}"
   end
+
+  def icon(name, **options)
+    inline_svg("icons/#{name}.svg", **options)
+  end
 end

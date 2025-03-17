@@ -26,6 +26,7 @@ module.exports = {
     ...generateColorClasses('bg', colorNames),
     ...generateColorClasses('text', colorNames),
     ...generateColorClasses('border', colorNames),
+    'cursor-grabbing',
   ],
   theme: {
     extend: {

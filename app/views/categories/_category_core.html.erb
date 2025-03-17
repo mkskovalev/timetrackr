@@ -1,6 +1,6 @@
-<div class="flex items-start">
-  <div class="drag-handle p-1 mt-2.5">
-    <%= inline_svg('icons/chevron-up-down.svg', class: 'w-6 h-6 text-gray-300') %>
+<div class="flex items-center">
+  <div class="drag-handle p-1 cursor-grab w-8 h-8 flex items-center justify-center">
+    <%= icon('grip-vertical', class: 'w-5 h-5 text-gray-200') %>
   </div>
   <div class="flex flex-col flex-grow">
     <div class="relative bg-white rounded p-2" id="category-card-<%= category.id %>">

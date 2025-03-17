@@ -4,8 +4,8 @@
       <div class="pb-1 pt-4" id="category-card-<%= category.id %>">
         <div class="flex items-center justify-between">
           <div class="flex items-center">
-            <div class="drag-handle p-1">
-              <%= inline_svg('icons/chevron-up-down.svg', class: 'w-6 h-6 text-gray-300') %>
+            <div class="drag-handle p-1 cursor-grab w-8 h-8 flex items-center justify-center">
+              <%= icon('grip-vertical', class: 'w-5 h-5 text-gray-200') %>
             </div>
             <div class="w-3 h-3 rounded-full <%= category.color == 'bg-white' ? 'bg-gray-100' : category.color %>"></div>
             <div class="text-xl font-semibold text-black ml-2">
