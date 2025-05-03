@@ -14,7 +14,7 @@ class User < ApplicationRecord
   validates :telegram_id, uniqueness: true, 
                           allow_nil: true
   
-  after_create :send_admin_notification
+  after_commit :notify_admin_if_confirmed, on: :update
 
   def categories_for_timeline
     filtered_periods = periods.where("periods.end >= ? OR periods.end IS NULL", Time.zone.now.beginning_of_day)
@@ -70,7 +70,9 @@ class User < ApplicationRecord
 
   private
 
-  def send_admin_notification
-    AdminMailer.new_user_registered(self).deliver_now
+  def notify_admin_if_confirmed
+    if saved_change_to_confirmed_at? && confirmed_at_previously_was.nil?
+      AdminMailer.new_user_registered(self).deliver_now
+    end
   end
 end
